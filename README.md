@@ -1,14 +1,18 @@
 # DSA Mastery
 
-This repository documents my journey to mastering Data Structures and Algorithms (DSA). It contains solutions to coding problems, detailed explanations, algorithmic patterns, complexity analysis, and personal notes.
+> This repository documents my journey to mastering Data Structures and Algorithms (DSA). It contains solutions to coding problems, detailed explanations, algorithmic patterns, complexity analysis, and personal notes.
+
+![DSA-Mastery](./public/dsamasterybanner.png)
 
 ## Goals
+
 - Build strong problem-solving skills
 - Master core and advanced DSA concepts
 - Develop interview-ready coding proficiency
 - Maintain consistency through daily practice
 
 ## Topics Covered
+
 - Arrays & Strings
 - Linked Lists
 - Stacks & Queues
