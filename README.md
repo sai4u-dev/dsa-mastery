@@ -2,7 +2,7 @@
 
 > This repository documents my journey to mastering Data Structures and Algorithms (DSA). It contains solutions to coding problems, detailed explanations, algorithmic patterns, complexity analysis, and personal notes.
 
-![DSA-Mastery](./public/dsamasterybanner.png)
+![DSA-Mastery](./public/dsamastery.png)
 
 ## Goals
 
@@ -26,3 +26,5 @@
 - Tries & Segment Trees
 
 Progress is tracked continuously as I solve and document new problems.
+
+![DSA-Mastery](./public/dsamasterybanner.png)
