@@ -1,0 +1,42 @@
+[
+  {
+    "strs": ["flower", "flow", "flight"],
+    "expected": "fl"
+  },
+  {
+    "strs": ["dog", "racecar", "car"],
+    "expected": ""
+  },
+  {
+    "strs": ["interspecies", "interstellar", "interstate"],
+    "expected": "inters"
+  },
+  {
+    "strs": ["apple"],
+    "expected": "appl"
+  },
+  {
+    "strs": ["", "b"],
+    "expected": ""
+  },
+  {
+    "strs": ["abc", ""],
+    "expected": ""
+  },
+  {
+    "strs": ["same", "same", "same"],
+    "expected": "same"
+  },
+  {
+    "strs": ["prefix", "pre", "presentation"],
+    "expected": "pre"
+  },
+  {
+    "strs": ["a", "ab", "abc"],
+    "expected": "a"
+  },
+  {
+    "strs": [],
+    "expected": ""
+  }
+]
