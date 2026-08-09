@@ -39,7 +39,28 @@ Output: 104
 
 `Principal` `Array` `Math` `Dynamic Programming` `Minimax` `Prefix Sum` `Game Theory` `Zero-Sum Game` `Weekly Contest 147`
 
-## Solution
+## Approach
+
+Used **Dynamic Programming (DP)** with **Suffix Sum**.
+
+- `dp[i][M]` represents the maximum stones the current player can collect starting from index `i` with the current `M`.
+- `suf[i]` stores the total stones from index `i` to the end.
+- Try every possible `X` from `1` to `2 * M`.
+- After taking `X` piles, the next state is `(i + X, max(M, X))`.
+- Since the opponent plays optimally, the current player gets:
+
+```text
+suf[i] - dp[i + X][max(M, X)]
+```
+
+Take the maximum over all valid `X`.
+
+## Complexity
+
+- **Time:** `O(n³)`
+- **Space:** `O(n²)`
+
+## Solution - JavaScript
 
 ```JavaScript
 
