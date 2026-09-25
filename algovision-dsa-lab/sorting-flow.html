@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sorting Flow Lab — AlgoVision DSA Lab</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d1117;color:#e6edf3;min-height:100vh}
+a{color:#58a6ff;text-decoration:none}
+.container{max-width:1200px;margin:0 auto;padding:1.5rem}
+header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:1.2rem}
+h1{font-size:1.7rem;background:linear-gradient(135deg,#58a6ff,#a371f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sub{color:#8b949e;font-size:.9rem;margin-top:.25rem}
+.flow-img{width:100%;border:1px solid #30363d;border-radius:12px;margin-bottom:1.2rem;background:#161b22}
+.controls{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:1rem;display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin-bottom:1.2rem}
+select,input[type=range]{background:#0d1117;color:#e6edf3;border:1px solid #30363d;border-radius:8px;padding:.5rem .7rem;font-size:.85rem}
+.btn{padding:.55rem 1rem;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:.85rem;transition:all .15s}
+.btn-play{background:#238636;color:#fff}.btn-play:hover{background:#2ea043}
+.btn-ghost{background:#21262d;color:#e6edf3;border:1px solid #484f58}.btn-ghost:hover{background:#30363d}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.active{outline:2px solid #58a6ff}
+.main{display:grid;grid-template-columns:1.6fr 1fr;gap:1.2rem}
+@media(max-width:900px){.main{grid-template-columns:1fr}}
+.stage{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:1rem}
+#svgStage{width:100%;height:380px;background:#0d1117;border-radius:8px}
+.stepbar{display:flex;justify-content:space-between;align-items:center;margin-top:.7rem;font-size:.8rem;color:#8b949e}
+#msg{min-height:1.4rem;color:#d2a8ff;font-size:.85rem;margin-top:.4rem}
+.side{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:1rem}
+.side h3{color:#58a6ff;margin-bottom:.5rem;font-size:.95rem}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin:.7rem 0}
+.stat{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:.6rem;text-align:center}
+.stat b{display:block;font-size:1.2rem;font-family:Consolas,monospace}
+.stat span{font-size:.7rem;color:#8b949e}
+.legend{display:flex;flex-wrap:wrap;gap:.7rem;font-size:.75rem;color:#8b949e;margin:.5rem 0}
+.dot{width:12px;height:12px;border-radius:3px;display:inline-block;margin-right:.3rem;vertical-align:middle}
+#log{max-height:220px;overflow:auto;background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:.6rem;font-family:Consolas,monospace;font-size:.75rem;line-height:1.7;color:#8b949e}
+#log div.cur{color:#e6edf3;background:#21262d;border-radius:4px;padding:0 .4rem}
+code.cx{font-family:Consolas,monospace;background:#21262d;padding:.15rem .45rem;border-radius:5px;font-size:.75rem}
+.pseudo{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:.7rem;font-family:Consolas,monospace;font-size:.75rem;line-height:1.7;white-space:pre-wrap;margin-top:.6rem;color:#8b949e}
+.pseudo .hl{color:#e6edf3;background:#1f6feb33;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<div><h1>⚡ Sorting Flow Lab</h1><p class="sub">Working step-by-step flow of 6 sorting algorithms — SVG bars, play / pause / step / shuffle. Part of <a href="index.html">AlgoVision DSA Lab</a>.</p></div>
+<div><a href="index.html">← Back to Hub</a></div>
+</header>
+<img class="flow-img" src="svg/sorting-flow-overview.svg" alt="Sorting flow overview">
+<div class="controls">
+<select id="algo">
+<option value="bubble">Bubble Sort</option>
+<option value="selection">Selection Sort</option>
+<option value="insertion">Insertion Sort</option>
+<option value="merge">Merge Sort</option>
+<option value="quick" selected>Quick Sort</option>
+<option value="heap">Heap Sort</option>
+</select>
+<button class="btn btn-play" id="playBtn">▶ Play</button>
+<button class="btn btn-ghost" id="stepBtn">Step ⏭</button>
+<button class="btn btn-ghost" id="backBtn">⏮ Back</button>
+<button class="btn btn-ghost" id="resetBtn">Reset</button>
+<button class="btn btn-ghost" id="shuffleBtn">🔀 Shuffle</button>
+<label style="font-size:.8rem;color:#8b949e">Speed <input type="range" id="speed" min="1" max="60" value="12" style="width:110px;vertical-align:middle"></label>
+<label style="font-size:.8rem;color:#8b949e">Size <input type="range" id="size" min="8" max="60" value="24" style="width:90px;vertical-align:middle"> <span id="sizeVal">24</span></label>
+</div>
+<div class="main">
+<div class="stage">
+<svg id="svgStage" viewBox="0 0 800 380" preserveAspectRatio="none"></svg>
+<div class="stepbar"><span id="counter">Step 0 / 0</span><span id="statline"></span></div>
+<div id="msg">Press Play or Step to start.</div>
+</div>
+<div class="side">
+<h3 id="algoName">Quick Sort</h3>
+<div style="font-size:.8rem;color:#8b949e" id="algoDesc"></div>
+<div style="margin-top:.5rem"><code class="cx" id="algoCx"></code></div>
+<div class="stats">
+<div class="stat"><b id="sComp">0</b><span>comparisons</span></div>
+<div class="stat"><b id="sSwap">0</b><span>swaps / writes</span></div>
+<div class="stat"><b id="sTime">0ms</b><span>trace build</span></div>
+</div>
+<div class="legend">
+<span><i class="dot" style="background:#58a6ff"></i>compare</span>
+<span><i class="dot" style="background:#f85149"></i>swap/write</span>
+<span><i class="dot" style="background:#a371f7"></i>pivot/key</span>
+<span><i class="dot" style="background:#3fb950"></i>sorted</span>
+</div>
+<h3>Pseudocode</h3>
+<div class="pseudo" id="pseudo"></div>
+<h3 style="margin-top:.8rem">Step log</h3>
+<div id="log"></div>
+</div>
+</div>
+</div>
+<script>
+const META = {
+bubble:{name:"Bubble Sort",desc:"Adjacent swaps bubble the max to the end each pass. Stable, in-place.",cx:"Best O(n) · Avg/Worst O(n²) · Space O(1)",pseudo:"repeat n-1 passes:\n  for j in 0..n-2-i:\n    [HL]if a[j] > a[j+1]: swap[/HL]\n  lock a[n-1-i] as sorted"},
+selection:{name:"Selection Sort",desc:"Each pass picks the minimum of the unsorted part. Few swaps, unstable.",cx:"Best/Avg/Worst O(n²) · Space O(1)",pseudo:"for i in 0..n-1:\n  [HL]minIdx = argmin(i..n-1)[/HL]\n  swap(i, minIdx) → sorted"},
+insertion:{name:"Insertion Sort",desc:"Inserts each card into the sorted hand. Fast on nearly-sorted data.",cx:"Best O(n) · Avg/Worst O(n²) · Space O(1)",pseudo:"for i in 1..n-1:\n  [HL]key = a[i]; shift larger right[/HL]\n  insert key in hole"},
+merge:{name:"Merge Sort",desc:"Divide in half, sort halves, linear two-pointer merge. Guaranteed n log n.",cx:"Always O(n log n) · Space O(n) · Stable",pseudo:"sort(l, r):\n  mid = (l+r)//2\n  sort(l, mid); sort(mid+1, r)\n  [HL]merge(l, mid, r) linear[/HL]"},
+quick:{name:"Quick Sort",desc:"Pivot + partition: smaller left, larger right, recurse. Fastest in practice.",cx:"Avg O(n log n) · Worst O(n²) · Space O(log n)",pseudo:"partition(lo, hi, pivot):\n  [HL]i = boundary of ≤ zone[/HL]\n  for j: if a[j] ≤ pivot: swap(i, j)\n  place pivot; recurse both sides"},
+heap:{name:"Heap Sort",desc:"Max-heap, then extract-max to the end repeatedly. Guaranteed n log n.",cx:"Always O(n log n) · Space O(1)",pseudo:"buildMaxHeap()\nrepeat:\n  [HL]swap(root, last); shrink heap[/HL]\n  heapify(root)"}
+};
+const svg=document.getElementById('svgStage'),msg=document.getElementById('msg'),logEl=document.getElementById('log'),
+counter=document.getElementById('counter'),playBtn=document.getElementById('playBtn');
+let base=[],steps=[],idx=0,timer=null,comparisons=0,swaps=0;
+
+function randArr(n){const a=Array.from({length:n},(_,i)=>i+1);for(let i=n-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a.map(v=>Math.round(10+v*(300/n)));}
+function pushStep(arr,o){steps.push(Object.assign({arr:arr.slice(),c:[],s:[],sorted:[],pivot:-1,key:-1,msg:""},o));}
+function finalise(arr){pushStep(arr,{sorted:arr.map((_,i)=>i),msg:"✓ Sorted!"});}
+
+// ---- trace generators (each records comparisons + swaps + message) ----
+function traceBubble(a){comparisons=0;swaps=0;const n=a.length;pushStep(a,{msg:"Start Bubble Sort — compare neighbours left→right."});
+for(let i=0;i<n;i++){let swapped=false;for(let j=0;j<n-1-i;j++){comparisons++;pushStep(a,{c:[j,j+1],msg:`Compare a[${j}]=${a[j]} vs a[${j+1}]=${a[j+1]}`});
+if(a[j]>a[j+1]){[a[j],a[j+1]]=[a[j+1],a[j]];swaps++;swapped=true;pushStep(a,{s:[j,j+1],msg:`Swap → ${a[j]} moves left`});}}
+const done=Array.from({length:i+1},(_,k)=>n-1-k);pushStep(a,{sorted:done,msg:`Pass ${i+1} done — locked ${i+1} largest.`});
+if(!swapped)break;}finalise(a);}
+function traceSelection(a){comparisons=0;swaps=0;const n=a.length;pushStep(a,{msg:"Start Selection Sort — find min of unsorted part."});
+for(let i=0;i<n;i++){let m=i;pushStep(a,{sorted:Array.from({length:i},(_,k)=>k),pivot:m,msg:`Pass ${i+1}: min starts at ${i}`});
+for(let j=i+1;j<n;j++){comparisons++;pushStep(a,{sorted:Array.from({length:i},(_,k)=>k),c:[m,j],pivot:m,msg:`Compare current min ${a[m]} vs a[${j}]=${a[j]}`});
+if(a[j]<a[m]){m=j;pushStep(a,{sorted:Array.from({length:i},(_,k)=>k),pivot:m,msg:`New min = a[${m}]=${a[m]}`});}}
+if(m!==i){[a[i],a[m]]=[a[m],a[i]];swaps++;}pushStep(a,{s:m!==i?[i,m]:[],sorted:Array.from({length:i+1},(_,k)=>k),msg:m!==i?`Swap min ${a[i]} into position ${i}`:`Position ${i} already minimal ✓`});}
+finalise(a);}
+function traceInsertion(a){comparisons=0;swaps=0;const n=a.length;pushStep(a,{sorted:[0],key:1,msg:"Start Insertion Sort — left of key is sorted."});
+for(let i=1;i<n;i++){const key=a[i];let j=i-1;pushStep(a,{sorted:Array.from({length:i},(_,k)=>k),key:i,msg:`key = a[${i}] = ${key} — shift larger elements right`});
+while(j>=0){comparisons++;pushStep(a,{c:[j,j+1],sorted:Array.from({length:i},(_,k)=>k),key:j+1,msg:`Compare a[${j}]=${a[j]} > key ${key}?`});
+if(a[j]>key){a[j+1]=a[j];swaps++;j--;pushStep(a,{s:[j+1,j+2],sorted:Array.from({length:i},(_,k)=>k),key:Math.max(0,j+1),msg:`Shift right — hole moves to ${j+1}`});}else break;}
+a[j+1]=key;swaps++;pushStep(a,{s:[j+1],sorted:Array.from({length:i+1},(_,k)=>k),msg:`Insert key ${key} at ${j+1} ✓`});}
+finalise(a);}
+function traceMerge(a){comparisons=0;swaps=0;pushStep(a,{msg:"Start Merge Sort — divide, then merge sorted runs."});
+function rec(l,r){if(l>=r)return;const m=(l+r)>>1;rec(l,m);rec(m+1,r);
+const L=a.slice(l,m+1),R=a.slice(m+1,r+1);let i=0,j=0,k=l;
+pushStep(a,{c:[l,r],msg:`Merge [${L}] + [${R}]`});
+while(i<L.length&&j<R.length){comparisons++;pushStep(a,{c:[l+i,m+1+j],msg:`Pick smaller: ${L[i]} vs ${R[j]}`});
+if(L[i]<=R[j]){a[k]=L[i];i++;}else{a[k]=R[j];j++;}swaps++;k++;pushStep(a,{s:[k-1],msg:`Write a[${k-1}] = ${a[k-1]}`});}
+while(i<L.length){a[k]=L[i];i++;k++;swaps++;pushStep(a,{s:[k-1],msg:`Drain left → a[${k-1}] = ${a[k-1]}`});}
+while(j<R.length){a[k]=R[j];j++;k++;swaps++;pushStep(a,{s:[k-1],msg:`Drain right → a[${k-1}] = ${a[k-1]}`});}}
+rec(0,a.length-1);finalise(a);}
+function traceQuick(a){comparisons=0;swaps=0;pushStep(a,{msg:"Start Quick Sort — Lomuto partition, pivot = last."});
+function qs(lo,hi){if(lo>=hi){if(lo===hi)pushStep(a,{sorted:[lo],pivot:lo,msg:`Single element a[${lo}] trivially placed`});return;}
+const piv=a[hi];let i=lo;pushStep(a,{pivot:hi,msg:`Partition [${lo}..${hi}] pivot=${piv}`});
+for(let j=lo;j<hi;j++){comparisons++;pushStep(a,{c:[j,hi],pivot:hi,msg:`a[${j}]=${a[j]} ≤ pivot ${piv}?`});
+if(a[j]<=piv){if(i!==j){[a[i],a[j]]=[a[j],a[i]];swaps++;pushStep(a,{s:[i,j],pivot:hi,msg:`Swap a[${i}]↔a[${j}] (≤ zone grows)`});}i++;}}
+if(i!==hi){[a[i],a[hi]]=[a[hi],a[i]];swaps++;}pushStep(a,{s:[i,hi],pivot:i,sorted:[i],msg:`Pivot ${piv} lands at ${i} ✓ — recurse both sides`});
+qs(lo,i-1);qs(i+1,hi);}
+qs(0,a.length-1);finalise(a);}
+function traceHeap(a){comparisons=0;swaps=0;const n=a.length;pushStep(a,{msg:"Start Heap Sort — build max-heap bottom-up."});
+function heapify(sz,i){let big=i;const L=2*i+1,R=2*i+2;
+if(L<sz){comparisons++;pushStep(a,{c:[big,L],msg:`Heapify: a[${big}]=${a[big]} vs left ${a[L]}`});if(a[L]>a[big])big=L;}
+if(R<sz){comparisons++;pushStep(a,{c:[big,R],msg:`vs right a[${R}]=${R<sz?a[R]:'—'}`});if(R<sz&&a[R]>a[big])big=R;}
+if(big!==i){[a[i],a[big]]=[a[big],a[i]];swaps++;pushStep(a,{s:[i,big],msg:`Swap heap nodes ${i}↔${big}`});heapify(sz,big);}}
+for(let i=(n>>1)-1;i>=0;i--)heapify(n,i);
+pushStep(a,{msg:"Max-heap built — root is the maximum."});
+for(let end=n-1;end>0;end--){[a[0],a[end]]=[a[end],a[0]];swaps++;
+pushStep(a,{s:[0,end],sorted:Array.from({length:n-end},(_,k)=>end+k),msg:`Extract max ${a[end]} → position ${end}`});
+heapify(end,0);}
+finalise(a);}
+
+const TRACERS={bubble:traceBubble,selection:traceSelection,insertion:traceInsertion,merge:traceMerge,quick:traceQuick,heap:traceHeap};
+
+function rebuild(){stop();const key=document.getElementById('algo').value;const m=META[key];
+document.getElementById('algoName').textContent=m.name;
+document.getElementById('algoDesc').textContent=m.desc;
+document.getElementById('algoCx').textContent=m.cx;
+document.getElementById('pseudo').innerHTML=m.pseudo.replace(/\[HL\](.*?)\[\/HL\]/g,'<span class="hl">$1</span>');
+const n=parseInt(document.getElementById('size').value,10);
+document.getElementById('sizeVal').textContent=n;
+base=randArr(n);const work=base.slice();steps=[];idx=0;
+const t0=performance.now();TRACERS[key](work);const t1=performance.now();
+document.getElementById('sTime').textContent=Math.round(t1-t0)+'ms';
+render();}
+function render(){const st=steps[idx]||{arr:base,c:[],s:[],sorted:[],pivot:-1,key:-1,msg:""};
+const arr=st.arr,max=Math.max(...arr,1),W=800,H=380,bw=W/arr.length;
+let s=`<rect x="0" y="0" width="800" height="380" fill="#0d1117"/>`;
+arr.forEach((v,i)=>{const h=(v/340)*(H-60);const x=i*bw+1.5,y=H-h-24,w=Math.max(1,bw-3);
+let fill="#58a6ff";if(st.sorted.includes(i))fill="#3fb950";
+if(st.c.includes(i))fill="#f0883e";if(st.s.includes(i))fill="#f85149";
+if(i===st.pivot||i===st.key)fill="#a371f7";
+s+=`<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" rx="3" fill="${fill}"/>`;
+if(bw>22)s+=`<text x="${(x+w/2).toFixed(1)}" y="${(H-8).toFixed(1)}" font-size="10" fill="#8b949e" text-anchor="middle" font-family="Consolas,monospace">${v}</text>`;});
+svg.setAttribute('viewBox','0 0 800 380');svg.innerHTML=s;
+msg.textContent=(st.msg||"");
+counter.textContent=`Step ${idx} / ${steps.length-1}`;
+document.getElementById('sComp').textContent=comparisons.toLocaleString();
+document.getElementById('sSwap').textContent=swaps.toLocaleString();
+document.getElementById('statline').textContent=`n=${arr.length} · compares=${comparisons} · writes=${swaps}`;
+logEl.innerHTML=steps.map((p,i)=>`<div class="${i===idx?'cur':''}">${String(i).padStart(3,'0')} · ${p.msg.replace(/</g,'&lt;')}</div>`).join('');
+const cur=logEl.querySelector('.cur');if(cur)cur.scrollIntoView({block:'nearest'});
+playBtn.textContent=timer?'⏸ Pause':'▶ Play';}
+function step(d){stop();idx=Math.min(steps.length-1,Math.max(0,idx+d));render();}
+function stop(){if(timer){clearInterval(timer);timer=null;render();}}
+playBtn.onclick=()=>{if(timer){stop();return;}const sp=parseInt(document.getElementById('speed').value,10);
+const delay=Math.max(16,800-sp*12);
+timer=setInterval(()=>{if(idx>=steps.length-1){stop();return;}idx++;render();},delay);render();};
+document.getElementById('stepBtn').onclick=()=>step(1);
+document.getElementById('backBtn').onclick=()=>step(-1);
+document.getElementById('resetBtn').onclick=()=>{stop();idx=0;render();};
+document.getElementById('shuffleBtn').onclick=rebuild;
+document.getElementById('algo').onchange=rebuild;
+document.getElementById('size').oninput=rebuild;
+document.getElementById('speed').oninput=()=>{if(timer){const sp=parseInt(document.getElementById('speed').value,10);clearInterval(timer);timer=setInterval(()=>{if(idx>=steps.length-1){stop();return;}idx++;render();},Math.max(16,800-sp*12));}};
+document.addEventListener('keydown',e=>{if(e.key===' '){e.preventDefault();playBtn.click();}if(e.key==='ArrowRight')step(1);if(e.key==='ArrowLeft')step(-1);});
+rebuild();
+</script>
+</body>
+</html>

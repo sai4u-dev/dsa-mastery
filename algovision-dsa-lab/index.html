@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AlgoVision DSA Lab — Interactive Visualization Hub</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d1117;color:#e6edf3;min-height:100vh}
+.container{max-width:1200px;margin:0 auto;padding:2rem 1.5rem}
+header{text-align:center;margin-bottom:2rem}
+h1{font-size:2.4rem;font-weight:700;background:linear-gradient(135deg,#58a6ff,#a371f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sub{color:#8b949e;margin-top:.5rem}
+.hero{background:#161b22;border:1px solid #30363d;border-radius:14px;padding:1.2rem;margin-bottom:1.6rem;text-align:center}
+.hero img{width:100%;border-radius:10px}
+.cta{display:inline-block;margin-top:1rem;background:#238636;color:#fff;padding:.7rem 1.6rem;border-radius:9px;font-weight:700;text-decoration:none}
+.cta:hover{background:#2ea043}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.2rem}
+.card{background:#161b22;border:1px solid #30363d;border-radius:12px;overflow:hidden;transition:transform .18s,border-color .18s}
+.card:hover{transform:translateY(-4px);border-color:#58a6ff}
+.card.sort{border-top:4px solid #f78166}.card.search{border-top:4px solid #7ee787}.card.graph{border-top:4px solid #a371f7}
+.card img{width:100%;display:block;background:#0d1117}
+.body{padding:1rem 1.1rem}
+.body h3{font-size:1rem;margin-bottom:.3rem}
+.meta{font-size:.75rem;color:#8b949e;margin-bottom:.7rem}
+.meta code{font-family:Consolas,monospace;background:#21262d;padding:.15rem .45rem;border-radius:5px}
+.row{display:flex;gap:.5rem}
+.btn{flex:1;text-align:center;padding:.5rem;border-radius:8px;font-size:.8rem;font-weight:600;text-decoration:none}
+.btn-p{background:#238636;color:#fff}.btn-g{background:#21262d;color:#e6edf3;border:1px solid #484f58}
+footer{text-align:center;color:#8b949e;font-size:.8rem;margin-top:2rem}
+</style>
+</head>
+<body>
+<div class="container">
+<header><h1>⚡ AlgoVision DSA Lab</h1><p class="sub">Enhanced <b>DSA Visualization</b> hub — top 10 algorithms as how-it-works SVG diagrams + a working sorting flow lab.</p></header>
+<div class="hero">
+<img src="svg/sorting-flow-overview.svg" alt="Sorting flow overview">
+<br><a class="cta" href="sorting-flow.html">▶ Open Working Sorting Flow Lab</a>
+<p class="sub" style="margin-top:.6rem">Play / pause / step / shuffle · Bubble · Selection · Insertion · Merge · Quick · Heap</p>
+</div>
+<div class="grid" id="grid"></div>
+<footer>AlgoVision DSA Lab · offline-first · SVG + vanilla JS · open <b>sorting-flow.html</b> for the live playground</footer>
+</div>
+<script>
+const ALGOS=[
+{id:"01-bubble-sort",n:"1 · Bubble Sort",c:"sort",t:"Adjacent swaps bubble max to end.",cx:"O(n²) · S:O(1)",flow:1},
+{id:"02-selection-sort",n:"2 · Selection Sort",c:"sort",t:"Pick min of unsorted part each pass.",cx:"O(n²) · S:O(1)",flow:1},
+{id:"03-insertion-sort",n:"3 · Insertion Sort",c:"sort",t:"Insert each card into sorted hand.",cx:"O(n)→O(n²) · S:O(1)",flow:1},
+{id:"04-merge-sort",n:"4 · Merge Sort",c:"sort",t:"Divide, recurse, linear merge.",cx:"O(n log n) · S:O(n)",flow:1},
+{id:"05-quick-sort",n:"5 · Quick Sort",c:"sort",t:"Pivot partition + recurse.",cx:"~O(n log n) · S:O(log n)",flow:1},
+{id:"06-heap-sort",n:"6 · Heap Sort",c:"sort",t:"Max-heap + extract-max loop.",cx:"O(n log n) · S:O(1)",flow:1},
+{id:"07-binary-search",n:"7 · Binary Search",c:"search",t:"Halve sorted array on each probe.",cx:"O(log n) · S:O(1)"},
+{id:"08-bfs",n:"8 · BFS",c:"graph",t:"Level-order wavefront with queue.",cx:"O(V+E) · S:O(V)"},
+{id:"09-dfs",n:"9 · DFS",c:"graph",t:"Dive deep, backtrack (stack).",cx:"O(V+E) · S:O(V)"},
+{id:"10-dijkstra",n:"10 · Dijkstra",c:"graph",t:"Greedy shortest path + min-heap.",cx:"O((V+E) log V)"}];
+const g=document.getElementById('grid');
+ALGOS.forEach(a=>{const d=document.createElement('div');d.className='card '+a.c;
+d.innerHTML=`<img src="svg/${a.id}.svg" alt="${a.n}" loading="lazy"><div class="body"><h3>${a.n}</h3><div class="meta">${a.t}<br><br><code>${a.cx}</code></div><div class="row"><a class="btn btn-g" href="svg/${a.id}.svg" target="_blank">Open SVG</a>${a.flow?'<a class="btn btn-p" href="sorting-flow.html">Try Live ▶</a>':''}</div></div>`;g.appendChild(d);});
+</script>
+</body>
+</html>

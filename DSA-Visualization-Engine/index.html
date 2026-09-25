@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DSA Visualization Engine</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0d1117; color: #e6edf3; min-height: 100vh; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+    header { text-align: center; margin-bottom: 3rem; }
+    h1 { font-size: 2.5rem; font-weight: 700; background: linear-gradient(135deg, #58a6ff, #a371f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .subtitle { color: #8b949e; margin-top: 0.5rem; }
+    .panel { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 1rem 1.2rem; margin-bottom: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.7rem; align-items: flex-end; }
+    .panel label { font-size: 0.75rem; color: #8b949e; display: flex; flex-direction: column; gap: 0.3rem; font-weight: 600; }
+    .panel input, .panel select { background: #0d1117; color: #e6edf3; border: 1px solid #30363d; border-radius: 8px; padding: 0.5rem 0.7rem; font-size: 0.85rem; }
+    .panel input:focus, .panel select:focus { outline: none; border-color: #58a6ff; }
+    #arrInput { min-width: 280px; font-family: 'JetBrains Mono', monospace; }
+    .seg { display: flex; border: 1px solid #30363d; border-radius: 8px; overflow: hidden; }
+    .seg button { background: #0d1117; color: #8b949e; border: none; padding: 0.5rem 0.8rem; cursor: pointer; font-size: 0.8rem; font-weight: 600; }
+    .seg button.on { background: #1f6feb; color: #fff; }
+    .hint { width: 100%; font-size: 0.75rem; color: #8b949e; }
+    .hint b { color: #d2a8ff; font-family: 'JetBrains Mono', monospace; }
+    .algo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+    .algo-card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 1.5rem; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; cursor: pointer; }
+    .algo-card:hover { transform: translateY(-4px); border-color: #58a6ff; box-shadow: 0 8px 32px rgba(88, 166, 255, 0.15); }
+    .algo-card.sorting { border-left: 4px solid #f78166; }
+    .algo-card.searching { border-left: 4px solid #7ee787; }
+    .algo-card.graph { border-left: 4px solid #a371f7; }
+    .algo-card.dp { border-left: 4px solid #d2a8ff; }
+    .algo-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+    .algo-icon { width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+    .algo-card.sorting .algo-icon { background: rgba(247, 129, 102, 0.2); color: #f78166; }
+    .algo-card.searching .algo-icon { background: rgba(126, 231, 135, 0.2); color: #7ee787; }
+    .algo-card.graph .algo-icon { background: rgba(163, 113, 247, 0.2); color: #a371f7; }
+    .algo-card.dp .algo-icon { background: rgba(210, 168, 255, 0.2); color: #d2a8ff; }
+    .algo-title { font-size: 1.1rem; font-weight: 600; }
+    .algo-meta { display: flex; gap: 1rem; font-size: 0.8rem; color: #8b949e; margin-bottom: 1rem; }
+    .algo-meta span { display: flex; align-items: center; gap: 0.3rem; }
+    .complexity { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; padding: 0.2rem 0.5rem; background: #21262d; border-radius: 4px; }
+    .viz-container { width: 100%; height: 200px; overflow: hidden; border-radius: 8px; background: #0d1117; position: relative; }
+    .viz-container svg { width: 100%; height: 100%; }
+    .legend { display: flex; gap: 1rem; justify-content: center; margin-top: 1rem; font-size: 0.7rem; }
+    .legend-item { display: flex; align-items: center; gap: 0.3rem; }
+    .legend-color { width: 12px; height: 12px; border-radius: 3px; }
+    .controls { display: flex; gap: 0.5rem; justify-content: center; margin-top: 1rem; }
+    .btn { padding: 0.4rem 0.8rem; font-size: 0.75rem; border: none; border-radius: 6px; cursor: pointer; transition: all 0.15s; font-weight: 500; }
+    .btn-primary { background: #238636; color: white; }
+    .btn-primary:hover { background: #2ea043; }
+    .btn-secondary { background: #30363d; color: #e6edf3; border: 1px solid #484f58; }
+    .btn-secondary:hover { background: #484f58; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .step-info { text-align: center; font-size: 0.75rem; color: #8b949e; margin-top: 0.5rem; min-height: 1.2rem; }
+    .modal { position: fixed; inset: 0; background: rgba(13, 17, 23, 0.95); backdrop-filter: blur(8px); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 2rem; }
+    .modal.active { display: flex; }
+    .modal-content { background: #161b22; border: 1px solid #30363d; border-radius: 16px; max-width: 900px; width: 100%; max-height: 90vh; overflow: auto; }
+    .modal-header { padding: 1.5rem; border-bottom: 1px solid #30363d; display: flex; justify-content: space-between; align-items: center; }
+    .modal-close { background: none; border: none; color: #8b949e; font-size: 1.5rem; cursor: pointer; padding: 0.5rem; line-height: 1; }
+    .modal-close:hover { color: #e6edf3; }
+    .modal-body { padding: 1.5rem; }
+    .modal-viz { height: 400px; background: #0d1117; border-radius: 8px; margin-bottom: 1.5rem; position: relative; }
+    .modal-viz svg { width: 100%; height: 100%; }
+    .explanation { line-height: 1.8; }
+    .explanation h3 { margin: 1.5rem 0 0.5rem; color: #58a6ff; }
+    .explanation p { color: #8b949e; margin-bottom: 1rem; }
+    .explanation code { background: #21262d; padding: 0.15rem 0.4rem; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 0.85em; }
+    .explanation pre { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 1rem; overflow-x: auto; margin: 1rem 0; }
+    .explanation pre code { background: none; padding: 0; }
+    .pseudo { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.6; color: #e6edf3; }
+    .pseudo .keyword { color: #ff7b72; }
+    .pseudo .function { color: #d2a8ff; }
+    .pseudo .comment { color: #8b949e; }
+    .pseudo .variable { color: #7ee787; }
+    .pseudo .number { color: #79c0ff; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>DSA Visualization Engine</h1>
+      <p class="subtitle">Interactive visualizations of fundamental algorithms & data structures</p>
+    </header>
+    <div class="panel">
+      <label>Custom array (comma / space separated, 3–30 numbers)
+        <input id="arrInput" placeholder="e.g. 52, 18, 84, 33, 71, 9, 95, 44">
+      </label>
+      <div style="display:flex;gap:0.5rem;">
+        <button class="btn btn-primary" id="applyBtn">Apply</button>
+        <button class="btn btn-secondary" id="randomBtn">🎲 Random (random length)</button>
+      </div>
+      <label>Binary target
+        <input id="targetInput" type="number" value="23" style="width:90px;">
+      </label>
+      <label>Graph start node
+        <select id="startSelect">
+          <option>A</option><option>B</option><option>C</option>
+          <option>D</option><option>E</option><option>F</option>
+        </select>
+      </label>
+      <label>Speed
+        <span class="seg" id="speedSeg">
+          <button data-s="0.5">0.5x</button><button data-s="1" class="on">1x</button><button data-s="2">2x</button>
+        </span>
+      </label>
+      <div class="hint" id="dataHint"></div>
+    </div>
+    <div class="algo-grid" id="algoGrid"></div>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modalTitle"></h2>
+        <button class="modal-close" id="modalClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-viz" id="modalViz"></div>
+        <div class="controls" id="modalControls"></div>
+        <div class="step-info" id="modalStepInfo"></div>
+        <div class="explanation" id="modalExplanation"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { algorithms } from './algorithms.js';
+    import { renderVisualization, animateAlgorithm, configure } from './renderer.js';
+
+    const grid = document.getElementById('algoGrid');
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalViz = document.getElementById('modalViz');
+    const modalControls = document.getElementById('modalControls');
+    const modalStepInfo = document.getElementById('modalStepInfo');
+    const modalExplanation = document.getElementById('modalExplanation');
+    const modalClose = document.getElementById('modalClose');
+
+    let currentAnimation = null;
+    const state = { speed: 1 };
+
+    const arrInput = document.getElementById('arrInput');
+    const applyBtn = document.getElementById('applyBtn');
+    const randomBtn = document.getElementById('randomBtn');
+    const targetInput = document.getElementById('targetInput');
+    const startSelect = document.getElementById('startSelect');
+    const dataHint = document.getElementById('dataHint');
+
+    function parseArrayInput(str) {
+      return str.split(/[,;\s]+/).filter(s => s.length).map(Number)
+        .filter(n => Number.isFinite(n)).map(n => Math.min(999, Math.max(1, Math.round(n))));
+    }
+    function refreshAll() {
+      if (currentAnimation) { currentAnimation.stop(); currentAnimation = null; }
+      modal.classList.remove('active');
+      const parsed = parseArrayInput(arrInput.value);
+      const arr = parsed.length ? parsed.slice(0, 30) : null;
+      configure({ array: arr, target: Number(targetInput.value), start: startSelect.value });
+      algorithms.forEach(algo => {
+        const box = document.getElementById(`viz-${algo.id}`);
+        if (!box) return;
+        box.innerHTML = '';
+        box.appendChild(renderVisualization(algo, 'initial').svg);
+        const s = document.getElementById(`step-${algo.id}`);
+        if (s) s.textContent = '';
+      });
+      const arrNote = arr ? `[${arr.join(', ')}] (n=${arr.length})` : 'demo array';
+      const sorted = arr ? [...arr].sort((a, b) => a - b) : null;
+      dataHint.innerHTML = `Array: <b>${arrNote}</b> · Binary target <b>${targetInput.value}</b>` +
+        (sorted ? ` (auto-sorted: <b>[${sorted.join(', ')}]</b>)` : '') +
+        ` · Graph start <b>${startSelect.value}</b>`;
+    }
+    applyBtn.onclick = () => {
+      const parsed = parseArrayInput(arrInput.value);
+      if (arrInput.value.trim() && parsed.length < 3) {
+        dataHint.innerHTML = `<b>Need at least 3 valid numbers</b> — keeping previous data.`;
+        return;
+      }
+      if (parsed.length > 30) arrInput.value = parsed.slice(0, 30).join(', ');
+      refreshAll();
+    };
+    randomBtn.onclick = () => {
+      const len = 5 + Math.floor(Math.random() * 16); // random length 5..20
+      const gen = Array.from({ length: len }, () => 5 + Math.floor(Math.random() * 95));
+      arrInput.value = gen.join(', ');
+      refreshAll();
+    };
+    targetInput.onchange = refreshAll;
+    startSelect.onchange = refreshAll;
+    document.getElementById('speedSeg').querySelectorAll('button').forEach(b => {
+      b.onclick = () => {
+        document.getElementById('speedSeg').querySelectorAll('button').forEach(x => x.classList.remove('on'));
+        b.classList.add('on');
+        state.speed = parseFloat(b.dataset.s);
+      };
+    });
+
+    algorithms.forEach(algo => {
+      const card = document.createElement('div');
+      card.className = `algo-card ${algo.category}`;
+      card.innerHTML = `
+        <div class="algo-header">
+          <div class="algo-icon">${algo.icon}</div>
+          <div class="algo-title">${algo.name}</div>
+        </div>
+        <div class="algo-meta">
+          <span>Time: <code class="complexity">${algo.timeComplexity}</code></span>
+          <span>Space: <code class="complexity">${algo.spaceComplexity}</code></span>
+        </div>
+        <div class="viz-container" id="viz-${algo.id}"></div>
+        <div class="legend" id="legend-${algo.id}"></div>
+        <div class="controls">
+          <button class="btn btn-primary" data-action="play">Play</button>
+          <button class="btn btn-secondary" data-action="step">Step</button>
+          <button class="btn btn-secondary" data-action="reset">Reset</button>
+        </div>
+        <div class="step-info" id="step-${algo.id}"></div>
+      `;
+      card.addEventListener('click', (e) => {
+        if (!e.target.matches('button')) openModal(algo);
+      });
+      card.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          handleCardAction(algo, btn.dataset.action, card);
+        });
+      });
+      grid.appendChild(card);
+
+      const { svg, legend } = renderVisualization(algo, 'initial');
+      document.getElementById(`viz-${algo.id}`).appendChild(svg);
+      document.getElementById(`legend-${algo.id}`).innerHTML = legend;
+    });
+
+    function handleCardAction(algo, action, card) {
+      const vizContainer = card.querySelector('.viz-container');
+      const stepInfo = card.querySelector('.step-info');
+      const buttons = card.querySelectorAll('button');
+
+      if (action === 'reset') {
+        if (currentAnimation) currentAnimation.stop();
+        currentAnimation = null;
+        const { svg } = renderVisualization(algo, 'initial');
+        vizContainer.innerHTML = '';
+        vizContainer.appendChild(svg);
+        stepInfo.textContent = '';
+        buttons.forEach(b => b.disabled = false);
+      } else if (action === 'play') {
+        buttons.forEach(b => b.disabled = true);
+        currentAnimation = animateAlgorithm(algo, vizContainer, stepInfo, () => {
+          buttons.forEach(b => b.disabled = false);
+        }, false, state.speed);
+      } else if (action === 'step') {
+        if (!currentAnimation) {
+          currentAnimation = animateAlgorithm(algo, vizContainer, stepInfo, () => {
+            buttons.forEach(b => b.disabled = false);
+          }, true);
+        }
+        currentAnimation.step();
+      }
+    }
+
+    function openModal(algo) {
+      modalTitle.textContent = algo.name;
+      modalExplanation.innerHTML = algo.explanation;
+      const { svg, legend } = renderVisualization(algo, 'initial');
+      modalViz.innerHTML = '';
+      modalViz.appendChild(svg);
+      modalControls.innerHTML = `
+        <button class="btn btn-primary" id="modalPlay">Play</button>
+        <button class="btn btn-secondary" id="modalStep">Step</button>
+        <button class="btn btn-secondary" id="modalReset">Reset</button>
+        <button class="btn btn-secondary" id="modalSpeed">Speed: ${state.speed}x</button>
+      `;
+      modalStepInfo.textContent = '';
+      modal.classList.add('active');
+
+      let speed = state.speed;
+      let modalAnimation = null;
+
+      const setupModalAnimation = (stepMode = false) => {
+        if (modalAnimation) modalAnimation.stop();
+        modalAnimation = animateAlgorithm(algo, modalViz, modalStepInfo, () => {
+          document.getElementById('modalPlay').disabled = false;
+          document.getElementById('modalStep').disabled = false;
+        }, stepMode, speed);
+        document.getElementById('modalPlay').disabled = true;
+        document.getElementById('modalStep').disabled = true;
+      };
+
+      document.getElementById('modalPlay').onclick = () => setupModalAnimation(false);
+      document.getElementById('modalStep').onclick = () => {
+        if (!modalAnimation || !modalAnimation.isStepMode) setupModalAnimation(true);
+        modalAnimation.step();
+      };
+      document.getElementById('modalReset').onclick = () => {
+        if (modalAnimation) modalAnimation.stop();
+        modalAnimation = null;
+        const { svg } = renderVisualization(algo, 'initial');
+        modalViz.innerHTML = '';
+        modalViz.appendChild(svg);
+        modalStepInfo.textContent = '';
+        document.getElementById('modalPlay').disabled = false;
+        document.getElementById('modalStep').disabled = false;
+      };
+      document.getElementById('modalSpeed').onclick = (e) => {
+        speed = speed === 1 ? 2 : speed === 2 ? 0.5 : 1;
+        e.target.textContent = `Speed: ${speed}x`;
+        if (modalAnimation) modalAnimation.setSpeed(speed);
+      };
+
+      modalClose.onclick = () => {
+        if (modalAnimation) modalAnimation.stop();
+        modal.classList.remove('active');
+      };
+      modal.onclick = (e) => {
+        if (e.target === modal) modalClose.click();
+      };
+    }
+
+    refreshAll();
+  </script>
+</body>
+</html>
