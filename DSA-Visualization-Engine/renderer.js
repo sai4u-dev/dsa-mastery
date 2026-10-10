@@ -1,14 +1,15 @@
-// SVG renderer + step animator for the DSA Visualization Engine.
+// SVG renderer + step animator for the DSA Visualization Engine — Snow White × Ember Orange edition.
 // Contract used by index.html:
 //   renderVisualization(algo, 'initial') -> { svg, legend }
-//   animateAlgorithm(algo, container, stepInfo, onDone, stepMode=false, speed=1)
-//     -> { stop(), step(), setSpeed(s), isStepMode, length }
+//   animateAlgorithm(algo, container, stepInfo, onDone, stepMode=false, speed=1, opts={onStep})
+//     -> { stop(), step(), back(), goto(i), pause(), resume(), setSpeed(s), idx(), isPlaying(), stepsRef(), isStepMode, length }
 
 const SVGNS = "http://www.w3.org/2000/svg";
 const C = {
-  base: "#58a6ff", compare: "#f0883e", swap: "#f85149",
-  sorted: "#3fb950", pivot: "#a371f7", dim: "#21262d",
-  edge: "#30363d", text: "#e6edf3", muted: "#8b949e",
+  base: "#FF7A1A", compare: "#1C1917", swap: "#EF4444",
+  sorted: "#16A34A", pivot: "#7C3AED", dim: "#EDE4D6",
+  edge: "#E7DDD2", text: "#1C1917", muted: "#8A8580",
+  card: "#FFFFFF", soft: "#FFF0E3",
 };
 
 function el(name, attrs = {}) {
@@ -18,7 +19,13 @@ function el(name, attrs = {}) {
 }
 function svgText(parent, x, y, str, attrs = {}) {
   const t = el("text", Object.assign(
-    { x, y, "text-anchor": "middle", fill: C.text, "font-size": 11, "font-family": "Consolas,monospace" }, attrs));
+    { x, y, "text-anchor": "middle", fill: C.text, "font-size": 11, "font-family": "Inter,'Segoe UI',Consolas,monospace", "font-weight": 600 }, attrs));
+  t.textContent = str;
+  parent.appendChild(t);
+  return t;
+}
+function tip(parent, str) {
+  const t = el("title", {});
   t.textContent = str;
   parent.appendChild(t);
   return t;
@@ -255,19 +262,27 @@ export function buildSteps(algo) {
   return algo.traversal === "dfs" ? traceDFS() : traceBFS();
 }
 
-// ---------------------------------------------------------------- painters
+// ---------------------------------------------------------------- painters (Snow White × Ember)
 function paintBars(st) {
   const svg = el("svg", { viewBox: "0 0 400 200" });
   const arr = st.arr, max = Math.max(...arr, 1), n = arr.length, bw = 400 / n;
   arr.forEach((v, i) => {
-    const h = Math.max(5, (v / max) * 150), x = i * bw + 2, y = 168 - h, w = Math.max(2, bw - 4);
-    let fill = C.base;
-    if (st.sorted && st.sorted.includes(i)) fill = C.sorted;
-    if (i === st.pivot || i === st.key) fill = C.pivot;
-    if (st.compare && st.compare.includes(i)) fill = C.compare;
-    if (st.swap && st.swap.includes(i)) fill = C.swap;
-    svg.appendChild(el("rect", { x: x.toFixed(1), y: y.toFixed(1), width: w.toFixed(1), height: h.toFixed(1), rx: 3, fill }));
-    if (bw > 34) svgText(svg, x + w / 2, 186, String(v), { "font-size": 10, fill: C.muted });
+    const h = Math.max(7, (v / max) * 148), x = i * bw + 2, y = 166 - h, w = Math.max(2, bw - 4);
+    let fill = C.base, stroke = "#FFFFFF", label = C.text, sw = 1.5;
+    if (st.sorted && st.sorted.includes(i)) { fill = C.sorted; label = "#FFFFFF"; }
+    if (i === st.pivot || i === st.key) { fill = C.pivot; label = "#FFFFFF"; }
+    if (st.compare && st.compare.includes(i)) { fill = C.compare; label = "#FFFFFF"; }
+    if (st.swap && st.swap.includes(i)) { fill = C.swap; label = "#FFFFFF"; }
+    const r = el("rect", { x: x.toFixed(1), y: y.toFixed(1), width: w.toFixed(1), height: h.toFixed(1), rx: 5, fill, stroke, "stroke-width": sw });
+    // hover tooltip — key engagement interaction
+    tip(r, `value ${v} · index ${i}` + (st.sorted?.includes(i) ? " · sorted ✓" : "") + (st.compare?.includes(i) ? " · comparing" : "") + (st.swap?.includes(i) ? " · swap/write" : ""));
+    svg.appendChild(r);
+    // glossy top highlight for sleek feel
+    if (h > 18) {
+      svg.appendChild(el("rect", { x: (x + 3).toFixed(1), y: (y + 4).toFixed(1), width: Math.max(1, w - 6).toFixed(1), height: 4, rx: 2, fill: "#FFFFFF", opacity: label === "#FFFFFF" ? 0.35 : 0.6 }));
+    }
+    if (bw > 30) svgText(svg, x + w / 2, 186, String(v), { "font-size": 10, fill: C.muted, "font-weight": 700 });
+    else if (bw > 18) svgText(svg, x + w / 2, y - 5, String(v), { "font-size": 9, fill: C.muted, "font-weight": 700 });
   });
   return svg;
 }
@@ -276,27 +291,36 @@ function paintBinary(st) {
   const arr = st.arr, n = arr.length, cw = 400 / n;
   arr.forEach((v, i) => {
     const inRange = i >= st.low && i <= st.high;
-    let fill = C.base;
-    if (!inRange && st.found !== i) fill = C.dim;
-    if (i === st.low || i === st.high) fill = C.pivot;
-    if (i === st.mid) fill = C.compare;
-    if (i === st.found) fill = C.sorted;
-    svg.appendChild(el("rect", { x: i * cw + 2, y: 60, width: cw - 4, height: 46, rx: 8, fill, stroke: C.edge }));
-    svgText(svg, i * cw + cw / 2, 88, String(v), { "font-size": 14, "font-weight": "700" });
+    let fill = "#FFFFFF", stroke = C.edge, tcol = C.text;
+    if (inRange) { fill = C.soft; stroke = "#FFC79A"; }
+    if (!inRange && st.found !== i) { fill = "#F6F0E8"; stroke = "#EDE4D6"; tcol = "#B8AE9F"; }
+    if (i === st.low || i === st.high) { fill = C.compare; stroke = C.compare; tcol = "#FFFFFF"; }
+    if (i === st.mid) { fill = C.base; stroke = "#C2410C"; tcol = "#FFFFFF"; }
+    if (i === st.found) { fill = C.sorted; stroke = "#15803D"; tcol = "#FFFFFF"; }
+    const cell = el("rect", { x: i * cw + 2, y: 60, width: cw - 4, height: 46, rx: 10, fill, stroke, "stroke-width": 1.6 });
+    tip(cell, `a[${i}] = ${v}` + (i === st.mid ? " · MID probe" : "") + (i === st.found ? " · FOUND ✓" : "") + (!inRange && st.found !== i ? " · discarded" : ""));
+    svg.appendChild(cell);
+    svgText(svg, i * cw + cw / 2, 88, String(v), { "font-size": 14, "font-weight": "800", fill: tcol });
     svgText(svg, i * cw + cw / 2, 122, String(i), { "font-size": 10, fill: C.muted });
-    if (i === st.low) svgText(svg, i * cw + cw / 2, 52, "L", { "font-size": 10, fill: C.pivot });
-    if (i === st.high) svgText(svg, i * cw + cw / 2, 52, "H", { "font-size": 10, fill: C.pivot });
-    if (i === st.mid) svgText(svg, i * cw + cw / 2, 140, "MID", { "font-size": 10, fill: C.compare });
+    if (i === st.low) svgText(svg, i * cw + cw / 2, 50, "L", { "font-size": 10, "font-weight": 800, fill: C.compare });
+    if (i === st.high) svgText(svg, i * cw + cw / 2, 50, "H", { "font-size": 10, "font-weight": 800, fill: C.compare });
+    if (i === st.mid) svgText(svg, i * cw + cw / 2, 140, "MID", { "font-size": 10, "font-weight": 800, fill: C.base });
   });
-  svgText(svg, 200, 168, `target = ${st.target}`, { fill: C.muted, "font-size": 12 });
+  svgText(svg, 200, 170, `target = ${st.target}`, { fill: C.muted, "font-size": 12, "font-weight": 700 });
   return svg;
 }
-function paintGraphNodes(svg, nodes, colorOf, subOf) {
+function paintGraphNodes(svg, nodes, colorOf, textColorOf, subOf) {
   for (const k of Object.keys(nodes)) {
     const [x, y] = nodes[k];
-    svg.appendChild(el("circle", { cx: x, cy: y, r: 17, fill: colorOf(k), stroke: C.edge, "stroke-width": 2 }));
-    svgText(svg, x, y + 5, k, { "font-size": 14, "font-weight": "700", fill: "#0d1117" });
-    if (subOf) svgText(svg, x, y + 36, subOf(k), { "font-size": 10, fill: C.muted });
+    const fill = colorOf(k);
+    const tcol = textColorOf ? textColorOf(k) : "#FFFFFF";
+    // soft shadow
+    svg.appendChild(el("circle", { cx: x + 1.5, cy: y + 2.5, r: 17, fill: "#000000", opacity: 0.08 }));
+    const c = el("circle", { cx: x, cy: y, r: 17, fill, stroke: "#FFFFFF", "stroke-width": 2.5 });
+    tip(c, `node ${k}` + (subOf ? ` · ${subOf(k)}` : ""));
+    svg.appendChild(c);
+    svgText(svg, x, y + 5, k, { "font-size": 14, "font-weight": "800", fill: tcol });
+    if (subOf) svgText(svg, x, y + 37, subOf(k), { "font-size": 10, "font-weight": 700, fill: C.muted });
   }
 }
 function paintGraph(st) {
@@ -304,14 +328,17 @@ function paintGraph(st) {
   for (const [u, v] of GRAPH.edges) {
     const [x1, y1] = GRAPH.nodes[u], [x2, y2] = GRAPH.nodes[v];
     const hot = st.visited.includes(u) && st.visited.includes(v);
-    svg.appendChild(el("line", { x1, y1, x2, y2, stroke: hot ? C.compare : C.edge, "stroke-width": hot ? 3 : 2 }));
+    svg.appendChild(el("line", { x1, y1, x2, y2, stroke: hot ? C.base : C.edge, "stroke-width": hot ? 3.5 : 2.5, "stroke-linecap": "round" }));
   }
   paintGraphNodes(svg, GRAPH.nodes,
-    (k) => (k === st.current ? C.compare : st.visited.includes(k) ? C.sorted : C.base),
+    (k) => (k === st.current ? C.base : st.visited.includes(k) ? C.sorted : "#FFFFFF"),
+    (k) => (k === st.current || st.visited.includes(k) ? "#FFFFFF" : C.text),
     (k) => (st.visited.includes(k) ? `✓#${st.visited.indexOf(k) + 1}` : ""));
-  const label = st.current ? `at ${st.current}` : "done";
+  const label = st.current ? `at ${st.current}` : "done ✓";
   const fringe = st.fringe && st.fringe.length ? `[${st.fringe.join(", ")}]` : "[∅]";
-  svgText(svg, 200, 14, `${label}   fringe ${fringe}`, { fill: C.muted, "font-size": 11 });
+  // pill backdrop for label
+  svg.appendChild(el("rect", { x: 92, y: 2, width: 216, height: 20, rx: 10, fill: "#FFFFFF", stroke: C.edge }));
+  svgText(svg, 200, 16, `${label}   fringe ${fringe}`, { fill: C.muted, "font-size": 11, "font-weight": 700 });
   return svg;
 }
 function paintDijkstra(st) {
@@ -319,12 +346,13 @@ function paintDijkstra(st) {
   for (const [u, v, w] of WGRAPH.edges) {
     const [x1, y1] = WGRAPH.nodes[u], [x2, y2] = WGRAPH.nodes[v];
     const done = st.settled.includes(u) && st.settled.includes(v);
-    svg.appendChild(el("line", { x1, y1, x2, y2, stroke: done ? C.sorted : C.edge, "stroke-width": done ? 3 : 2 }));
-    svgText(svg, (x1 + x2) / 2, (y1 + y2) / 2 - 6, String(w), { "font-size": 12, "font-weight": "700", fill: C.muted });
+    svg.appendChild(el("line", { x1, y1, x2, y2, stroke: done ? C.sorted : C.edge, "stroke-width": done ? 3.5 : 2.5, "stroke-linecap": "round" }));
+    svgText(svg, (x1 + x2) / 2, (y1 + y2) / 2 - 7, String(w), { "font-size": 12, "font-weight": "800", fill: C.muted });
   }
   const fmt = (d) => (d === Infinity ? "∞" : String(d));
   paintGraphNodes(svg, WGRAPH.nodes,
-    (k) => (k === st.current ? C.compare : st.settled.includes(k) ? C.sorted : C.base),
+    (k) => (k === st.current ? C.base : st.settled.includes(k) ? C.sorted : "#FFFFFF"),
+    (k) => (k === st.current || st.settled.includes(k) ? "#FFFFFF" : C.text),
     (k) => `d=${fmt(st.dist[k])}${st.settled.includes(k) ? " ✓" : ""}`);
   return svg;
 }
@@ -335,23 +363,23 @@ function paintStep(algo, st) {
   return paintBars(st);
 }
 
-// ---------------------------------------------------------------- legends
+// ---------------------------------------------------------------- legends (Snow × Ember)
 const LEGENDS = {
-  bars: `<span class="legend-item"><span class="legend-color" style="background:#58a6ff"></span>value</span>
-         <span class="legend-item"><span class="legend-color" style="background:#f0883e"></span>compare</span>
-         <span class="legend-item"><span class="legend-color" style="background:#f85149"></span>swap/write</span>
-         <span class="legend-item"><span class="legend-color" style="background:#a371f7"></span>pivot/key</span>
-         <span class="legend-item"><span class="legend-color" style="background:#3fb950"></span>sorted</span>`,
-  binary: `<span class="legend-item"><span class="legend-color" style="background:#a371f7"></span>low/high</span>
-         <span class="legend-item"><span class="legend-color" style="background:#f0883e"></span>mid</span>
-         <span class="legend-item"><span class="legend-color" style="background:#3fb950"></span>found</span>
-         <span class="legend-item"><span class="legend-color" style="background:#21262d"></span>discarded</span>`,
-  graph: `<span class="legend-item"><span class="legend-color" style="background:#58a6ff"></span>unvisited</span>
-         <span class="legend-item"><span class="legend-color" style="background:#f0883e"></span>current</span>
-         <span class="legend-item"><span class="legend-color" style="background:#3fb950"></span>visited ✓#order</span>`,
-  dijkstra: `<span class="legend-item"><span class="legend-color" style="background:#58a6ff"></span>unsettled</span>
-         <span class="legend-item"><span class="legend-color" style="background:#f0883e"></span>current</span>
-         <span class="legend-item"><span class="legend-color" style="background:#3fb950"></span>settled ✓</span>`,
+  bars: `<span class="legend-item"><span class="legend-color" style="background:#FF7A1A"></span>value</span>
+         <span class="legend-item"><span class="legend-color" style="background:#1C1917"></span>compare</span>
+         <span class="legend-item"><span class="legend-color" style="background:#EF4444"></span>swap/write</span>
+         <span class="legend-item"><span class="legend-color" style="background:#7C3AED"></span>pivot/key</span>
+         <span class="legend-item"><span class="legend-color" style="background:#16A34A"></span>sorted</span>`,
+  binary: `<span class="legend-item"><span class="legend-color" style="background:#1C1917"></span>low/high</span>
+         <span class="legend-item"><span class="legend-color" style="background:#FF7A1A"></span>mid</span>
+         <span class="legend-item"><span class="legend-color" style="background:#16A34A"></span>found</span>
+         <span class="legend-item"><span class="legend-color" style="background:#EDE4D6"></span>discarded</span>`,
+  graph: `<span class="legend-item"><span class="legend-color" style="background:#fff;border:1px solid #E7DDD2"></span>unvisited</span>
+         <span class="legend-item"><span class="legend-color" style="background:#FF7A1A"></span>current</span>
+         <span class="legend-item"><span class="legend-color" style="background:#16A34A"></span>visited ✓#order</span>`,
+  dijkstra: `<span class="legend-item"><span class="legend-color" style="background:#fff;border:1px solid #E7DDD2"></span>unsettled</span>
+         <span class="legend-item"><span class="legend-color" style="background:#FF7A1A"></span>current</span>
+         <span class="legend-item"><span class="legend-color" style="background:#16A34A"></span>settled ✓</span>`,
 };
 
 // ------------------------------------------------------------------ public
@@ -361,9 +389,10 @@ export function renderVisualization(algo, _mode) {
   return { svg, legend: LEGENDS[algo.viz] || LEGENDS.bars };
 }
 
-export function animateAlgorithm(algo, container, stepInfo, onDone, stepMode = false, speed = 1) {
+export function animateAlgorithm(algo, container, stepInfo, onDone, stepMode = false, speed = 1, opts = {}) {
   const steps = buildSteps(algo);
-  let idx = 0, timer = null, delay = Math.max(60, 550 / speed);
+  let idx = 0, timer = null, delay = Math.max(40, 550 / speed);
+  let stepping = !!stepMode; // true = manually stepped / paused, false = auto-playing
 
   // Cumulative operation counters (comparisons + swaps/writes/probes per step).
   let runC = 0, runS = 0;
@@ -380,6 +409,7 @@ export function animateAlgorithm(algo, container, stepInfo, onDone, stepMode = f
     if (algo.viz === "bars") extra = ` · cmp ${statC[idx][0]} · writes ${statC[idx][1]}`;
     else if (algo.viz === "binary") extra = ` · probes ${statC[idx][0]}`;
     stepInfo.textContent = `Step ${idx + 1}/${steps.length}${extra} — ${steps[idx].msg}`;
+    if (opts.onStep) { try { opts.onStep(idx, steps.length, steps[idx]); } catch {} }
   }
   function finish() {
     stop();
@@ -388,22 +418,44 @@ export function animateAlgorithm(algo, container, stepInfo, onDone, stepMode = f
   function stop() {
     if (timer) { clearInterval(timer); timer = null; }
   }
+  function startTimer() {
+    stop();
+    timer = setInterval(advance, delay);
+  }
   function advance() {
     if (idx < steps.length - 1) { idx++; draw(); }
     if (idx >= steps.length - 1) finish();
   }
+  function pause() { stop(); stepping = true; }
+  function resume() {
+    if (idx >= steps.length - 1) { idx = 0; draw(); }
+    stepping = false;
+    startTimer();
+  }
 
   draw();
-  if (!stepMode) timer = setInterval(advance, delay);
+  if (!stepping) startTimer();
 
   return {
-    stop,
+    stop: () => { stop(); stepping = true; },
     step: advance,
+    back() { if (idx > 0) { idx--; draw(); } },
+    goto(i) {
+      idx = Math.max(0, Math.min(steps.length - 1, i | 0));
+      draw();
+      if (idx >= steps.length - 1) finish();
+    },
+    pause,
+    resume,
     setSpeed(s) {
-      delay = Math.max(60, 550 / s);
+      delay = Math.max(40, 550 / s);
       if (timer) { stop(); timer = setInterval(advance, delay); }
     },
-    isStepMode: stepMode,
+    idx: () => idx,
+    isPlaying: () => timer !== null,
+    stepsRef: () => steps,
+    get isStepMode() { return stepping && timer === null; },
+    set isStepMode(v) { stepping = !!v; },
     length: steps.length,
   };
 }

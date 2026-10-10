@@ -3,321 +3,1206 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DSA Visualization Engine</title>
+  <title>DSA Visualization Engine — Snow White × Ember Orange</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0d1117; color: #e6edf3; min-height: 100vh; }
-    .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
-    header { text-align: center; margin-bottom: 3rem; }
-    h1 { font-size: 2.5rem; font-weight: 700; background: linear-gradient(135deg, #58a6ff, #a371f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .subtitle { color: #8b949e; margin-top: 0.5rem; }
-    .panel { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 1rem 1.2rem; margin-bottom: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.7rem; align-items: flex-end; }
-    .panel label { font-size: 0.75rem; color: #8b949e; display: flex; flex-direction: column; gap: 0.3rem; font-weight: 600; }
-    .panel input, .panel select { background: #0d1117; color: #e6edf3; border: 1px solid #30363d; border-radius: 8px; padding: 0.5rem 0.7rem; font-size: 0.85rem; }
-    .panel input:focus, .panel select:focus { outline: none; border-color: #58a6ff; }
-    #arrInput { min-width: 280px; font-family: 'JetBrains Mono', monospace; }
-    .seg { display: flex; border: 1px solid #30363d; border-radius: 8px; overflow: hidden; }
-    .seg button { background: #0d1117; color: #8b949e; border: none; padding: 0.5rem 0.8rem; cursor: pointer; font-size: 0.8rem; font-weight: 600; }
-    .seg button.on { background: #1f6feb; color: #fff; }
-    .hint { width: 100%; font-size: 0.75rem; color: #8b949e; }
-    .hint b { color: #d2a8ff; font-family: 'JetBrains Mono', monospace; }
-    .algo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
-    .algo-card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 1.5rem; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; cursor: pointer; }
-    .algo-card:hover { transform: translateY(-4px); border-color: #58a6ff; box-shadow: 0 8px 32px rgba(88, 166, 255, 0.15); }
-    .algo-card.sorting { border-left: 4px solid #f78166; }
-    .algo-card.searching { border-left: 4px solid #7ee787; }
-    .algo-card.graph { border-left: 4px solid #a371f7; }
-    .algo-card.dp { border-left: 4px solid #d2a8ff; }
-    .algo-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
-    .algo-icon { width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
-    .algo-card.sorting .algo-icon { background: rgba(247, 129, 102, 0.2); color: #f78166; }
-    .algo-card.searching .algo-icon { background: rgba(126, 231, 135, 0.2); color: #7ee787; }
-    .algo-card.graph .algo-icon { background: rgba(163, 113, 247, 0.2); color: #a371f7; }
-    .algo-card.dp .algo-icon { background: rgba(210, 168, 255, 0.2); color: #d2a8ff; }
-    .algo-title { font-size: 1.1rem; font-weight: 600; }
-    .algo-meta { display: flex; gap: 1rem; font-size: 0.8rem; color: #8b949e; margin-bottom: 1rem; }
-    .algo-meta span { display: flex; align-items: center; gap: 0.3rem; }
-    .complexity { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; padding: 0.2rem 0.5rem; background: #21262d; border-radius: 4px; }
-    .viz-container { width: 100%; height: 200px; overflow: hidden; border-radius: 8px; background: #0d1117; position: relative; }
-    .viz-container svg { width: 100%; height: 100%; }
-    .legend { display: flex; gap: 1rem; justify-content: center; margin-top: 1rem; font-size: 0.7rem; }
-    .legend-item { display: flex; align-items: center; gap: 0.3rem; }
-    .legend-color { width: 12px; height: 12px; border-radius: 3px; }
-    .controls { display: flex; gap: 0.5rem; justify-content: center; margin-top: 1rem; }
-    .btn { padding: 0.4rem 0.8rem; font-size: 0.75rem; border: none; border-radius: 6px; cursor: pointer; transition: all 0.15s; font-weight: 500; }
-    .btn-primary { background: #238636; color: white; }
-    .btn-primary:hover { background: #2ea043; }
-    .btn-secondary { background: #30363d; color: #e6edf3; border: 1px solid #484f58; }
-    .btn-secondary:hover { background: #484f58; }
-    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-    .step-info { text-align: center; font-size: 0.75rem; color: #8b949e; margin-top: 0.5rem; min-height: 1.2rem; }
-    .modal { position: fixed; inset: 0; background: rgba(13, 17, 23, 0.95); backdrop-filter: blur(8px); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 2rem; }
-    .modal.active { display: flex; }
-    .modal-content { background: #161b22; border: 1px solid #30363d; border-radius: 16px; max-width: 900px; width: 100%; max-height: 90vh; overflow: auto; }
-    .modal-header { padding: 1.5rem; border-bottom: 1px solid #30363d; display: flex; justify-content: space-between; align-items: center; }
-    .modal-close { background: none; border: none; color: #8b949e; font-size: 1.5rem; cursor: pointer; padding: 0.5rem; line-height: 1; }
-    .modal-close:hover { color: #e6edf3; }
-    .modal-body { padding: 1.5rem; }
-    .modal-viz { height: 400px; background: #0d1117; border-radius: 8px; margin-bottom: 1.5rem; position: relative; }
-    .modal-viz svg { width: 100%; height: 100%; }
-    .explanation { line-height: 1.8; }
-    .explanation h3 { margin: 1.5rem 0 0.5rem; color: #58a6ff; }
-    .explanation p { color: #8b949e; margin-bottom: 1rem; }
-    .explanation code { background: #21262d; padding: 0.15rem 0.4rem; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 0.85em; }
-    .explanation pre { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 1rem; overflow-x: auto; margin: 1rem 0; }
-    .explanation pre code { background: none; padding: 0; }
-    .pseudo { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.6; color: #e6edf3; }
-    .pseudo .keyword { color: #ff7b72; }
-    .pseudo .function { color: #d2a8ff; }
-    .pseudo .comment { color: #8b949e; }
-    .pseudo .variable { color: #7ee787; }
-    .pseudo .number { color: #79c0ff; }
+    :root{
+      --snow:#FFFAFA;
+      --snow-2:#FFF5ED;
+      --snow-3:#FFFDFB;
+      --card:#FFFFFF;
+      --ink:#1C1917;
+      --ink-2:#44403C;
+      --muted:#8A8580;
+      --muted-2:#A8A29E;
+      --line:#F1E8DF;
+      --line-2:#E7DDD2;
+      --orange:#FF6B1A;
+      --orange-dark:#EA580C;
+      --orange-deep:#C2410C;
+      --orange-soft:#FFF0E3;
+      --orange-softer:#FFF7EF;
+      --orange-glow:rgba(255,107,26,.22);
+      --green:#16A34A;
+      --green-soft:#E7F7ED;
+      --red:#EF4444;
+      --red-soft:#FDECEC;
+      --purple:#7C3AED;
+      --purple-soft:#F1EAFE;
+      --blue:#0284C7;
+      --blue-soft:#E6F4FD;
+      --shadow-sm:0 1px 2px rgba(28,25,23,.06);
+      --shadow-md:0 8px 24px rgba(28,25,23,.08), 0 2px 8px rgba(255,107,26,.08);
+      --shadow-lg:0 20px 60px rgba(255,107,26,.18), 0 8px 24px rgba(28,25,23,.10);
+      --shadow-pop:0 12px 40px rgba(255,107,26,.28);
+      --r-sm:10px; --r-md:16px; --r-lg:22px; --r-xl:28px;
+      --font: 'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+      --mono:'JetBrains Mono','Cascadia Code',Consolas,Menlo,monospace;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:var(--font);
+      background:var(--snow);
+      color:var(--ink);
+      min-height:100vh;
+      -webkit-font-smoothing:antialiased;
+      overflow-x:hidden;
+    }
+    /* ambient blobs */
+    .ambient{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+    .blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55}
+    .blob.b1{width:560px;height:560px;background:radial-gradient(circle,#FFD6B3 0%,#FFF0E0 55%,transparent 70%);top:-180px;right:-120px}
+    .blob.b2{width:480px;height:480px;background:radial-gradient(circle,#FFE9D6 0%,#FFF7EF 60%,transparent 70%);bottom:-160px;left:-140px}
+    .blob.b3{width:320px;height:320px;background:radial-gradient(circle,#FFC79A 0%,transparent 70%);top:38%;left:44%;opacity:.28}
+    .grain{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+      background-image:radial-gradient(rgba(28,25,23,.06) 1px, transparent 1px);
+      background-size:22px 22px;
+      mask-image:linear-gradient(to bottom, black 0%, transparent 55%);
+    }
+
+    /* ---------- NAV ---------- */
+    .nav{
+      position:sticky;top:12px;z-index:50;
+      max-width:1340px;margin:12px auto 0;padding:10px 14px;
+      display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+      background:rgba(255,255,255,.82);
+      backdrop-filter:blur(18px) saturate(1.2);
+      -webkit-backdrop-filter:blur(18px) saturate(1.2);
+      border:1px solid var(--line);
+      border-radius:20px;
+      box-shadow:var(--shadow-md);
+    }
+    .brand{display:flex;align-items:center;gap:10px;margin-right:4px}
+    .logo{
+      width:40px;height:40px;border-radius:13px;
+      background:linear-gradient(135deg,var(--orange) 0%,#FF8E3D 55%,#FFB25E 100%);
+      display:flex;align-items:center;justify-content:center;
+      font-size:20px;color:#fff;font-weight:800;
+      box-shadow:0 6px 18px rgba(255,107,26,.4), inset 0 1px 0 rgba(255,255,255,.4);
+    }
+    .brand-text b{display:block;font-size:15px;letter-spacing:-.02em;line-height:1}
+    .brand-text span{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+    .theme-pill{
+      display:inline-flex;align-items:center;gap:6px;
+      font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+      background:var(--ink);color:#fff;padding:6px 10px;border-radius:999px;
+    }
+    .theme-pill i{width:8px;height:8px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 3px rgba(255,107,26,.3);display:inline-block}
+    .search-wrap{flex:1;min-width:200px;position:relative}
+    .search-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:.5}
+    #searchInput{
+      width:100%;padding:11px 14px 11px 38px;border-radius:12px;
+      border:1.5px solid var(--line);background:var(--snow-3);
+      font-size:14px;font-family:var(--font);color:var(--ink);
+      outline:none;transition:.2s;
+    }
+    #searchInput:focus{border-color:var(--orange);box-shadow:0 0 0 4px var(--orange-glow);background:#fff}
+    #searchInput::placeholder{color:var(--muted-2)}
+    .nav-stats{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .xp-pill{
+      display:flex;align-items:center;gap:8px;
+      background:var(--snow-2);border:1px solid var(--line);border-radius:999px;padding:6px 8px 6px 12px;
+      font-size:12px;font-weight:700;
+    }
+    .xp-ring{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--orange) var(--p,0%), #EDE6DD 0);padding:3px}
+    .xp-ring b{width:24px;height:24px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:10px}
+    .icon-btn{
+      width:38px;height:38px;border-radius:12px;border:1.5px solid var(--line);
+      background:#fff;display:grid;place-items:center;cursor:pointer;font-size:16px;
+      transition:.18s;color:var(--ink-2);
+    }
+    .icon-btn:hover{border-color:var(--orange);transform:translateY(-1px);box-shadow:var(--shadow-md)}
+    .icon-btn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+    .icon-btn.on{background:var(--orange-soft);border-color:var(--orange);color:var(--orange-deep)}
+
+    .container{max-width:1340px;margin:0 auto;padding:22px 18px 60px;position:relative;z-index:1}
+
+    /* ---------- HERO ---------- */
+    .hero{
+      display:grid;grid-template-columns:1.15fr .85fr;gap:18px;
+      margin:18px 0;
+    }
+    @media(max-width:960px){.hero{grid-template-columns:1fr}}
+    .hero-main{
+      background:linear-gradient(180deg,#FFFFFF 0%,#FFFBF6 100%);
+      border:1px solid var(--line);border-radius:var(--r-xl);
+      padding:28px 28px 24px;box-shadow:var(--shadow-md);
+      position:relative;overflow:hidden;
+    }
+    .hero-main::after{
+      content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;
+      background:radial-gradient(circle,rgba(255,107,26,.18) 0%,transparent 70%);
+      pointer-events:none;
+    }
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;
+      background:var(--orange-soft);border:1px solid #FFD9B8;color:var(--orange-deep);
+      font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+      padding:6px 12px;border-radius:999px;margin-bottom:14px;
+    }
+    .eyebrow .pulse{width:8px;height:8px;border-radius:50%;background:var(--orange);animation:pulse 1.8s infinite}
+    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,107,26,.5)}70%{box-shadow:0 0 0 8px rgba(255,107,26,0)}100%{box-shadow:0 0 0 0 rgba(255,107,26,0)}}
+    .hero-main h1{font-size:clamp(28px,4vw,44px);line-height:1.02;letter-spacing:-.04em;font-weight:800}
+    .hero-main h1 em{font-style:normal;background:linear-gradient(135deg,var(--orange) 10%,#FF8E3D 45%,#C2410C 90%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero-main p{color:var(--ink-2);font-size:15px;line-height:1.6;margin:12px 0 18px;max-width:520px}
+    .hero-cta{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .btn{
+      appearance:none;border:none;cursor:pointer;font-family:var(--font);
+      font-weight:700;font-size:13.5px;padding:12px 18px;border-radius:13px;
+      display:inline-flex;align-items:center;gap:8px;transition:.18s;
+    }
+    .btn-ember{background:linear-gradient(135deg,var(--orange),var(--orange-dark));color:#fff;box-shadow:0 8px 20px rgba(255,107,26,.35), inset 0 1px 0 rgba(255,255,255,.3)}
+    .btn-ember:hover{transform:translateY(-2px);box-shadow:var(--shadow-pop)}
+    .btn-ember:active{transform:translateY(0)}
+    .btn-ghost{background:#fff;border:1.5px solid var(--line-2);color:var(--ink)}
+    .btn-ghost:hover{border-color:var(--ink);transform:translateY(-1px)}
+    .btn-sm{padding:8px 12px;font-size:12.5px;border-radius:10px}
+    .btn:disabled{opacity:.45;cursor:not-allowed;transform:none!important}
+    .hero-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+    .chip{
+      display:inline-flex;align-items:center;gap:6px;
+      background:#fff;border:1px solid var(--line);border-radius:999px;
+      padding:7px 12px;font-size:12px;font-weight:600;color:var(--ink-2);box-shadow:var(--shadow-sm);
+    }
+    .chip b{font-family:var(--mono);background:var(--snow-2);padding:2px 7px;border-radius:6px;font-size:11px}
+    .hero-side{display:flex;flex-direction:column;gap:12px}
+    .mini-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:18px;box-shadow:var(--shadow-md)}
+    .mini-card h4{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+    .streak-row{display:flex;gap:6px;margin:8px 0 10px}
+    .streak-dot{flex:1;height:10px;border-radius:999px;background:#F3EDE6;border:1px solid var(--line)}
+    .streak-dot.fill{background:linear-gradient(90deg,var(--orange),#FF9A4D);border-color:#FFC79A;box-shadow:0 2px 8px rgba(255,107,26,.3)}
+    .tip-box{background:linear-gradient(135deg,#1C1917 0%,#292524 100%);color:#FFF7ED;border-radius:var(--r-md);padding:16px;position:relative;overflow:hidden}
+    .tip-box::after{content:"✦";position:absolute;right:12px;top:8px;font-size:28px;opacity:.18;color:var(--orange)}
+    .tip-box small{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#FFB68A;font-weight:800}
+    .tip-box p{font-size:13.5px;line-height:1.55;margin-top:6px;color:#E7E5E4}
+    .tip-box p b{color:#fff}
+    .kbd-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+    kbd{font-family:var(--mono);font-size:11px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:#fff;padding:3px 8px;border-radius:6px}
+
+    /* ---------- DOCK ---------- */
+    .dock{
+      background:rgba(255,255,255,.92);backdrop-filter:blur(14px);
+      border:1px solid var(--line);border-radius:var(--r-lg);
+      box-shadow:var(--shadow-md);padding:16px;
+      display:grid;grid-template-columns:1.2fr .8fr;gap:16px;
+      position:sticky;top:74px;z-index:40;
+    }
+    @media(max-width:960px){.dock{grid-template-columns:1fr;position:static}}
+    .dock h4{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+    .array-row{display:flex;gap:8px}
+    #arrInput{
+      flex:1;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line-2);
+      background:var(--snow-3);font-family:var(--mono);font-size:13px;color:var(--ink);outline:none;transition:.2s;min-width:0;
+    }
+    #arrInput:focus{border-color:var(--orange);box-shadow:0 0 0 4px var(--orange-glow);background:#fff}
+    .dock-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+    @media(max-width:640px){.dock-grid{grid-template-columns:repeat(2,1fr)}}
+    .field{background:var(--snow-2);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+    .field label{font-size:11px;font-weight:700;color:var(--muted);display:block;margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase}
+    .field input[type=number],.field select{
+      width:100%;border:1.5px solid var(--line-2);border-radius:9px;padding:8px 10px;
+      font-size:13px;font-family:var(--font);background:#fff;color:var(--ink);outline:none;
+    }
+    .field input[type=number]:focus,.field select:focus{border-color:var(--orange)}
+    input[type=range]{width:100%;accent-color:var(--orange);cursor:pointer}
+    .range-val{font-family:var(--mono);font-size:11px;background:#fff;border:1px solid var(--line);padding:1px 7px;border-radius:6px;color:var(--orange-deep);font-weight:700}
+    .seg{display:flex;background:#fff;border:1.5px solid var(--line-2);border-radius:10px;overflow:hidden}
+    .seg button{flex:1;background:transparent;border:none;padding:8px 6px;cursor:pointer;font-size:12px;font-weight:700;color:var(--muted);font-family:var(--font)}
+    .seg button.on{background:var(--ink);color:#fff}
+    .hint{
+      grid-column:1/-1;margin-top:4px;font-size:12.5px;color:var(--ink-2);
+      background:var(--orange-softer);border:1px dashed #FFC79A;border-radius:10px;padding:9px 12px;line-height:1.5;
+    }
+    .hint b{font-family:var(--mono);color:var(--orange-deep)}
+    .dock-actions{display:flex;flex-direction:column;gap:10px;justify-content:center}
+    .toggles{display:flex;gap:8px;flex-wrap:wrap}
+    .toggle-pill{
+      display:inline-flex;align-items:center;gap:7px;cursor:pointer;user-select:none;
+      background:#fff;border:1.5px solid var(--line-2);border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:700;transition:.18s;
+    }
+    .toggle-pill.on{border-color:var(--orange);background:var(--orange-soft);color:var(--orange-deep)}
+    .toggle-pill .dot2{width:8px;height:8px;border-radius:50%;background:#D6CFC6}
+    .toggle-pill.on .dot2{background:var(--orange);box-shadow:0 0 0 3px rgba(255,107,26,.2)}
+
+    /* ---------- FILTERS ---------- */
+    .toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:20px 2px 14px}
+    .pills{display:flex;gap:8px;flex-wrap:wrap;flex:1}
+    .pill{
+      border:1.5px solid var(--line-2);background:#fff;color:var(--ink-2);
+      padding:9px 16px;border-radius:999px;font-size:13px;font-weight:700;cursor:pointer;transition:.18s;font-family:var(--font);
+      display:inline-flex;align-items:center;gap:7px;
+    }
+    .pill:hover{transform:translateY(-1px);box-shadow:var(--shadow-sm)}
+    .pill.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+    .pill.active.orange{background:linear-gradient(135deg,var(--orange),var(--orange-dark));border-color:var(--orange-dark);color:#fff;box-shadow:0 6px 16px rgba(255,107,26,.35)}
+    .pill .count{font-family:var(--mono);font-size:11px;background:rgba(0,0,0,.08);padding:1px 7px;border-radius:999px}
+    .pill.active .count{background:rgba(255,255,255,.22)}
+    #resultCount{font-size:12.5px;color:var(--muted);font-weight:600}
+
+    /* ---------- GRID / CARDS ---------- */
+    .algo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:18px}
+    @media(max-width:480px){.algo-grid{grid-template-columns:1fr}}
+    .algo-card{
+      background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);
+      padding:18px;box-shadow:var(--shadow-sm);
+      transition:transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s, border-color .22s;
+      cursor:pointer;position:relative;overflow:hidden;
+      display:flex;flex-direction:column;
+    }
+    .algo-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--accent,var(--orange));opacity:.9}
+    .algo-card.sorting{--accent:linear-gradient(180deg,#FF6B1A,#FF9A4D)}
+    .algo-card.searching{--accent:linear-gradient(180deg,#16A34A,#4ADE80)}
+    .algo-card.graph{--accent:linear-gradient(180deg,#7C3AED,#A78BFA)}
+    .algo-card.dp{--accent:linear-gradient(180deg,#0284C7,#38BDF8)}
+    .algo-card::before{background:var(--accent)}
+    .algo-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:#FFC79A}
+    .algo-card.done{border-color:#BBF7D0;background:linear-gradient(180deg,#FFFFFF 0%,#F4FDF6 100%)}
+    .algo-card.playing{border-color:var(--orange);box-shadow:var(--shadow-pop)}
+    .card-top{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px}
+    .algo-icon{
+      width:46px;height:46px;border-radius:14px;flex-shrink:0;
+      display:grid;place-items:center;font-size:22px;
+      background:var(--orange-soft);border:1px solid #FFD9B8;
+      box-shadow:inset 0 1px 0 #fff;
+    }
+    .searching .algo-icon{background:var(--green-soft);border-color:#BBF7D0}
+    .graph .algo-icon{background:var(--purple-soft);border-color:#DDD6FE}
+    .card-title-wrap{flex:1;min-width:0}
+    .card-title{font-size:15.5px;font-weight:800;letter-spacing:-.02em;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .done-badge{
+      display:none;align-items:center;gap:4px;font-size:10.5px;font-weight:800;letter-spacing:.04em;
+      background:var(--green);color:#fff;padding:3px 9px;border-radius:999px;text-transform:uppercase;
+    }
+    .algo-card.done .done-badge{display:inline-flex}
+    .card-sub{font-size:12.5px;color:var(--muted);margin-top:3px;line-height:1.45}
+    .fav-btn{
+      width:32px;height:32px;border-radius:10px;border:1.5px solid var(--line-2);background:#fff;
+      cursor:pointer;font-size:15px;display:grid;place-items:center;transition:.18s;flex-shrink:0;
+    }
+    .fav-btn:hover{transform:scale(1.1)}
+    .fav-btn.fav{background:#FFF7ED;border-color:var(--orange);box-shadow:0 2px 10px rgba(255,107,26,.25)}
+    .meta-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+    .cx{font-family:var(--mono);font-size:11px;padding:4px 9px;border-radius:8px;background:var(--snow-2);border:1px solid var(--line);color:var(--ink-2);font-weight:600}
+    .cx b{color:var(--orange-deep)}
+    .viz-wrap{background:var(--snow-3);border:1px solid var(--line);border-radius:14px;padding:10px;position:relative;overflow:hidden}
+    .viz-wrap::before{
+      content:"";position:absolute;inset:0;pointer-events:none;opacity:.7;
+      background-image:radial-gradient(#EDE3D6 1px, transparent 1px);background-size:16px 16px;
+      mask-image:linear-gradient(to bottom, black, transparent 85%);
+    }
+    .viz-container{width:100%;height:190px;overflow:hidden;border-radius:10px;position:relative;background:transparent}
+    .viz-container svg{width:100%;height:100%;display:block}
+    .scrub-row{display:flex;align-items:center;gap:10px;margin-top:8px;position:relative}
+    .scrub-row input{flex:1}
+    .scrub-label{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--ink-2);white-space:nowrap;background:#fff;border:1px solid var(--line);padding:2px 8px;border-radius:7px;min-width:74px;text-align:center}
+    .stat-strip{display:flex;gap:8px;margin:10px 0}
+    .mini-stat{flex:1;background:var(--snow-2);border:1px solid var(--line);border-radius:10px;padding:7px 6px;text-align:center}
+    .mini-stat b{display:block;font-family:var(--mono);font-size:14px}
+    .mini-stat span{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+    .legend{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;font-size:11px;color:var(--muted);font-weight:600;margin:2px 0 10px}
+    .legend-item{display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid var(--line);padding:3px 9px 3px 6px;border-radius:999px}
+    .legend-color{width:12px;height:12px;border-radius:4px;display:inline-block}
+    .controls{display:flex;gap:7px;margin-top:auto}
+    .cbtn{
+      flex:1;padding:10px 6px;border-radius:11px;font-size:12.5px;font-weight:700;cursor:pointer;
+      border:1.5px solid var(--line-2);background:#fff;color:var(--ink);transition:.16s;font-family:var(--font);
+      display:inline-flex;align-items:center;justify-content:center;gap:6px;
+    }
+    .cbtn:hover:not(:disabled){transform:translateY(-1px);box-shadow:var(--shadow-sm)}
+    .cbtn-play{background:linear-gradient(135deg,var(--orange),var(--orange-dark));color:#fff;border-color:var(--orange-dark);box-shadow:0 4px 14px rgba(255,107,26,.3)}
+    .cbtn-play.pause{background:var(--ink);border-color:var(--ink);box-shadow:none}
+    .cbtn:disabled{opacity:.4;cursor:not-allowed}
+    .step-info{text-align:center;font-size:12px;color:var(--ink-2);margin-top:9px;min-height:34px;line-height:1.5;background:#fff;border:1px solid var(--line);border-radius:10px;padding:6px 10px}
+    .step-info:empty{display:none}
+    .progress-track{height:6px;background:#F3EDE6;border-radius:999px;margin-top:10px;overflow:hidden;position:relative}
+    .progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--orange),#FF9A4D);border-radius:999px;transition:width .25s;box-shadow:0 0 8px rgba(255,107,26,.5)}
+    .xp-float{
+      position:absolute;right:14px;top:14px;
+      font-size:11px;font-weight:800;background:var(--ink);color:#FFB68A;
+      padding:4px 10px;border-radius:999px;opacity:0;transform:translateY(-6px);transition:.3s;pointer-events:none;
+    }
+    .xp-float.show{opacity:1;transform:translateY(0)}
+    .expand-hint{position:absolute;bottom:10px;right:12px;font-size:11px;font-weight:700;color:var(--muted);background:rgba(255,255,255,.9);border:1px solid var(--line);padding:3px 9px;border-radius:999px;pointer-events:none}
+
+    /* ---------- MODAL ---------- */
+    .modal{position:fixed;inset:0;background:rgba(28,25,23,.45);backdrop-filter:blur(10px);z-index:1000;display:none;align-items:center;justify-content:center;padding:18px}
+    .modal.active{display:flex;animation:fadeIn .25s}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    .modal-content{
+      background:var(--snow);border:1px solid var(--line);border-radius:24px;
+      max-width:980px;width:100%;max-height:92vh;overflow:auto;box-shadow:var(--shadow-lg);
+      animation:popIn .3s cubic-bezier(.2,.9,.3,1.2);
+    }
+    @keyframes popIn{from{transform:scale(.96) translateY(12px);opacity:0}to{transform:none;opacity:1}}
+    .modal-header{padding:20px 22px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-start;gap:12px;position:sticky;top:0;background:rgba(255,250,250,.92);backdrop-filter:blur(12px);z-index:2;border-radius:24px 24px 0 0}
+    .modal-header h2{font-size:20px;letter-spacing:-.02em}
+    .modal-header p{font-size:13px;color:var(--muted);margin-top:4px}
+    .modal-close{background:#fff;border:1.5px solid var(--line-2);color:var(--ink-2);font-size:18px;cursor:pointer;width:38px;height:38px;border-radius:12px;line-height:1;transition:.18s;flex-shrink:0}
+    .modal-close:hover{background:var(--ink);color:#fff;border-color:var(--ink);transform:rotate(90deg)}
+    .modal-body{padding:20px 22px 26px}
+    .modal-viz{background:#fff;border:1px solid var(--line);border-radius:16px;margin-bottom:14px;position:relative;overflow:hidden;min-height:320px}
+    .modal-viz::before{content:"";position:absolute;inset:0;background-image:radial-gradient(#EDE3D6 1px, transparent 1px);background-size:18px 18px;opacity:.6;pointer-events:none}
+    .modal-viz svg{width:100%;height:100%;display:block;position:relative}
+    #modalViz{height:360px;position:relative}
+    .timeline{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:12px}
+    .timeline input{flex:1}
+    .timeline b{font-family:var(--mono);font-size:12px;white-space:nowrap}
+    .modal-controls-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:10px}
+    .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+    @media(max-width:640px){.stat-grid{grid-template-columns:repeat(2,1fr)}}
+    .stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center}
+    .stat b{display:block;font-size:20px;font-family:var(--mono);letter-spacing:-.02em}
+    .stat span{font-size:10.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+    .stat.hl{border-color:var(--orange);background:var(--orange-softer)}
+    .stat.hl b{color:var(--orange-deep)}
+    .quiz{
+      background:linear-gradient(135deg,#FFF7ED 0%,#FFEDD5 100%);
+      border:1.5px dashed #FDBA74;border-radius:16px;padding:16px;margin:14px 0;
+    }
+    .quiz h4{font-size:13px;display:flex;align-items:center;gap:8px}
+    .quiz p{font-size:13px;color:var(--ink-2);margin:8px 0 12px;line-height:1.55}
+    .quiz-btns{display:flex;gap:8px;flex-wrap:wrap}
+    .quiz-score{font-size:12px;font-weight:700;color:var(--orange-deep);margin-top:10px}
+    .explanation{line-height:1.75;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin-top:12px}
+    .explanation h3{margin:16px 0 6px;color:var(--orange-deep);font-size:14px;letter-spacing:-.01em}
+    .explanation h3:first-child{margin-top:0}
+    .explanation p{color:var(--ink-2);margin-bottom:10px;font-size:13.5px}
+    .explanation code{background:var(--snow-2);border:1px solid var(--line);padding:1px 6px;border-radius:6px;font-family:var(--mono);font-size:12px;color:var(--orange-deep)}
+    .explanation pre{background:#1C1917;color:#E7E5E4;border-radius:12px;padding:14px;overflow-x:auto;margin:10px 0;font-size:12.5px;line-height:1.7}
+    .explanation pre code{background:none;border:none;color:inherit;padding:0}
+    .code-bar{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+
+    /* toast + confetti */
+    #toasts{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:2000;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none}
+    .toast{
+      background:var(--ink);color:#fff;font-size:13px;font-weight:600;
+      padding:11px 18px;border-radius:999px;box-shadow:var(--shadow-lg);
+      display:flex;align-items:center;gap:8px;animation:toastIn .3s cubic-bezier(.2,.9,.3,1.2);
+      max-width:90vw;
+    }
+    .toast.orange{background:linear-gradient(135deg,var(--orange),var(--orange-dark))}
+    .toast.green{background:var(--green)}
+    @keyframes toastIn{from{transform:translateY(16px);opacity:0}to{transform:none;opacity:1}}
+    #confetti{position:fixed;inset:0;pointer-events:none;z-index:1500}
+    footer{text-align:center;color:var(--muted);font-size:12.5px;margin-top:28px;line-height:1.7}
+    footer b{color:var(--orange-deep)}
+    ::selection{background:var(--orange);color:#fff}
+    ::-webkit-scrollbar{width:10px;height:10px}
+    ::-webkit-scrollbar-thumb{background:#E7DDD2;border-radius:999px;border:2px solid var(--snow)}
+    ::-webkit-scrollbar-thumb:hover{background:var(--orange)}
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>DSA Visualization Engine</h1>
-      <p class="subtitle">Interactive visualizations of fundamental algorithms & data structures</p>
-    </header>
-    <div class="panel">
-      <label>Custom array (comma / space separated, 3–30 numbers)
-        <input id="arrInput" placeholder="e.g. 52, 18, 84, 33, 71, 9, 95, 44">
-      </label>
-      <div style="display:flex;gap:0.5rem;">
-        <button class="btn btn-primary" id="applyBtn">Apply</button>
-        <button class="btn btn-secondary" id="randomBtn">🎲 Random (random length)</button>
-      </div>
-      <label>Binary target
-        <input id="targetInput" type="number" value="23" style="width:90px;">
-      </label>
-      <label>Graph start node
-        <select id="startSelect">
-          <option>A</option><option>B</option><option>C</option>
-          <option>D</option><option>E</option><option>F</option>
-        </select>
-      </label>
-      <label>Speed
-        <span class="seg" id="speedSeg">
-          <button data-s="0.5">0.5x</button><button data-s="1" class="on">1x</button><button data-s="2">2x</button>
-        </span>
-      </label>
-      <div class="hint" id="dataHint"></div>
+  <div class="ambient"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+  <div class="grain"></div>
+  <canvas id="confetti"></canvas>
+
+  <nav class="nav">
+    <div class="brand">
+      <div class="logo">⬢</div>
+      <div class="brand-text"><b>DSA Engine</b><span>Snow × Ember</span></div>
     </div>
+    <div class="theme-pill"><i></i> Snow White + Orange</div>
+    <div class="search-wrap">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A8580" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input id="searchInput" placeholder="Search algorithms…  try “quick”, “graph”, “log n”">
+    </div>
+    <div class="nav-stats">
+      <div class="xp-pill" title="Exploration progress">
+        <div class="xp-ring" id="xpRing" style="--p:0%"><b id="xpPct">0%</b></div>
+        <span id="xpText">0 / 10 explored · 0 XP</span>
+      </div>
+      <button class="icon-btn" id="soundBtn" title="Toggle sound (S)">🔊</button>
+      <button class="icon-btn" id="resetProgressBtn" title="Reset progress">↺</button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <section class="hero">
+      <div class="hero-main">
+        <div class="eyebrow"><span class="pulse"></span> Interactive · Playful · Hands-on</div>
+        <h1>Visualize. <em>Interact.</em> Master.</h1>
+        <p>Don’t just read algorithms — <b>play</b> them. Scrub the timeline, remix the array, race the sorters, quiz yourself, and earn XP as you explore all 10 visualizations.</p>
+        <div class="hero-cta">
+          <button class="btn btn-ember" id="playAllBtn">▶ Play all</button>
+          <button class="btn btn-ghost" id="shuffleBtn">🔀 Shuffle &amp; remix</button>
+          <button class="btn btn-ghost" id="surpriseBtn">✨ Surprise me</button>
+        </div>
+        <div class="hero-chips">
+          <span class="chip">🧩 <b>10</b> algorithms</span>
+          <span class="chip">📦 <b>4</b> categories</span>
+          <span class="chip">⌨️ press <b>Space</b> to play · <b>← →</b> to step</span>
+          <span class="chip">🏆 <b id="chipXP">0 XP</b> earned</span>
+        </div>
+      </div>
+      <div class="hero-side">
+        <div class="mini-card">
+          <h4>🔥 Exploration streak</h4>
+          <div style="font-size:13px;font-weight:700" id="streakLabel">0 of 10 algorithms explored</div>
+          <div class="streak-row" id="streakRow"></div>
+          <div style="font-size:12px;color:var(--muted)" id="streakHint">Complete a full play-through to light up a dot. +10 XP each.</div>
+        </div>
+        <div class="tip-box">
+          <small>💡 Pro tip · interactive learning</small>
+          <p id="tipText">Click any card to open <b>Focus Mode</b> — scrub frame-by-frame, toggle the <b>quiz</b>, and copy the pseudocode.</p>
+          <div class="kbd-row"><kbd>Space</kbd><kbd>←</kbd><kbd>→</kbd><kbd>F</kbd><kbd>S</kbd><kbd>?</kbd></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="dock">
+      <div>
+        <h4>🧪 Your dataset — remix it, own it</h4>
+        <div class="array-row">
+          <input id="arrInput" placeholder="e.g. 52, 18, 84, 33, 71, 9, 95, 44">
+          <button class="btn btn-ember btn-sm" id="applyBtn">Apply</button>
+          <button class="btn btn-ghost btn-sm" id="randomBtn">🎲 Random</button>
+        </div>
+        <div class="dock-grid">
+          <div class="field"><label>Array size · <span class="range-val" id="sizeVal">8</span></label><input type="range" id="sizeSlider" min="3" max="30" value="8"></div>
+          <div class="field"><label>Binary target</label><input id="targetInput" type="number" value="23"></div>
+          <div class="field"><label>Graph start node</label>
+            <select id="startSelect"><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+          </div>
+          <div class="field"><label>Speed · <span class="range-val" id="speedVal">1x</span></label>
+            <span class="seg" id="speedSeg"><button data-s="0.5">0.5x</button><button data-s="1" class="on">1x</button><button data-s="2">2x</button><button data-s="4">4x</button></span>
+          </div>
+        </div>
+        <div class="hint" id="dataHint"></div>
+      </div>
+      <div class="dock-actions">
+        <h4>✨ Engagement lab</h4>
+        <div class="toggles">
+          <div class="toggle-pill on" id="soundToggle"><span class="dot2"></span>🔊 Sound <span style="opacity:.6">S</span></div>
+          <div class="toggle-pill on" id="confettiToggle"><span class="dot2"></span>🎉 Confetti</div>
+          <div class="toggle-pill on" id="quizToggle"><span class="dot2"></span>🧠 Quiz prompts</div>
+          <div class="toggle-pill" id="raceToggle"><span class="dot2"></span>🏁 Race mode</div>
+        </div>
+        <div style="font-size:12.5px;color:var(--muted);line-height:1.6;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px">
+          <b style="color:var(--ink)">Race mode:</b> plays every sorting card at once so you can <i>see</i> who finishes first. Quiz mode pauses mid-play and asks you to predict the next move.
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-ghost btn-sm" id="resetBtn" style="flex:1;justify-content:center">⟲ Reset all visuals</button>
+          <button class="btn btn-ghost btn-sm" id="copyLinkBtn" style="flex:1;justify-content:center">🔗 Copy setup</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="toolbar">
+      <div class="pills" id="pills">
+        <button class="pill active orange" data-cat="all">✦ All <span class="count" id="cAll">10</span></button>
+        <button class="pill" data-cat="sorting">🔥 Sorting <span class="count" id="cSort">6</span></button>
+        <button class="pill" data-cat="searching">🔍 Searching <span class="count">1</span></button>
+        <button class="pill" data-cat="graph">🕸️ Graph <span class="count">3</span></button>
+        <button class="pill" data-cat="fav">⭐ Favorites <span class="count" id="cFav">0</span></button>
+      </div>
+      <span id="resultCount"></span>
+    </div>
+
     <div class="algo-grid" id="algoGrid"></div>
+    <footer>DSA Visualization Engine · <b>Snow White × Ember Orange</b> edition · offline-first · SVG + vanilla JS<br>Tip: hover any bar for its value · drag the timeline slider · press <b>?</b> for shortcuts</footer>
   </div>
 
   <div class="modal" id="modal">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 id="modalTitle"></h2>
-        <button class="modal-close" id="modalClose">&times;</button>
+        <div><h2 id="modalTitle"></h2><p id="modalSub"></p></div>
+        <button class="modal-close" id="modalClose" title="Close (Esc)">✕</button>
       </div>
       <div class="modal-body">
         <div class="modal-viz" id="modalViz"></div>
-        <div class="controls" id="modalControls"></div>
-        <div class="step-info" id="modalStepInfo"></div>
+        <div class="timeline">
+          <span style="font-size:12px;font-weight:800">◷</span>
+          <input type="range" id="modalScrub" min="0" max="100" value="0">
+          <b id="modalCounter">0 / 0</b>
+        </div>
+        <div class="modal-controls-row" id="modalControls"></div>
+        <div class="step-info" id="modalStepInfo" style="min-height:40px"></div>
+        <div class="stat-grid">
+          <div class="stat hl"><b id="mStep">0</b><span>current step</span></div>
+          <div class="stat"><b id="mCmp">0</b><span>comparisons</span></div>
+          <div class="stat"><b id="mWrites">0</b><span>swaps / writes</span></div>
+          <div class="stat"><b id="mLeft">0</b><span>steps left</span></div>
+        </div>
+        <div class="quiz" id="quizBox">
+          <h4>🧠 Predict the next move <span style="font-weight:600;color:var(--muted)">· quiz mode</span></h4>
+          <p id="quizQ">Play a few steps, then lock in a prediction — does the <b>very next step</b> perform a swap / write?</p>
+          <div class="quiz-btns">
+            <button class="btn btn-ember btn-sm" id="quizYes">Yes, it swaps ✦</button>
+            <button class="btn btn-ghost btn-sm" id="quizNo">No swap</button>
+            <button class="btn btn-ghost btn-sm" id="quizReveal">👁 Reveal next step</button>
+          </div>
+          <div class="quiz-score" id="quizScore">Quiz score: 0 / 0 · streak 🔥 0</div>
+        </div>
         <div class="explanation" id="modalExplanation"></div>
+        <div class="code-bar">
+          <button class="btn btn-ghost btn-sm" id="copyCodeBtn">📋 Copy pseudocode</button>
+          <button class="btn btn-ghost btn-sm" id="copyLinkBtn2">🔗 Copy share link</button>
+        </div>
       </div>
     </div>
   </div>
 
+  <div id="toasts"></div>
+
   <script type="module">
     import { algorithms } from './algorithms.js';
-    import { renderVisualization, animateAlgorithm, configure } from './renderer.js';
+    import { renderVisualization, animateAlgorithm, configure, buildSteps } from './renderer.js';
 
-    const grid = document.getElementById('algoGrid');
-    const modal = document.getElementById('modal');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalViz = document.getElementById('modalViz');
-    const modalControls = document.getElementById('modalControls');
-    const modalStepInfo = document.getElementById('modalStepInfo');
-    const modalExplanation = document.getElementById('modalExplanation');
-    const modalClose = document.getElementById('modalClose');
+    const $ = (id) => document.getElementById(id);
+    const grid = $('algoGrid'), modal = $('modal');
+    const modalTitle = $('modalTitle'), modalSub = $('modalSub'), modalViz = $('modalViz');
+    const modalStepInfo = $('modalStepInfo'), modalExplanation = $('modalExplanation');
+    const modalScrub = $('modalScrub'), modalCounter = $('modalCounter');
 
-    let currentAnimation = null;
-    const state = { speed: 1 };
+    const state = {
+      speed: 1, sound: true, confetti: true, quiz: true, race: false,
+      query: '', cat: 'all',
+      progress: new Set(JSON.parse(localStorage.getItem('dsa-progress-v2') || '[]')),
+      favs: new Set(JSON.parse(localStorage.getItem('dsa-favs-v2') || '[]')),
+      xp: parseInt(localStorage.getItem('dsa-xp-v2') || '0', 10),
+      quizRight: 0, quizTotal: 0, quizStreak: 0,
+    };
+    const cardAnims = new Map(); // algoId -> anim handle
+    let modalAnim = null, modalAlgo = null, currentQuizProbe = null;
 
-    const arrInput = document.getElementById('arrInput');
-    const applyBtn = document.getElementById('applyBtn');
-    const randomBtn = document.getElementById('randomBtn');
-    const targetInput = document.getElementById('targetInput');
-    const startSelect = document.getElementById('startSelect');
-    const dataHint = document.getElementById('dataHint');
+    const save = () => {
+      localStorage.setItem('dsa-progress-v2', JSON.stringify([...state.progress]));
+      localStorage.setItem('dsa-favs-v2', JSON.stringify([...state.favs]));
+      localStorage.setItem('dsa-xp-v2', String(state.xp));
+    };
 
+    /* ---------------- sound (tiny WebAudio synth, no assets) ---------------- */
+    let audioCtx = null;
+    function beep(value = 50, max = 100) {
+      if (!state.sound) return;
+      try {
+        audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+        const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+        const f = 220 + (Math.min(value, max) / Math.max(max, 1)) * 620;
+        o.type = 'sine'; o.frequency.value = f;
+        g.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.12, audioCtx.currentTime + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.16);
+        o.connect(g); g.connect(audioCtx.destination);
+        o.start(); o.stop(audioCtx.currentTime + 0.18);
+      } catch {}
+    }
+    function fanfare() {
+      if (!state.sound) return;
+      [523, 659, 784, 1046].forEach((f, i) => setTimeout(() => {
+        try {
+          audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+          const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+          o.type = 'triangle'; o.frequency.value = f;
+          g.gain.setValueAtTime(0.001, audioCtx.currentTime);
+          g.gain.exponentialRampToValueAtTime(0.15, audioCtx.currentTime + 0.03);
+          g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.28);
+          o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime + 0.3);
+        } catch {}
+      }, i * 110));
+    }
+
+    /* ---------------- confetti (dependency-free) ---------------- */
+    const cCanvas = $('confetti'), ctx2d = cCanvas.getContext('2d');
+    let particles = [];
+    function sizeConfetti() { cCanvas.width = innerWidth; cCanvas.height = innerHeight; }
+    sizeConfetti(); addEventListener('resize', sizeConfetti);
+    function burst(x = innerWidth / 2, y = innerHeight * 0.35, n = 130) {
+      if (!state.confetti) return;
+      const colors = ['#FF6B1A', '#FF9A4D', '#FFC79A', '#1C1917', '#16A34A', '#7C3AED', '#FFD6B3'];
+      for (let i = 0; i < n; i++) {
+        particles.push({
+          x, y,
+          vx: (Math.random() - .5) * 13, vy: Math.random() * -10 - 2,
+          s: Math.random() * 7 + 3, r: Math.random() * Math.PI,
+          vr: (Math.random() - .5) * .3,
+          c: colors[Math.floor(Math.random() * colors.length)],
+          life: 1,
+        });
+      }
+      if (!burst.raf) tickConfetti();
+    }
+    function tickConfetti() {
+      burst.raf = requestAnimationFrame(() => {
+        ctx2d.clearRect(0, 0, cCanvas.width, cCanvas.height);
+        particles = particles.filter(p => p.life > 0 && p.y < cCanvas.height + 30);
+        for (const p of particles) {
+          p.vy += .32; p.x += p.vx; p.y += p.vy; p.r += p.vr; p.life -= .008;
+          ctx2d.save(); ctx2d.translate(p.x, p.y); ctx2d.rotate(p.r);
+          ctx2d.globalAlpha = Math.max(p.life, 0);
+          ctx2d.fillStyle = p.c; ctx2d.fillRect(-p.s / 2, -p.s / 2, p.s, p.s * .62);
+          ctx2d.restore();
+        }
+        if (particles.length) tickConfetti();
+        else { burst.raf = null; ctx2d.clearRect(0, 0, cCanvas.width, cCanvas.height); }
+      });
+    }
+
+    function toast(msg, kind = '') {
+      const t = document.createElement('div');
+      t.className = 'toast ' + kind; t.innerHTML = msg;
+      $('toasts').appendChild(t);
+      setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateY(8px)'; setTimeout(() => t.remove(), 350); }, 2600);
+    }
+
+    /* ---------------- helpers ---------------- */
+    const arrInput = $('arrInput'), targetInput = $('targetInput'), startSelect = $('startSelect');
     function parseArrayInput(str) {
       return str.split(/[,;\s]+/).filter(s => s.length).map(Number)
         .filter(n => Number.isFinite(n)).map(n => Math.min(999, Math.max(1, Math.round(n))));
     }
-    function refreshAll() {
-      if (currentAnimation) { currentAnimation.stop(); currentAnimation = null; }
-      modal.classList.remove('active');
-      const parsed = parseArrayInput(arrInput.value);
-      const arr = parsed.length ? parsed.slice(0, 30) : null;
-      configure({ array: arr, target: Number(targetInput.value), start: startSelect.value });
-      algorithms.forEach(algo => {
-        const box = document.getElementById(`viz-${algo.id}`);
-        if (!box) return;
-        box.innerHTML = '';
-        box.appendChild(renderVisualization(algo, 'initial').svg);
-        const s = document.getElementById(`step-${algo.id}`);
-        if (s) s.textContent = '';
-      });
-      const arrNote = arr ? `[${arr.join(', ')}] (n=${arr.length})` : 'demo array';
-      const sorted = arr ? [...arr].sort((a, b) => a - b) : null;
-      dataHint.innerHTML = `Array: <b>${arrNote}</b> · Binary target <b>${targetInput.value}</b>` +
-        (sorted ? ` (auto-sorted: <b>[${sorted.join(', ')}]</b>)` : '') +
-        ` · Graph start <b>${startSelect.value}</b>`;
+    function randomArray(n) {
+      return Array.from({ length: n }, () => 5 + Math.floor(Math.random() * 95));
     }
-    applyBtn.onclick = () => {
+    function currentArray() {
       const parsed = parseArrayInput(arrInput.value);
-      if (arrInput.value.trim() && parsed.length < 3) {
-        dataHint.innerHTML = `<b>Need at least 3 valid numbers</b> — keeping previous data.`;
-        return;
-      }
-      if (parsed.length > 30) arrInput.value = parsed.slice(0, 30).join(', ');
-      refreshAll();
-    };
-    randomBtn.onclick = () => {
-      const len = 5 + Math.floor(Math.random() * 16); // random length 5..20
-      const gen = Array.from({ length: len }, () => 5 + Math.floor(Math.random() * 95));
-      arrInput.value = gen.join(', ');
-      refreshAll();
-    };
-    targetInput.onchange = refreshAll;
-    startSelect.onchange = refreshAll;
-    document.getElementById('speedSeg').querySelectorAll('button').forEach(b => {
-      b.onclick = () => {
-        document.getElementById('speedSeg').querySelectorAll('button').forEach(x => x.classList.remove('on'));
-        b.classList.add('on');
-        state.speed = parseFloat(b.dataset.s);
-      };
-    });
-
-    algorithms.forEach(algo => {
-      const card = document.createElement('div');
-      card.className = `algo-card ${algo.category}`;
-      card.innerHTML = `
-        <div class="algo-header">
-          <div class="algo-icon">${algo.icon}</div>
-          <div class="algo-title">${algo.name}</div>
-        </div>
-        <div class="algo-meta">
-          <span>Time: <code class="complexity">${algo.timeComplexity}</code></span>
-          <span>Space: <code class="complexity">${algo.spaceComplexity}</code></span>
-        </div>
-        <div class="viz-container" id="viz-${algo.id}"></div>
-        <div class="legend" id="legend-${algo.id}"></div>
-        <div class="controls">
-          <button class="btn btn-primary" data-action="play">Play</button>
-          <button class="btn btn-secondary" data-action="step">Step</button>
-          <button class="btn btn-secondary" data-action="reset">Reset</button>
-        </div>
-        <div class="step-info" id="step-${algo.id}"></div>
-      `;
-      card.addEventListener('click', (e) => {
-        if (!e.target.matches('button')) openModal(algo);
+      return parsed.length ? parsed.slice(0, 30) : null;
+    }
+    function statsOf(algo) {
+      const steps = buildSteps(algo);
+      let cmp = 0, wr = 0;
+      steps.forEach(s => {
+        if ((s.compare && s.compare.length) || (s.mid !== undefined && s.mid >= 0)) cmp++;
+        if (s.swap && s.swap.length) wr++;
       });
-      card.querySelectorAll('button').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          handleCardAction(algo, btn.dataset.action, card);
+      return { n: steps.length, cmp, wr };
+    }
+
+    function updateProgressUI() {
+      const total = algorithms.length;
+      const done = state.progress.size;
+      const pct = Math.round(done / total * 100);
+      $('xpRing').style.setProperty('--p', pct + '%');
+      $('xpPct').textContent = pct + '%';
+      $('xpText').textContent = `${done} / ${total} explored · ${state.xp} XP`;
+      $('chipXP').textContent = `${state.xp} XP`;
+      $('streakLabel').textContent = `${done} of ${total} algorithms explored`;
+      $('cFav').textContent = state.favs.size;
+      const row = $('streakRow'); row.innerHTML = '';
+      algorithms.forEach(a => {
+        const d = document.createElement('div');
+        d.className = 'streak-dot' + (state.progress.has(a.id) ? ' fill' : '');
+        d.title = a.name + (state.progress.has(a.id) ? ' ✓' : '');
+        row.appendChild(d);
+      });
+      if (done === total && total > 0) $('streakHint').innerHTML = '🏆 <b>All clear!</b> You explored every algorithm. Legendary.';
+    }
+
+    function markComplete(algoId, sourceEl) {
+      if (state.progress.has(algoId)) return;
+      state.progress.add(algoId);
+      state.xp += 10; save(); updateProgressUI();
+      document.querySelectorAll(`[data-card="${algoId}"]`).forEach(c => c.classList.add('done'));
+      const f = sourceEl?.querySelector?.('.xp-float') || document.querySelector(`[data-card="${algoId}"] .xp-float`);
+      if (f) { f.textContent = '+10 XP 🎉'; f.classList.add('show'); setTimeout(() => f.classList.remove('show'), 1800); }
+      toast(`🏆 <b>${algoId}</b> explored · +10 XP`, 'orange');
+      fanfare();
+      const r = sourceEl?.getBoundingClientRect?.();
+      burst(r ? r.left + r.width / 2 : innerWidth / 2, r ? r.top + 80 : innerHeight * .4, 110);
+    }
+
+    /* ---------------- card rendering ---------------- */
+    const BLURBS = {
+      bubble: 'Adjacent swaps bubble the max home. Mesmerizing & simple.',
+      selection: 'Hunts the minimum, locks it in. Few swaps, steady rhythm.',
+      insertion: 'Like sorting playing cards. Deadly on nearly-sorted data.',
+      merge: 'Divide, conquer, merge. The guaranteed n·log·n machine.',
+      quick: 'Pivot, partition, recurse. The speed demon of practice.',
+      heap: 'Max-heap extraction loop. Guaranteed fast, in-place.',
+      binary: 'Halve the search space every probe. 20 steps ≈ 1M items.',
+      bfs: 'Ripple outward level by level. Shortest hops guaranteed.',
+      dfs: 'Dive deep, backtrack. The maze-solver’s instinct.',
+      dijkstra: 'Cheapest path first. How maps beat traffic.',
+    };
+
+    function buildCards() {
+      grid.innerHTML = ''; cardAnims.clear();
+      algorithms.forEach(algo => {
+        const st = statsOf(algo);
+        const card = document.createElement('div');
+        card.className = `algo-card ${algo.category}${state.progress.has(algo.id) ? ' done' : ''}`;
+        card.dataset.card = algo.id;
+        card.dataset.name = (algo.name + ' ' + algo.timeComplexity + ' ' + algo.category).toLowerCase();
+        card.tabIndex = 0;
+        card.innerHTML = `
+          <div class="xp-float">+10 XP 🎉</div>
+          <div class="card-top">
+            <div class="algo-icon">${algo.icon}</div>
+            <div class="card-title-wrap">
+              <div class="card-title">${algo.name} <span class="done-badge">✓ done</span></div>
+              <div class="card-sub">${BLURBS[algo.id] || ''}</div>
+            </div>
+            <button class="fav-btn ${state.favs.has(algo.id) ? 'fav' : ''}" data-fav title="Favorite (F)">⭐</button>
+          </div>
+          <div class="meta-row">
+            <span class="cx">⏱ <b>${algo.timeComplexity}</b></span>
+            <span class="cx">💾 <b>${algo.spaceComplexity}</b></span>
+            <span class="cx">🎬 <b>${st.n}</b> steps</span>
+          </div>
+          <div class="viz-wrap">
+            <div class="viz-container" id="viz-${algo.id}"></div>
+            <div class="scrub-row">
+              <input type="range" id="scrub-${algo.id}" min="0" max="${Math.max(st.n - 1, 0)}" value="0" title="Scrub timeline">
+              <span class="scrub-label" id="scrublabel-${algo.id}">0 / ${st.n - 1}</span>
+            </div>
+          </div>
+          <div class="stat-strip">
+            <div class="mini-stat"><b id="cmp-${algo.id}">${st.cmp}</b><span>compares</span></div>
+            <div class="mini-stat"><b id="wr-${algo.id}">${st.wr}</b><span>writes</span></div>
+            <div class="mini-stat"><b id="pc-${algo.id}">0%</b><span>progress</span></div>
+          </div>
+          <div class="legend" id="legend-${algo.id}"></div>
+          <div class="controls">
+            <button class="cbtn cbtn-play" data-action="play">▶ Play</button>
+            <button class="cbtn" data-action="step">⏭ Step</button>
+            <button class="cbtn" data-action="back">⏮ Back</button>
+            <button class="cbtn" data-action="reset">⟲</button>
+          </div>
+          <div class="step-info" id="step-${algo.id}">Hover the bars for values · click card for Focus Mode 🔍</div>
+          <div class="progress-track"><div class="progress-fill" id="pf-${algo.id}"></div></div>
+        `;
+        card.addEventListener('click', (e) => {
+          if (e.target.closest('button') || e.target.closest('input')) return;
+          openModal(algo);
         });
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' && e.target === card) openModal(algo);
+        });
+        card.querySelector('[data-fav]').addEventListener('click', (e) => {
+          e.stopPropagation();
+          const b = e.currentTarget;
+          if (state.favs.has(algo.id)) { state.favs.delete(algo.id); b.classList.remove('fav'); }
+          else { state.favs.add(algo.id); b.classList.add('fav'); toast(`⭐ <b>${algo.name}</b> ${state.favs.has(algo.id) ? 'saved to' : 'removed from'} favorites`); beep(70, 100); }
+          save(); updateProgressUI(); applyFilter();
+        });
+        card.querySelectorAll('.cbtn').forEach(btn => {
+          btn.addEventListener('click', (e) => { e.stopPropagation(); handleCardAction(algo, btn.dataset.action, card); });
+        });
+        const scrub = card.querySelector(`#scrub-${CSS.escape(algo.id)}`);
+        scrub.addEventListener('input', () => {
+          let anim = cardAnims.get(algo.id);
+          if (!anim) anim = startCardAnim(algo, card, true);
+          anim.goto(parseInt(scrub.value, 10));
+          syncCardUI(algo, card);
+        });
+        grid.appendChild(card);
+        const { svg, legend } = renderVisualization(algo, 'initial');
+        card.querySelector(`#viz-${CSS.escape(algo.id)}`).appendChild(svg);
+        card.querySelector(`#legend-${CSS.escape(algo.id)}`).innerHTML = legend;
       });
-      grid.appendChild(card);
+      applyFilter();
+    }
 
-      const { svg, legend } = renderVisualization(algo, 'initial');
-      document.getElementById(`viz-${algo.id}`).appendChild(svg);
-      document.getElementById(`legend-${algo.id}`).innerHTML = legend;
-    });
+    function startCardAnim(algo, card, stepMode) {
+      const viz = card.querySelector('.viz-container');
+      const info = card.querySelector('.step-info');
+      card.querySelectorAll('.cbtn').forEach(b => { if (b.dataset.action === 'play') return; });
+      const old = cardAnims.get(algo.id);
+      if (old) old.stop();
+      const anim = animateAlgorithm(algo, viz, info, () => {
+        const playBtn = card.querySelector('[data-action="play"]');
+        playBtn.innerHTML = '▶ Play'; playBtn.classList.remove('pause');
+        card.classList.remove('playing');
+        markComplete(algo.id, card);
+        syncCardUI(algo, card);
+      }, stepMode, state.speed, {
+        onStep: (idx, total, stepData) => {
+          // pitch-mapped blip for bars
+          if (algo.viz === 'bars' && stepData?.arr) {
+            const v = stepData.compare?.length ? stepData.arr[stepData.compare[0]] : stepData.arr[idx % stepData.arr.length];
+            if (!stepMode || true) beep(v ?? 50, 100);
+          } else if (algo.viz === 'binary') beep(40 + idx * 6, 160);
+          syncCardUI(algo, card);
+          if (state.race) { /* race keeps all anims independent */ }
+        }
+      });
+      cardAnims.set(algo.id, anim);
+      return anim;
+    }
+
+    function syncCardUI(algo, card) {
+      const anim = cardAnims.get(algo.id);
+      if (!anim) return;
+      const idx = anim.idx(), total = anim.length;
+      const scrub = card.querySelector(`#scrub-${CSS.escape(algo.id)}`);
+      const lbl = card.querySelector(`#scrublabel-${CSS.escape(algo.id)}`);
+      const pf = card.querySelector(`#pf-${CSS.escape(algo.id)}`);
+      const pc = card.querySelector(`#pc-${CSS.escape(algo.id)}`);
+      if (scrub && document.activeElement !== scrub) scrub.value = idx;
+      if (lbl) lbl.textContent = `${idx} / ${total - 1}`;
+      const pct = total > 1 ? Math.round(idx / (total - 1) * 100) : 100;
+      if (pf) pf.style.width = pct + '%';
+      if (pc) pc.textContent = pct + '%';
+      if (modalAlgo === algo && modalAnim === anim) syncModalUI();
+    }
 
     function handleCardAction(algo, action, card) {
-      const vizContainer = card.querySelector('.viz-container');
-      const stepInfo = card.querySelector('.step-info');
-      const buttons = card.querySelectorAll('button');
-
+      const playBtn = card.querySelector('[data-action="play"]');
       if (action === 'reset') {
-        if (currentAnimation) currentAnimation.stop();
-        currentAnimation = null;
+        const old = cardAnims.get(algo.id); if (old) old.stop();
+        cardAnims.delete(algo.id);
         const { svg } = renderVisualization(algo, 'initial');
-        vizContainer.innerHTML = '';
-        vizContainer.appendChild(svg);
-        stepInfo.textContent = '';
-        buttons.forEach(b => b.disabled = false);
+        const viz = card.querySelector('.viz-container');
+        viz.innerHTML = ''; viz.appendChild(svg);
+        card.querySelector('.step-info').textContent = 'Reset — press Play or scrub the timeline.';
+        card.classList.remove('playing');
+        playBtn.innerHTML = '▶ Play'; playBtn.classList.remove('pause');
+        const st = statsOf(algo);
+        card.querySelector(`#scrub-${CSS.escape(algo.id)}`).value = 0;
+        card.querySelector(`#scrublabel-${CSS.escape(algo.id)}`).textContent = `0 / ${st.n - 1}`;
+        card.querySelector(`#pf-${CSS.escape(algo.id)}`).style.width = '0%';
+        card.querySelector(`#pc-${CSS.escape(algo.id)}`).textContent = '0%';
       } else if (action === 'play') {
-        buttons.forEach(b => b.disabled = true);
-        currentAnimation = animateAlgorithm(algo, vizContainer, stepInfo, () => {
-          buttons.forEach(b => b.disabled = false);
-        }, false, state.speed);
-      } else if (action === 'step') {
-        if (!currentAnimation) {
-          currentAnimation = animateAlgorithm(algo, vizContainer, stepInfo, () => {
-            buttons.forEach(b => b.disabled = false);
-          }, true);
+        let anim = cardAnims.get(algo.id);
+        if (anim && anim.isPlaying() && !anim.isStepMode) {
+          anim.pause(); playBtn.innerHTML = '▶ Resume'; playBtn.classList.remove('pause');
+          card.classList.remove('playing');
+        } else if (anim && anim.isStepMode) {
+          anim.resume(); playBtn.innerHTML = '⏸ Pause'; playBtn.classList.add('pause');
+          card.classList.add('playing');
+        } else if (anim && anim.idx() < anim.length - 1) {
+          anim.resume(); playBtn.innerHTML = '⏸ Pause'; playBtn.classList.add('pause');
+          card.classList.add('playing');
+        } else {
+          anim = startCardAnim(algo, card, false);
+          playBtn.innerHTML = '⏸ Pause'; playBtn.classList.add('pause');
+          card.classList.add('playing');
+          toast(`▶ <b>${algo.name}</b> playing${state.race ? ' · race mode!' : ''}`);
         }
-        currentAnimation.step();
+      } else if (action === 'step') {
+        let anim = cardAnims.get(algo.id);
+        if (!anim) anim = startCardAnim(algo, card, true);
+        anim.pause(); anim.step();
+        playBtn.innerHTML = '▶ Resume'; playBtn.classList.remove('pause');
+        syncCardUI(algo, card);
+      } else if (action === 'back') {
+        let anim = cardAnims.get(algo.id);
+        if (!anim) return;
+        anim.pause(); anim.back();
+        playBtn.innerHTML = '▶ Resume'; playBtn.classList.remove('pause');
+        syncCardUI(algo, card);
       }
+    }
+
+    /* ---------------- filtering ---------------- */
+    function applyFilter() {
+      let shown = 0;
+      document.querySelectorAll('.algo-card').forEach(card => {
+        const id = card.dataset.card;
+        const algo = algorithms.find(a => a.id === id);
+        const hitQ = !state.query || card.dataset.name.includes(state.query);
+        let hitC = true;
+        if (state.cat === 'fav') hitC = state.favs.has(id);
+        else if (state.cat !== 'all') hitC = algo.category === state.cat;
+        const show = hitQ && hitC;
+        card.style.display = show ? '' : 'none';
+        if (show) shown++;
+      });
+      $('resultCount').textContent = shown === algorithms.length ? `${shown} visualizations` : `${shown} of ${algorithms.length} shown`;
+    }
+    $('searchInput').addEventListener('input', (e) => {
+      state.query = e.target.value.trim().toLowerCase();
+      applyFilter();
+    });
+    $('pills').querySelectorAll('.pill').forEach(p => {
+      p.addEventListener('click', () => {
+        $('pills').querySelectorAll('.pill').forEach(x => x.classList.remove('active', 'orange'));
+        p.classList.add('active'); if (p.dataset.cat === 'all') p.classList.add('orange');
+        state.cat = p.dataset.cat;
+        applyFilter();
+        beep(60, 100);
+      });
+    });
+
+    /* ---------------- dock wiring ---------------- */
+    function refreshAll() {
+      cardAnims.forEach(a => a.stop()); cardAnims.clear();
+      if (modalAnim) { modalAnim.stop(); modalAnim = null; }
+      modal.classList.remove('active');
+      const arr = currentArray();
+      configure({ array: arr, target: Number(targetInput.value), start: startSelect.value });
+      $('sizeVal').textContent = arr ? arr.length : '8';
+      if (arr) $('sizeSlider').value = Math.min(30, Math.max(3, arr.length));
+      buildCards();
+      const arrNote = arr ? `[${arr.join(', ')}] (n=${arr.length})` : 'demo array';
+      const sorted = arr ? [...arr].sort((a, b) => a - b) : null;
+      $('dataHint').innerHTML = `Array: <b>${arrNote}</b> · Binary target <b>${targetInput.value}</b>` +
+        (sorted ? ` (auto-sorted: <b>[${sorted.join(', ')}]</b>)` : '') +
+        ` · Graph start <b>${startSelect.value}</b> · <b>drag any timeline</b> to scrub`;
+    }
+    $('applyBtn').onclick = () => {
+      const parsed = parseArrayInput(arrInput.value);
+      if (arrInput.value.trim() && parsed.length < 3) { toast('⚠️ Need at least <b>3 valid numbers</b> — keeping previous data.'); return; }
+      if (parsed.length > 30) arrInput.value = parsed.slice(0, 30).join(', ');
+      refreshAll(); toast('🧪 Dataset applied — all visuals remixed!', 'orange');
+    };
+    $('randomBtn').onclick = () => {
+      const len = parseInt($('sizeSlider').value, 10) || 8;
+      arrInput.value = randomArray(len).join(', ');
+      refreshAll(); toast('🎲 Fresh random array generated');
+    };
+    $('shuffleBtn').onclick = $('randomBtn').onclick;
+    $('sizeSlider').addEventListener('input', (e) => {
+      $('sizeVal').textContent = e.target.value;
+      arrInput.value = randomArray(parseInt(e.target.value, 10)).join(', ');
+      refreshAll();
+    });
+    targetInput.onchange = refreshAll;
+    startSelect.onchange = refreshAll;
+    $('speedSeg').querySelectorAll('button').forEach(b => {
+      b.onclick = () => {
+        $('speedSeg').querySelectorAll('button').forEach(x => x.classList.remove('on'));
+        b.classList.add('on');
+        state.speed = parseFloat(b.dataset.s);
+        $('speedVal').textContent = b.dataset.s + 'x';
+        cardAnims.forEach(a => a.setSpeed(state.speed));
+        if (modalAnim) modalAnim.setSpeed(state.speed);
+        toast(`⚡ Speed → <b>${state.speed}x</b>`);
+      };
+    });
+    $('resetBtn').onclick = () => { refreshAll(); toast('⟲ All visuals reset'); };
+    $('copyLinkBtn').onclick = async () => {
+      const url = `${location.origin}${location.pathname}#arr=${encodeURIComponent(arrInput.value)}&t=${targetInput.value}&s=${startSelect.value}`;
+      try { await navigator.clipboard.writeText(url); toast('🔗 Setup link copied!', 'green'); }
+      catch { toast('🔗 ' + url); }
+    };
+    $('playAllBtn').onclick = () => {
+      toast(state.race ? '🏁 <b>RACE!</b> All sorters running…' : '▶ Playing <b>all</b> visualizations', 'orange');
+      document.querySelectorAll('.algo-card').forEach(card => {
+        if (card.style.display === 'none') return;
+        const algo = algorithms.find(a => a.id === card.dataset.card);
+        handleCardAction(algo, 'reset', card);
+        handleCardAction(algo, 'play', card);
+      });
+    };
+    $('surpriseBtn').onclick = () => {
+      const visible = algorithms.filter(a => {
+        const el = document.querySelector(`[data-card="${a.id}"]`);
+        return el && el.style.display !== 'none';
+      });
+      const pick = visible[Math.floor(Math.random() * visible.length)] || algorithms[0];
+      openModal(pick);
+      toast(`✨ Surprise: <b>${pick.name}</b>`);
+    };
+
+    /* toggles */
+    function wireToggle(id, key, fn) {
+      $(id).addEventListener('click', () => {
+        state[key] = !state[key];
+        $(id).classList.toggle('on', state[key]);
+        fn?.(state[key]);
+      });
+    }
+    wireToggle('soundToggle', 'sound', (v) => { $('soundBtn').textContent = v ? '🔊' : '🔇'; toast(v ? '🔊 Sound on' : '🔇 Sound off'); });
+    wireToggle('confettiToggle', 'confetti');
+    wireToggle('quizToggle', 'quiz', (v) => { $('quizBox').style.display = v ? '' : 'none'; });
+    wireToggle('raceToggle', 'race', (v) => toast(v ? '🏁 Race mode <b>ON</b> — hit Play all!' : '🏁 Race mode off', 'orange'));
+    $('soundBtn').onclick = () => $('soundToggle').click();
+    $('resetProgressBtn').onclick = () => {
+      state.progress.clear(); state.xp = 0; save(); updateProgressUI();
+      document.querySelectorAll('.algo-card').forEach(c => c.classList.remove('done'));
+      toast('↺ Progress reset — fresh start!');
+    };
+
+    /* ---------------- modal (Focus Mode) ---------------- */
+    function syncModalUI() {
+      if (!modalAnim) return;
+      const idx = modalAnim.idx(), total = modalAnim.length;
+      if (document.activeElement !== modalScrub) modalScrub.value = idx;
+      modalScrub.max = total - 1;
+      modalCounter.textContent = `${idx} / ${total - 1}`;
+      $('mStep').textContent = `${idx + 1}/${total}`;
+      $('mLeft').textContent = total - 1 - idx;
+      // cumulative counters
+      const steps = modalAnim.stepsRef?.() || [];
+      let c = 0, w = 0;
+      for (let i = 0; i <= idx && i < steps.length; i++) {
+        if ((steps[i].compare?.length) || (steps[i].mid !== undefined && steps[i].mid >= 0)) c++;
+        if (steps[i].swap?.length) w++;
+      }
+      $('mCmp').textContent = c; $('mWrites').textContent = w;
     }
 
     function openModal(algo) {
-      modalTitle.textContent = algo.name;
+      modalAlgo = algo;
+      modalTitle.textContent = `${algo.icon} ${algo.name}`;
+      modalSub.textContent = `Time ${algo.timeComplexity} · Space ${algo.spaceComplexity} · click Play, scrub, quiz yourself`;
       modalExplanation.innerHTML = algo.explanation;
-      const { svg, legend } = renderVisualization(algo, 'initial');
       modalViz.innerHTML = '';
+      const { svg } = renderVisualization(algo, 'initial');
       modalViz.appendChild(svg);
-      modalControls.innerHTML = `
-        <button class="btn btn-primary" id="modalPlay">Play</button>
-        <button class="btn btn-secondary" id="modalStep">Step</button>
-        <button class="btn btn-secondary" id="modalReset">Reset</button>
-        <button class="btn btn-secondary" id="modalSpeed">Speed: ${state.speed}x</button>
-      `;
-      modalStepInfo.textContent = '';
+      $('quizScore').textContent = `Quiz score: ${state.quizRight} / ${state.quizTotal} · streak 🔥 ${state.quizStreak}`;
       modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
 
-      let speed = state.speed;
-      let modalAnimation = null;
-
-      const setupModalAnimation = (stepMode = false) => {
-        if (modalAnimation) modalAnimation.stop();
-        modalAnimation = animateAlgorithm(algo, modalViz, modalStepInfo, () => {
-          document.getElementById('modalPlay').disabled = false;
-          document.getElementById('modalStep').disabled = false;
-        }, stepMode, speed);
-        document.getElementById('modalPlay').disabled = true;
-        document.getElementById('modalStep').disabled = true;
+      const mc = $('modalControls');
+      // rebuild controls container properly
+      const controlsHost = document.querySelector('.modal-controls-row');
+      controlsHost.innerHTML = `
+        <button class="btn btn-ember btn-sm" id="mPlay">▶ Play</button>
+        <button class="btn btn-ghost btn-sm" id="mStep">⏭ Step</button>
+        <button class="btn btn-ghost btn-sm" id="mBack">⏮ Back</button>
+        <button class="btn btn-ghost btn-sm" id="mReset">⟲ Reset</button>
+        <button class="btn btn-ghost btn-sm" id="mSpeed">⚡ ${state.speed}x</button>
+        <button class="btn btn-ghost btn-sm" id="mQuiz">🧠 Quiz: ${state.quiz ? 'on' : 'off'}</button>
+      `;
+      const setup = (stepMode = false) => {
+        if (modalAnim) modalAnim.stop();
+        modalAnim = animateAlgorithm(algo, modalViz, modalStepInfo, () => {
+          $('mPlay').innerHTML = '▶ Replay'; $('mPlay').disabled = false; $('mStep').disabled = false;
+          markComplete(algo.id, document.querySelector(`[data-card="${algo.id}"]`));
+          syncModalUI(); syncCardUI(algo, document.querySelector(`[data-card="${algo.id}"]`));
+        }, stepMode, state.speed, {
+          onStep: (idx, total, s) => {
+            if (algo.viz === 'bars' && s?.arr) beep(s.compare?.length ? s.arr[s.compare[0]] : 50, 100);
+            syncModalUI();
+            maybeQuizProbe(algo, idx, total);
+          }
+        });
+        $('mPlay').innerHTML = stepMode ? '▶ Resume' : '⏸ Pause';
+        syncModalUI();
       };
-
-      document.getElementById('modalPlay').onclick = () => setupModalAnimation(false);
-      document.getElementById('modalStep').onclick = () => {
-        if (!modalAnimation || !modalAnimation.isStepMode) setupModalAnimation(true);
-        modalAnimation.step();
+      $('mPlay').onclick = () => {
+        if (modalAnim && modalAnim.isPlaying() && !modalAnim.isStepMode) { modalAnim.pause(); $('mPlay').innerHTML = '▶ Resume'; }
+        else if (modalAnim) { modalAnim.resume(); $('mPlay').innerHTML = '⏸ Pause'; }
+        else setup(false);
       };
-      document.getElementById('modalReset').onclick = () => {
-        if (modalAnimation) modalAnimation.stop();
-        modalAnimation = null;
-        const { svg } = renderVisualization(algo, 'initial');
-        modalViz.innerHTML = '';
-        modalViz.appendChild(svg);
-        modalStepInfo.textContent = '';
-        document.getElementById('modalPlay').disabled = false;
-        document.getElementById('modalStep').disabled = false;
+      $('mStep').onclick = () => {
+        if (!modalAnim || !modalAnim.isStepMode) setup(true);
+        else modalAnim.pause();
+        modalAnim.step(); syncModalUI();
+        $('mPlay').innerHTML = '▶ Resume';
       };
-      document.getElementById('modalSpeed').onclick = (e) => {
-        speed = speed === 1 ? 2 : speed === 2 ? 0.5 : 1;
-        e.target.textContent = `Speed: ${speed}x`;
-        if (modalAnimation) modalAnimation.setSpeed(speed);
+      $('mBack').onclick = () => { if (modalAnim) { modalAnim.pause(); modalAnim.back(); syncModalUI(); $('mPlay').innerHTML = '▶ Resume'; } };
+      $('mReset').onclick = () => {
+        if (modalAnim) modalAnim.stop(); modalAnim = null;
+        modalViz.innerHTML = ''; modalViz.appendChild(renderVisualization(algo, 'initial').svg);
+        modalStepInfo.textContent = 'Reset — press Play or drag the timeline.'; syncModalUIBlank(algo);
+        $('mPlay').innerHTML = '▶ Play';
       };
-
-      modalClose.onclick = () => {
-        if (modalAnimation) modalAnimation.stop();
-        modal.classList.remove('active');
+      $('mSpeed').onclick = (e) => {
+        const order = [1, 2, 4, 0.5];
+        state.speed = order[(order.indexOf(state.speed) + 1) % order.length] ?? 1;
+        e.target.textContent = `⚡ ${state.speed}x`;
+        document.querySelectorAll('#speedSeg button').forEach(x => x.classList.toggle('on', parseFloat(x.dataset.s) === state.speed));
+        $('speedVal').textContent = state.speed + 'x';
+        if (modalAnim) modalAnim.setSpeed(state.speed);
       };
-      modal.onclick = (e) => {
-        if (e.target === modal) modalClose.click();
+      $('mQuiz').onclick = (e) => {
+        state.quiz = !state.quiz;
+        e.target.textContent = `🧠 Quiz: ${state.quiz ? 'on' : 'off'}`;
+        $('quizToggle').classList.toggle('on', state.quiz);
+        $('quizBox').style.display = state.quiz ? '' : 'none';
       };
+      modalScrub.oninput = () => {
+        if (!modalAnim) setup(true);
+        else modalAnim.pause();
+        modalAnim.goto(parseInt(modalScrub.value, 10));
+        syncModalUI(); $('mPlay').innerHTML = '▶ Resume';
+      };
+      $('copyCodeBtn').onclick = async () => {
+        const code = modalExplanation.querySelector('pre code')?.innerText || modalExplanation.innerText;
+        try { await navigator.clipboard.writeText(code); toast('📋 Pseudocode copied!', 'green'); } catch { toast('📋 Copy failed — select manually'); }
+      };
+      $('copyLinkBtn2').onclick = $('copyLinkBtn').onclick;
+      const close = () => {
+        if (modalAnim) modalAnim.stop(); modalAnim = null; modalAlgo = null;
+        modal.classList.remove('active'); document.body.style.overflow = '';
+      };
+      $('modalClose').onclick = close;
+      modal.onclick = (e) => { if (e.target === modal) close(); };
+      syncModalUIBlank(algo);
+      // auto-start in step-paused mode so scrub works instantly, then offer play
+      setup(true);
+    }
+    function syncModalUIBlank(algo) {
+      const st = statsOf(algo);
+      modalScrub.max = Math.max(st.n - 1, 0); modalScrub.value = 0;
+      modalCounter.textContent = `0 / ${st.n - 1}`;
+      $('mStep').textContent = `1/${st.n}`; $('mCmp').textContent = '0'; $('mWrites').textContent = '0'; $('mLeft').textContent = st.n - 1;
+      modalStepInfo.textContent = 'Ready — press Play, Step, or drag ◷ to scrub.';
     }
 
+    /* quiz probe: occasionally pause and ask */
+    let lastProbeAt = -999;
+    function maybeQuizProbe(algo, idx, total) {
+      if (!state.quiz || algo.viz !== 'bars') return;
+      if (modalAnim?.isStepMode) return;
+      if (idx < 3 || idx > total - 3) return;
+      if (idx - lastProbeAt < 14) return;
+      if (Math.random() > 0.35) return;
+      lastProbeAt = idx;
+      modalAnim.pause();
+      const mPlay = $('mPlay'); if (mPlay) mPlay.innerHTML = '▶ Resume (quiz! 🧠)';
+      const steps = modalAnim.stepsRef();
+      const next = steps[idx + 1];
+      const willSwap = !!(next?.swap?.length);
+      currentQuizProbe = { willSwap };
+      $('quizQ').innerHTML = `⏸ Paused at step <b>${idx + 1}</b>. Predict: does step <b>${idx + 2}</b> (“${(next?.msg || '').slice(0, 70)}…”) perform a <b>swap / write</b>?`;
+      toast('🧠 <b>Quiz!</b> Predict the next move', 'orange');
+      beep(90, 100); setTimeout(() => beep(70, 100), 140);
+    }
+    function answerQuiz(guessSwap) {
+      if (!currentQuizProbe) { toast('▶ Play a bit first — then I’ll quiz you 🧠'); return; }
+      const ok = guessSwap === currentQuizProbe.willSwap;
+      state.quizTotal++;
+      if (ok) { state.quizRight++; state.quizStreak++; state.xp += 2; }
+      else state.quizStreak = 0;
+      save(); updateProgressUI();
+      $('quizScore').textContent = `Quiz score: ${state.quizRight} / ${state.quizTotal} · streak 🔥 ${state.quizStreak}${ok ? ' · +2 XP! 🎉' : ''}`;
+      toast(ok ? '✅ <b>Correct!</b> +2 XP 🎉' : `❌ Not quite — next step ${currentQuizProbe.willSwap ? '<b>does swap</b>' : '<b>does not swap</b>'}`, ok ? 'green' : '');
+      if (ok) { beep(95, 100); burst(innerWidth / 2, innerHeight * .3, 60); }
+      currentQuizProbe = null;
+      if (modalAnim) { modalAnim.resume(); const mp = $('mPlay'); if (mp) mp.innerHTML = '⏸ Pause'; }
+    }
+    $('quizYes').onclick = () => answerQuiz(true);
+    $('quizNo').onclick = () => answerQuiz(false);
+    $('quizReveal').onclick = () => {
+      if (!modalAnim) return;
+      modalAnim.pause(); modalAnim.step(); syncModalUI();
+      toast('👁 Revealed — no points this time');
+      currentQuizProbe = null;
+    };
+
+    /* keyboard shortcuts */
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) { $('modalClose').click(); return; }
+      const typing = /INPUT|SELECT|TEXTAREA/.test(document.activeElement?.tagName || '');
+      if (typing) return;
+      if (e.key === ' ') { e.preventDefault(); modal.classList.contains('active') ? $('mPlay')?.click() : $('playAllBtn').click(); }
+      if (e.key === 'ArrowRight') modal.classList.contains('active') ? $('mStep')?.click() : null;
+      if (e.key === 'ArrowLeft') modal.classList.contains('active') ? $('mBack')?.click() : null;
+      if (e.key?.toLowerCase() === 's') $('soundToggle').click();
+      if (e.key?.toLowerCase() === 'f') {
+        const first = document.querySelector('.algo-card:not([style*="none"]) [data-fav]');
+        if (first && !modal.classList.contains('active')) first.click();
+      }
+      if (e.key === '?') toast('⌨️ <b>Space</b> play · <b>←→</b> step · <b>S</b> sound · <b>F</b> favorite · <b>Esc</b> close');
+    });
+
+    /* deep-link: #arr=..&t=..&s=.. */
+    try {
+      const h = new URLSearchParams(location.hash.slice(1));
+      if (h.get('arr')) arrInput.value = h.get('arr');
+      if (h.get('t')) targetInput.value = h.get('t');
+      if (h.get('s')) startSelect.value = h.get('s');
+    } catch {}
+
+    const TIPS = [
+      'Click any card to open <b>Focus Mode</b> — scrub frame-by-frame, toggle the <b>quiz</b>, and copy the pseudocode.',
+      'Turn on <b>Race mode</b>, hit <b>Play all</b>, and watch Quick Sort duel Bubble Sort live 🏁.',
+      'Hover any bar to see its <b>exact value</b>. Drag the tiny timeline under each card to time-travel.',
+      'Remix the dataset with the <b>size slider</b> — tiny arrays teach logic, big arrays teach scaling.',
+      'Earn <b>+10 XP</b> per algorithm and <b>+2 XP</b> per correct quiz answer. 100% = legend 🏆.',
+    ];
+    let tipI = 0;
+    setInterval(() => { tipI = (tipI + 1) % TIPS.length; $('tipText').innerHTML = TIPS[tipI]; }, 7000);
+
     refreshAll();
+    updateProgressUI();
+    $('quizBox').style.display = state.quiz ? '' : 'none';
+    setTimeout(() => toast('👋 Welcome! Press <b>Play all</b> or click any card to dive in', 'orange'), 500);
   </script>
 </body>
 </html>
