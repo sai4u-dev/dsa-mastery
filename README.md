@@ -28,3 +28,11 @@
 Progress is tracked continuously as I solve and document new problems.
 
 ![DSA-Mastery](./public/dsamasterybanner.png)
+
+<!---LeetCode Topics Start-->
+# LeetCode Topics
+## Array
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [3942-minimum-operations-to-sort-a-permutation](https://github.com/sai4u-dev/dsa-mastery/tree/main/LeetCode/Medium/3942-minimum-operations-to-sort-a-permutation/) | Medium |
+<!---LeetCode Topics End-->
