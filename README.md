@@ -6,17 +6,23 @@
 
 | Total Problems | Topics |
 |---|---|
-| 1 | 5 |
+| 6 | 11 |
 
 ---
 
 ## 📂 Topic-Wise Problems
 
 - [brute force](#brute-force) (1)
+- [combinatorics](#combinatorics) (1)
 - [constructive algorithms](#constructive-algorithms) (1)
+- [divide and conquer](#divide-and-conquer) (1)
+- [dp](#dp) (2)
 - [geometry](#geometry) (1)
-- [implementation](#implementation) (1)
+- [greedy](#greedy) (1)
+- [implementation](#implementation) (3)
 - [math](#math) (1)
+- [number theory](#number-theory) (1)
+- [sortings](#sortings) (1)
 
 ---
 
@@ -26,11 +32,30 @@
 |---|---------|------------|----------|
 | 14C | [Four Segments](https://codeforces.com/contest/14/problem/C) | 1700 | [C++17 (GCC 7-32)](https://github.com/sai4u-dev/dsa-mastery/blob/HEAD/14/C%20-%20Four%20Segments/solution.cpp) |
 
+### combinatorics
+
+| # | Problem | Difficulty | Solution |
+|---|---------|------------|----------|
+| 9D | [How many trees?](https://codeforces.com/contest/9/problem/D) | 1900 | [C++17 (GCC 7-32)](https://github.com/sai4u-dev/dsa-mastery/blob/HEAD/9/D%20-%20How%20many%20trees%3F/solution.cpp) |
+
 ### constructive algorithms
 
 | # | Problem | Difficulty | Solution |
 |---|---------|------------|----------|
 | 14C | [Four Segments](https://codeforces.com/contest/14/problem/C) | 1700 | [C++17 (GCC 7-32)](https://github.com/sai4u-dev/dsa-mastery/blob/HEAD/14/C%20-%20Four%20Segments/solution.cpp) |
+
+### divide and conquer
+
+| # | Problem | Difficulty | Solution |
+|---|---------|------------|----------|
+| 9D | [How many trees?](https://codeforces.com/contest/9/problem/D) | 1900 | [C++17 (GCC 7-32)](https://github.com/sai4u-dev/dsa-mastery/blob/HEAD/9/D%20-%20How%20many%20trees%3F/solution.cpp) |
+
+### dp
+
+| # | Problem | Difficulty | Solution |
+|---|---------|------------|----------|
+| 9D | [How many trees?](https://codeforces.com/contest/9/problem/D) | 1900 | [C++17 (GCC 7-32)](https://github.com/sai4u-dev/dsa-mastery/blob/HEAD/9/D%20-%20How%20many%20trees%3F/solution.cpp) |
+| 14E | [Camels](https://codeforces.com/contest/14/problem/E) | 1900 | [C++17 (GCC 7-32)](https://github.com/sai4u-dev/dsa-mastery/blob/HEAD/14/E%20-%20Camels/solution.cpp) |
 
 ### geometry
 
@@ -38,10 +63,18 @@
 |---|---------|------------|----------|
 | 14C | [Four Segments](https://codeforces.com/contest/14/problem/C) | 1700 | [C++17 (GCC 7-32)](https://github.com/sai4u-dev/dsa-mastery/blob/HEAD/14/C%20-%20Four%20Segments/solution.cpp) |
 
+### greedy
+
+| # | Problem | Difficulty | Solution |
+|---|---------|------------|----------|
+| 12C | [Fruits](https://codeforces.com/contest/12/problem/C) | 1100 | [C++17 (GCC 7-32)](https://github.com/sai4u-dev/dsa-mastery/blob/HEAD/12/C%20-%20Fruits/solution.cpp) |
+
 ### implementation
 
 | # | Problem | Difficulty | Solution |
 |---|---------|------------|----------|
+| 12A | [Super Agent](https://codeforces.com/contest/12/problem/A) | 800 | [C++17 (GCC 7-32)](https://github.com/sai4u-dev/dsa-mastery/blob/HEAD/12/A%20-%20Super%20Agent/solution.cpp) |
+| 12C | [Fruits](https://codeforces.com/contest/12/problem/C) | 1100 | [C++17 (GCC 7-32)](https://github.com/sai4u-dev/dsa-mastery/blob/HEAD/12/C%20-%20Fruits/solution.cpp) |
 | 14C | [Four Segments](https://codeforces.com/contest/14/problem/C) | 1700 | [C++17 (GCC 7-32)](https://github.com/sai4u-dev/dsa-mastery/blob/HEAD/14/C%20-%20Four%20Segments/solution.cpp) |
 
 ### math
@@ -49,6 +82,18 @@
 | # | Problem | Difficulty | Solution |
 |---|---------|------------|----------|
 | 14C | [Four Segments](https://codeforces.com/contest/14/problem/C) | 1700 | [C++17 (GCC 7-32)](https://github.com/sai4u-dev/dsa-mastery/blob/HEAD/14/C%20-%20Four%20Segments/solution.cpp) |
+
+### number theory
+
+| # | Problem | Difficulty | Solution |
+|---|---------|------------|----------|
+| 26A | [Almost Prime](https://codeforces.com/contest/26/problem/A) | 900 | [C++17 (GCC 7-32)](https://github.com/sai4u-dev/dsa-mastery/blob/HEAD/26/A%20-%20Almost%20Prime/solution.cpp) |
+
+### sortings
+
+| # | Problem | Difficulty | Solution |
+|---|---------|------------|----------|
+| 12C | [Fruits](https://codeforces.com/contest/12/problem/C) | 1100 | [C++17 (GCC 7-32)](https://github.com/sai4u-dev/dsa-mastery/blob/HEAD/12/C%20-%20Fruits/solution.cpp) |
 
 ---
 
