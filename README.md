@@ -55,6 +55,7 @@ Progress is tracked continuously as I solve and document new problems.
 ## Math
 | Problem Name | Difficulty |
 | ------- | ------- |
+| [0319-bulb-switcher](https://github.com/sai4u-dev/dsa-mastery/tree/main/0319-bulb-switcher/) | Medium |
 | [2409-count-days-spent-together](https://github.com/sai4u-dev/dsa-mastery/tree/master/2409-count-days-spent-together) |
 ## Depth-First Search
 | Problem Name | Difficulty |
@@ -76,4 +77,8 @@ Progress is tracked continuously as I solve and document new problems.
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [0746-min-cost-climbing-stairs](https://github.com/sai4u-dev/dsa-mastery/tree/main/0746-min-cost-climbing-stairs/) | Easy |
+## Brainteaser
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [0319-bulb-switcher](https://github.com/sai4u-dev/dsa-mastery/tree/main/0319-bulb-switcher/) | Medium |
 <!---LeetCode Topics End-->
