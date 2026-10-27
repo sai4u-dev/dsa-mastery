@@ -5,16 +5,13 @@ class Solution {
             Arrays.fill(grid[i], '#');
         }
         Arrays.fill(grid[0], '.');
-
         for (int i = 0; i < m; i++) {
             grid[i][n - 1] = '.';
         }
-
         String[] result = new String[m];
         for (int i = 0; i < m; i++) {
             result[i] = new String(grid[i]);
         }
-
         return result;
     }
 }
