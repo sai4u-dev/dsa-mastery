@@ -39,6 +39,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [3093-longest-common-suffix-queries](https://github.com/sai4u-dev/dsa-mastery/tree/master/3093-longest-common-suffix-queries) |
 | [3619-count-islands-with-total-value-divisible-by-k](https://github.com/sai4u-dev/dsa-mastery/tree/main/3619-count-islands-with-total-value-divisible-by-k/) | Medium |
 | [3644-maximum-k-to-sort-a-permutation](https://github.com/sai4u-dev/dsa-mastery/tree/main/3644-maximum-k-to-sort-a-permutation/) | Medium |
+| [3841-palindromic-path-queries-in-a-tree](https://github.com/sai4u-dev/dsa-mastery/tree/main/3841-palindromic-path-queries-in-a-tree/) | Hard |
 | [3882-minimum-xor-path-in-a-grid](https://github.com/sai4u-dev/dsa-mastery/tree/main/3882-minimum-xor-path-in-a-grid/) | Medium |
 | [3942-minimum-operations-to-sort-a-permutation](https://github.com/sai4u-dev/dsa-mastery/tree/main/LeetCode/Medium/3942-minimum-operations-to-sort-a-permutation/) | Medium |
 ## String
@@ -46,6 +47,7 @@ Progress is tracked continuously as I solve and document new problems.
 | ------- | ------- |
 | [2409-count-days-spent-together](https://github.com/sai4u-dev/dsa-mastery/tree/master/2409-count-days-spent-together) |
 | [3093-longest-common-suffix-queries](https://github.com/sai4u-dev/dsa-mastery/tree/master/3093-longest-common-suffix-queries) |
+| [3841-palindromic-path-queries-in-a-tree](https://github.com/sai4u-dev/dsa-mastery/tree/main/3841-palindromic-path-queries-in-a-tree/) | Hard |
 ## Trie
 | Problem Name | Difficulty |
 | ------- | ------- |
@@ -54,6 +56,7 @@ Progress is tracked continuously as I solve and document new problems.
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [3644-maximum-k-to-sort-a-permutation](https://github.com/sai4u-dev/dsa-mastery/tree/main/3644-maximum-k-to-sort-a-permutation/) | Medium |
+| [3841-palindromic-path-queries-in-a-tree](https://github.com/sai4u-dev/dsa-mastery/tree/main/3841-palindromic-path-queries-in-a-tree/) | Hard |
 | [3882-minimum-xor-path-in-a-grid](https://github.com/sai4u-dev/dsa-mastery/tree/main/3882-minimum-xor-path-in-a-grid/) | Medium |
 ## Math
 | Problem Name | Difficulty |
@@ -65,6 +68,7 @@ Progress is tracked continuously as I solve and document new problems.
 | ------- | ------- |
 | [1254-number-of-closed-islands](https://github.com/sai4u-dev/dsa-mastery/tree/main/1254-number-of-closed-islands/) | Medium |
 | [3619-count-islands-with-total-value-divisible-by-k](https://github.com/sai4u-dev/dsa-mastery/tree/main/3619-count-islands-with-total-value-divisible-by-k/) | Medium |
+| [3841-palindromic-path-queries-in-a-tree](https://github.com/sai4u-dev/dsa-mastery/tree/main/3841-palindromic-path-queries-in-a-tree/) | Hard |
 ## Breadth-First Search
 | Problem Name | Difficulty |
 | ------- | ------- |
@@ -90,4 +94,20 @@ Progress is tracked continuously as I solve and document new problems.
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [0319-bulb-switcher](https://github.com/sai4u-dev/dsa-mastery/tree/main/0319-bulb-switcher/) | Medium |
+## Divide and Conquer
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [3841-palindromic-path-queries-in-a-tree](https://github.com/sai4u-dev/dsa-mastery/tree/main/3841-palindromic-path-queries-in-a-tree/) | Hard |
+## Tree
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [3841-palindromic-path-queries-in-a-tree](https://github.com/sai4u-dev/dsa-mastery/tree/main/3841-palindromic-path-queries-in-a-tree/) | Hard |
+## Binary Indexed Tree
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [3841-palindromic-path-queries-in-a-tree](https://github.com/sai4u-dev/dsa-mastery/tree/main/3841-palindromic-path-queries-in-a-tree/) | Hard |
+## Segment Tree
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [3841-palindromic-path-queries-in-a-tree](https://github.com/sai4u-dev/dsa-mastery/tree/main/3841-palindromic-path-queries-in-a-tree/) | Hard |
 <!---LeetCode Topics End-->
