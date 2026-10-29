@@ -34,6 +34,7 @@ Progress is tracked continuously as I solve and document new problems.
 ## Array
 | Problem Name | Difficulty |
 | ------- | ------- |
+| [0001-two-sum](https://github.com/sai4u-dev/dsa-mastery/tree/main/0001-two-sum/) | Easy |
 | [0746-min-cost-climbing-stairs](https://github.com/sai4u-dev/dsa-mastery/tree/main/0746-min-cost-climbing-stairs/) | Easy |
 | [1254-number-of-closed-islands](https://github.com/sai4u-dev/dsa-mastery/tree/main/1254-number-of-closed-islands/) | Medium |
 | [3093-longest-common-suffix-queries](https://github.com/sai4u-dev/dsa-mastery/tree/master/3093-longest-common-suffix-queries) |
@@ -110,4 +111,8 @@ Progress is tracked continuously as I solve and document new problems.
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [3841-palindromic-path-queries-in-a-tree](https://github.com/sai4u-dev/dsa-mastery/tree/main/3841-palindromic-path-queries-in-a-tree/) | Hard |
+## Hash Table
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [0001-two-sum](https://github.com/sai4u-dev/dsa-mastery/tree/main/0001-two-sum/) | Easy |
 <!---LeetCode Topics End-->
