@@ -41,6 +41,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [0462-minimum-moves-to-equal-array-elements-ii](https://github.com/sai4u-dev/dsa-mastery/tree/main/0462-minimum-moves-to-equal-array-elements-ii/) | Medium |
 | [0746-min-cost-climbing-stairs](https://github.com/sai4u-dev/dsa-mastery/tree/main/0746-min-cost-climbing-stairs/) | Easy |
 | [1254-number-of-closed-islands](https://github.com/sai4u-dev/dsa-mastery/tree/main/1254-number-of-closed-islands/) | Medium |
+| [1385-find-the-distance-value-between-two-arrays](https://github.com/sai4u-dev/dsa-mastery/tree/main/1385-find-the-distance-value-between-two-arrays/) | Easy |
 | [3093-longest-common-suffix-queries](https://github.com/sai4u-dev/dsa-mastery/tree/master/3093-longest-common-suffix-queries) |
 | [3505-minimum-operations-to-make-elements-within-k-subarrays-equal](https://github.com/sai4u-dev/dsa-mastery/tree/main/3505-minimum-operations-to-make-elements-within-k-subarrays-equal/) | Hard |
 | [3619-count-islands-with-total-value-divisible-by-k](https://github.com/sai4u-dev/dsa-mastery/tree/main/3619-count-islands-with-total-value-divisible-by-k/) | Medium |
@@ -136,11 +137,13 @@ Progress is tracked continuously as I solve and document new problems.
 | ------- | ------- |
 | [0027-remove-element](https://github.com/sai4u-dev/dsa-mastery/tree/main/0027-remove-element/) | Easy |
 | [0088-merge-sorted-array](https://github.com/sai4u-dev/dsa-mastery/tree/main/0088-merge-sorted-array/) | Easy |
+| [1385-find-the-distance-value-between-two-arrays](https://github.com/sai4u-dev/dsa-mastery/tree/main/1385-find-the-distance-value-between-two-arrays/) | Easy |
 ## Sorting
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [0088-merge-sorted-array](https://github.com/sai4u-dev/dsa-mastery/tree/main/0088-merge-sorted-array/) | Easy |
 | [0462-minimum-moves-to-equal-array-elements-ii](https://github.com/sai4u-dev/dsa-mastery/tree/main/0462-minimum-moves-to-equal-array-elements-ii/) | Medium |
+| [1385-find-the-distance-value-between-two-arrays](https://github.com/sai4u-dev/dsa-mastery/tree/main/1385-find-the-distance-value-between-two-arrays/) | Easy |
 ## Graph Theory
 | Problem Name | Difficulty |
 | ------- | ------- |
@@ -158,4 +161,8 @@ Progress is tracked continuously as I solve and document new problems.
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [3505-minimum-operations-to-make-elements-within-k-subarrays-equal](https://github.com/sai4u-dev/dsa-mastery/tree/main/3505-minimum-operations-to-make-elements-within-k-subarrays-equal/) | Hard |
+## Binary Search
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [1385-find-the-distance-value-between-two-arrays](https://github.com/sai4u-dev/dsa-mastery/tree/main/1385-find-the-distance-value-between-two-arrays/) | Easy |
 <!---LeetCode Topics End-->
