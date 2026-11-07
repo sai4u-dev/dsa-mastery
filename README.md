@@ -36,6 +36,7 @@ Progress is tracked continuously as I solve and document new problems.
 | ------- |
 | [0001-two-sum](https://github.com/sai4u-dev/dsa-mastery/tree/main/0001-two-sum/) | Easy |
 | [0027-remove-element](https://github.com/sai4u-dev/dsa-mastery/tree/main/0027-remove-element/) | Easy |
+| [0042-trapping-rain-water](https://github.com/sai4u-dev/dsa-mastery/tree/master/0042-trapping-rain-water) |
 | [0088-merge-sorted-array](https://github.com/sai4u-dev/dsa-mastery/tree/main/0088-merge-sorted-array/) | Easy |
 | [0135-candy](https://github.com/sai4u-dev/dsa-mastery/tree/master/0135-candy) |
 | [0453-minimum-moves-to-equal-array-elements](https://github.com/sai4u-dev/dsa-mastery/tree/main/0453-minimum-moves-to-equal-array-elements/) | Medium |
@@ -105,6 +106,7 @@ Progress is tracked continuously as I solve and document new problems.
 ## Dynamic Programming
 |  |
 | ------- |
+| [0042-trapping-rain-water](https://github.com/sai4u-dev/dsa-mastery/tree/master/0042-trapping-rain-water) |
 | [0746-min-cost-climbing-stairs](https://github.com/sai4u-dev/dsa-mastery/tree/main/0746-min-cost-climbing-stairs/) | Easy |
 | [3505-minimum-operations-to-make-elements-within-k-subarrays-equal](https://github.com/sai4u-dev/dsa-mastery/tree/main/3505-minimum-operations-to-make-elements-within-k-subarrays-equal/) | Hard |
 | [3665-twisted-mirror-path-count](https://github.com/sai4u-dev/dsa-mastery/tree/main/3665-twisted-mirror-path-count/) | Medium |
@@ -139,6 +141,7 @@ Progress is tracked continuously as I solve and document new problems.
 |  |
 | ------- |
 | [0027-remove-element](https://github.com/sai4u-dev/dsa-mastery/tree/main/0027-remove-element/) | Easy |
+| [0042-trapping-rain-water](https://github.com/sai4u-dev/dsa-mastery/tree/master/0042-trapping-rain-water) |
 | [0088-merge-sorted-array](https://github.com/sai4u-dev/dsa-mastery/tree/main/0088-merge-sorted-array/) | Easy |
 | [1385-find-the-distance-value-between-two-arrays](https://github.com/sai4u-dev/dsa-mastery/tree/main/1385-find-the-distance-value-between-two-arrays/) | Easy |
 ## Sorting
@@ -174,4 +177,12 @@ Progress is tracked continuously as I solve and document new problems.
 |  |
 | ------- |
 | [0135-candy](https://github.com/sai4u-dev/dsa-mastery/tree/master/0135-candy) |
+## Stack
+|  |
+| ------- |
+| [0042-trapping-rain-water](https://github.com/sai4u-dev/dsa-mastery/tree/master/0042-trapping-rain-water) |
+## Monotonic Stack
+|  |
+| ------- |
+| [0042-trapping-rain-water](https://github.com/sai4u-dev/dsa-mastery/tree/master/0042-trapping-rain-water) |
 <!---LeetCode Topics End-->
