@@ -7,35 +7,17 @@ class Solution {
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (grid[i][j] == 1) {
+                    boolean found = false;
 
-                    for (int k = 0; k < n; k++) {
-                        if (k != j && grid[i][k] == 1) {
-                            count++;
-                            break;
-                        }
-                    }
+                    for (int k = 0; k < n; k++)
+                        if (k != j && grid[i][k] == 1)
+                            found = true;
 
-                    if (count == 0 || true) {
-                        boolean found = false;
+                    for (int k = 0; k < m; k++)
+                        if (k != i && grid[k][j] == 1)
+                            found = true;
 
-                        for (int k = 0; k < m; k++) {
-                            if (k != i && grid[k][j] == 1) {
-                                found = true;
-                                break;
-                            }
-                        }
-
-                        if (found) {
-                            boolean rowFound = false;
-                            for (int k = 0; k < n; k++) {
-                                if (k != j && grid[i][k] == 1) {
-                                    rowFound = true;
-                                    break;
-                                }
-                            }
-                            if (!rowFound) count++;
-                        }
-                    }
+                    if (found) count++;
                 }
             }
         }
