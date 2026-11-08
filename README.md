@@ -39,6 +39,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [0042-trapping-rain-water](https://github.com/sai4u-dev/dsa-mastery/tree/master/0042-trapping-rain-water) |
 | [0088-merge-sorted-array](https://github.com/sai4u-dev/dsa-mastery/tree/main/0088-merge-sorted-array/) | Easy |
 | [0135-candy](https://github.com/sai4u-dev/dsa-mastery/tree/master/0135-candy) |
+| [0167-two-sum-ii-input-array-is-sorted](https://github.com/sai4u-dev/dsa-mastery/tree/main/0167-two-sum-ii-input-array-is-sorted/) | Medium |
 | [0453-minimum-moves-to-equal-array-elements](https://github.com/sai4u-dev/dsa-mastery/tree/main/0453-minimum-moves-to-equal-array-elements/) | Medium |
 | [0462-minimum-moves-to-equal-array-elements-ii](https://github.com/sai4u-dev/dsa-mastery/tree/main/0462-minimum-moves-to-equal-array-elements-ii/) | Medium |
 | [0746-min-cost-climbing-stairs](https://github.com/sai4u-dev/dsa-mastery/tree/main/0746-min-cost-climbing-stairs/) | Easy |
@@ -151,6 +152,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [0027-remove-element](https://github.com/sai4u-dev/dsa-mastery/tree/main/0027-remove-element/) | Easy |
 | [0042-trapping-rain-water](https://github.com/sai4u-dev/dsa-mastery/tree/master/0042-trapping-rain-water) |
 | [0088-merge-sorted-array](https://github.com/sai4u-dev/dsa-mastery/tree/main/0088-merge-sorted-array/) | Easy |
+| [0167-two-sum-ii-input-array-is-sorted](https://github.com/sai4u-dev/dsa-mastery/tree/main/0167-two-sum-ii-input-array-is-sorted/) | Medium |
 | [0392-is-subsequence](https://github.com/sai4u-dev/dsa-mastery/tree/main/0392-is-subsequence/) | Easy |
 | [1385-find-the-distance-value-between-two-arrays](https://github.com/sai4u-dev/dsa-mastery/tree/main/1385-find-the-distance-value-between-two-arrays/) | Easy |
 ## Sorting
@@ -182,6 +184,7 @@ Progress is tracked continuously as I solve and document new problems.
 ## Binary Search
 | Problem Name | Difficulty |
 | ------- | ------- |
+| [0167-two-sum-ii-input-array-is-sorted](https://github.com/sai4u-dev/dsa-mastery/tree/main/0167-two-sum-ii-input-array-is-sorted/) | Medium |
 | [1385-find-the-distance-value-between-two-arrays](https://github.com/sai4u-dev/dsa-mastery/tree/main/1385-find-the-distance-value-between-two-arrays/) | Easy |
 ## Greedy
 | Problem Name | Difficulty |
