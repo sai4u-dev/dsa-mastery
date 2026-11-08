@@ -36,6 +36,7 @@ Progress is tracked continuously as I solve and document new problems.
 | ------- | ------- |
 | [0001-two-sum](https://github.com/sai4u-dev/dsa-mastery/tree/main/0001-two-sum/) | Easy |
 | [0011-container-with-most-water](https://github.com/sai4u-dev/dsa-mastery/tree/main/0011-container-with-most-water/) | Medium |
+| [0015-3sum](https://github.com/sai4u-dev/dsa-mastery/tree/main/0015-3sum/) | Medium |
 | [0027-remove-element](https://github.com/sai4u-dev/dsa-mastery/tree/main/0027-remove-element/) | Easy |
 | [0042-trapping-rain-water](https://github.com/sai4u-dev/dsa-mastery/tree/master/0042-trapping-rain-water) |
 | [0088-merge-sorted-array](https://github.com/sai4u-dev/dsa-mastery/tree/main/0088-merge-sorted-array/) | Easy |
@@ -151,6 +152,7 @@ Progress is tracked continuously as I solve and document new problems.
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [0011-container-with-most-water](https://github.com/sai4u-dev/dsa-mastery/tree/main/0011-container-with-most-water/) | Medium |
+| [0015-3sum](https://github.com/sai4u-dev/dsa-mastery/tree/main/0015-3sum/) | Medium |
 | [0027-remove-element](https://github.com/sai4u-dev/dsa-mastery/tree/main/0027-remove-element/) | Easy |
 | [0042-trapping-rain-water](https://github.com/sai4u-dev/dsa-mastery/tree/master/0042-trapping-rain-water) |
 | [0088-merge-sorted-array](https://github.com/sai4u-dev/dsa-mastery/tree/main/0088-merge-sorted-array/) | Easy |
@@ -160,6 +162,7 @@ Progress is tracked continuously as I solve and document new problems.
 ## Sorting
 | Problem Name | Difficulty |
 | ------- | ------- |
+| [0015-3sum](https://github.com/sai4u-dev/dsa-mastery/tree/main/0015-3sum/) | Medium |
 | [0088-merge-sorted-array](https://github.com/sai4u-dev/dsa-mastery/tree/main/0088-merge-sorted-array/) | Easy |
 | [0462-minimum-moves-to-equal-array-elements-ii](https://github.com/sai4u-dev/dsa-mastery/tree/main/0462-minimum-moves-to-equal-array-elements-ii/) | Medium |
 | [1385-find-the-distance-value-between-two-arrays](https://github.com/sai4u-dev/dsa-mastery/tree/main/1385-find-the-distance-value-between-two-arrays/) | Easy |
