@@ -89,6 +89,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [2409-count-days-spent-together](https://github.com/sai4u-dev/dsa-mastery/tree/master/2409-count-days-spent-together) |
 | [3505-minimum-operations-to-make-elements-within-k-subarrays-equal](https://github.com/sai4u-dev/dsa-mastery/tree/main/3505-minimum-operations-to-make-elements-within-k-subarrays-equal/) | Hard |
 | [3736-minimum-moves-to-equal-array-elements-iii](https://github.com/sai4u-dev/dsa-mastery/tree/main/3736-minimum-moves-to-equal-array-elements-iii/) | Easy |
+| [3789-minimum-cost-to-acquire-required-items](https://github.com/sai4u-dev/dsa-mastery/tree/main/3789-minimum-cost-to-acquire-required-items/) | Medium |
 ## Depth-First Search
 | Problem Name | Difficulty |
 | ------- | ------- |
@@ -202,6 +203,7 @@ Progress is tracked continuously as I solve and document new problems.
 | ------- | ------- |
 | [0011-container-with-most-water](https://github.com/sai4u-dev/dsa-mastery/tree/main/0011-container-with-most-water/) | Medium |
 | [0135-candy](https://github.com/sai4u-dev/dsa-mastery/tree/master/0135-candy) |
+| [3789-minimum-cost-to-acquire-required-items](https://github.com/sai4u-dev/dsa-mastery/tree/main/3789-minimum-cost-to-acquire-required-items/) | Medium |
 ## Stack
 | Problem Name | Difficulty |
 | ------- | ------- |
