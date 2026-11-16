@@ -70,6 +70,7 @@ Progress is tracked continuously as I solve and document new problems.
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [0392-is-subsequence](https://github.com/sai4u-dev/dsa-mastery/tree/main/0392-is-subsequence/) | Easy |
+| [2243-calculate-digit-sum-of-a-string](https://github.com/sai4u-dev/dsa-mastery/tree/main/2243-calculate-digit-sum-of-a-string/) | Easy |
 | [2409-count-days-spent-together](https://github.com/sai4u-dev/dsa-mastery/tree/master/2409-count-days-spent-together) |
 | [3093-longest-common-suffix-queries](https://github.com/sai4u-dev/dsa-mastery/tree/master/3093-longest-common-suffix-queries) |
 | [3841-palindromic-path-queries-in-a-tree](https://github.com/sai4u-dev/dsa-mastery/tree/main/3841-palindromic-path-queries-in-a-tree/) | Hard |
@@ -231,6 +232,7 @@ Progress is tracked continuously as I solve and document new problems.
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [1606-find-servers-that-handled-most-number-of-requests](https://github.com/sai4u-dev/dsa-mastery/tree/main/1606-find-servers-that-handled-most-number-of-requests/) | Hard |
+| [2243-calculate-digit-sum-of-a-string](https://github.com/sai4u-dev/dsa-mastery/tree/main/2243-calculate-digit-sum-of-a-string/) | Easy |
 ## Ordered Set
 | Problem Name | Difficulty |
 | ------- | ------- |
