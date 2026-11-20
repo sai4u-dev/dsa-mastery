@@ -40,6 +40,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [0027-remove-element](https://github.com/sai4u-dev/dsa-mastery/tree/main/0027-remove-element/) | Easy |
 | [0036-valid-sudoku](https://github.com/sai4u-dev/dsa-mastery/tree/master/0036-valid-sudoku) |
 | [0042-trapping-rain-water](https://github.com/sai4u-dev/dsa-mastery/tree/master/0042-trapping-rain-water) |
+| [0048-rotate-image](https://github.com/sai4u-dev/dsa-mastery/tree/main/0048-rotate-image/) | Medium |
 | [0054-spiral-matrix](https://github.com/sai4u-dev/dsa-mastery/tree/main/0054-spiral-matrix/) | Medium |
 | [0088-merge-sorted-array](https://github.com/sai4u-dev/dsa-mastery/tree/main/0088-merge-sorted-array/) | Easy |
 | [0135-candy](https://github.com/sai4u-dev/dsa-mastery/tree/master/0135-candy) |
@@ -96,6 +97,7 @@ Progress is tracked continuously as I solve and document new problems.
 ## Math
 | Problem Name | Difficulty |
 | ------- | ------- |
+| [0048-rotate-image](https://github.com/sai4u-dev/dsa-mastery/tree/main/0048-rotate-image/) | Medium |
 | [0319-bulb-switcher](https://github.com/sai4u-dev/dsa-mastery/tree/main/0319-bulb-switcher/) | Medium |
 | [0453-minimum-moves-to-equal-array-elements](https://github.com/sai4u-dev/dsa-mastery/tree/main/0453-minimum-moves-to-equal-array-elements/) | Medium |
 | [0462-minimum-moves-to-equal-array-elements-ii](https://github.com/sai4u-dev/dsa-mastery/tree/main/0462-minimum-moves-to-equal-array-elements-ii/) | Medium |
@@ -127,6 +129,7 @@ Progress is tracked continuously as I solve and document new problems.
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [0036-valid-sudoku](https://github.com/sai4u-dev/dsa-mastery/tree/master/0036-valid-sudoku) |
+| [0048-rotate-image](https://github.com/sai4u-dev/dsa-mastery/tree/main/0048-rotate-image/) | Medium |
 | [0054-spiral-matrix](https://github.com/sai4u-dev/dsa-mastery/tree/main/0054-spiral-matrix/) | Medium |
 | [1254-number-of-closed-islands](https://github.com/sai4u-dev/dsa-mastery/tree/main/1254-number-of-closed-islands/) | Medium |
 | [1267-count-servers-that-communicate](https://github.com/sai4u-dev/dsa-mastery/tree/main/1267-count-servers-that-communicate/) | Medium |
