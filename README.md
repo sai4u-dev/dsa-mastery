@@ -43,6 +43,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [0088-merge-sorted-array](https://github.com/sai4u-dev/dsa-mastery/tree/main/0088-merge-sorted-array/) | Easy |
 | [0135-candy](https://github.com/sai4u-dev/dsa-mastery/tree/master/0135-candy) |
 | [0167-two-sum-ii-input-array-is-sorted](https://github.com/sai4u-dev/dsa-mastery/tree/main/0167-two-sum-ii-input-array-is-sorted/) | Medium |
+| [0209-minimum-size-subarray-sum](https://github.com/sai4u-dev/dsa-mastery/tree/main/0209-minimum-size-subarray-sum/) | Medium |
 | [0453-minimum-moves-to-equal-array-elements](https://github.com/sai4u-dev/dsa-mastery/tree/main/0453-minimum-moves-to-equal-array-elements/) | Medium |
 | [0462-minimum-moves-to-equal-array-elements-ii](https://github.com/sai4u-dev/dsa-mastery/tree/main/0462-minimum-moves-to-equal-array-elements-ii/) | Medium |
 | [0706-design-hashmap](https://github.com/sai4u-dev/dsa-mastery/tree/main/0706-design-hashmap/) | Easy |
@@ -208,6 +209,7 @@ Progress is tracked continuously as I solve and document new problems.
 ## Sliding Window
 | Problem Name | Difficulty |
 | ------- | ------- |
+| [0209-minimum-size-subarray-sum](https://github.com/sai4u-dev/dsa-mastery/tree/main/0209-minimum-size-subarray-sum/) | Medium |
 | [2747-count-zero-request-servers](https://github.com/sai4u-dev/dsa-mastery/tree/main/2747-count-zero-request-servers/) | Medium |
 | [3364-minimum-positive-sum-subarray](https://github.com/sai4u-dev/dsa-mastery/tree/master/3364-minimum-positive-sum-subarray) |
 | [3420-count-non-decreasing-subarrays-after-k-operations](https://github.com/sai4u-dev/dsa-mastery/tree/main/3420-count-non-decreasing-subarrays-after-k-operations/) | Hard |
@@ -216,6 +218,7 @@ Progress is tracked continuously as I solve and document new problems.
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [0167-two-sum-ii-input-array-is-sorted](https://github.com/sai4u-dev/dsa-mastery/tree/main/0167-two-sum-ii-input-array-is-sorted/) | Medium |
+| [0209-minimum-size-subarray-sum](https://github.com/sai4u-dev/dsa-mastery/tree/main/0209-minimum-size-subarray-sum/) | Medium |
 | [1385-find-the-distance-value-between-two-arrays](https://github.com/sai4u-dev/dsa-mastery/tree/main/1385-find-the-distance-value-between-two-arrays/) | Easy |
 ## Greedy
 | Problem Name | Difficulty |
@@ -269,6 +272,7 @@ Progress is tracked continuously as I solve and document new problems.
 ## Prefix Sum
 | Problem Name | Difficulty |
 | ------- | ------- |
+| [0209-minimum-size-subarray-sum](https://github.com/sai4u-dev/dsa-mastery/tree/main/0209-minimum-size-subarray-sum/) | Medium |
 | [1524-number-of-sub-arrays-with-odd-sum](https://github.com/sai4u-dev/dsa-mastery/tree/main/1524-number-of-sub-arrays-with-odd-sum/) | Medium |
 | [3364-minimum-positive-sum-subarray](https://github.com/sai4u-dev/dsa-mastery/tree/master/3364-minimum-positive-sum-subarray) |
 <!---LeetCode Topics End-->
