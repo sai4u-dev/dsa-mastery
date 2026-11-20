@@ -72,6 +72,7 @@ Progress is tracked continuously as I solve and document new problems.
 ## String
 |  |
 | ------- |
+| [0003-longest-substring-without-repeating-characters](https://github.com/sai4u-dev/dsa-mastery/tree/master/0003-longest-substring-without-repeating-characters) |
 | [0392-is-subsequence](https://github.com/sai4u-dev/dsa-mastery/tree/main/0392-is-subsequence/) | Easy |
 | [2243-calculate-digit-sum-of-a-string](https://github.com/sai4u-dev/dsa-mastery/tree/main/2243-calculate-digit-sum-of-a-string/) | Easy |
 | [2409-count-days-spent-together](https://github.com/sai4u-dev/dsa-mastery/tree/master/2409-count-days-spent-together) |
@@ -166,6 +167,7 @@ Progress is tracked continuously as I solve and document new problems.
 |  |
 | ------- |
 | [0001-two-sum](https://github.com/sai4u-dev/dsa-mastery/tree/main/0001-two-sum/) | Easy |
+| [0003-longest-substring-without-repeating-characters](https://github.com/sai4u-dev/dsa-mastery/tree/master/0003-longest-substring-without-repeating-characters) |
 | [0036-valid-sudoku](https://github.com/sai4u-dev/dsa-mastery/tree/master/0036-valid-sudoku) |
 | [0706-design-hashmap](https://github.com/sai4u-dev/dsa-mastery/tree/main/0706-design-hashmap/) | Easy |
 | [2747-count-zero-request-servers](https://github.com/sai4u-dev/dsa-mastery/tree/main/2747-count-zero-request-servers/) | Medium |
@@ -209,6 +211,7 @@ Progress is tracked continuously as I solve and document new problems.
 ## Sliding Window
 |  |
 | ------- |
+| [0003-longest-substring-without-repeating-characters](https://github.com/sai4u-dev/dsa-mastery/tree/master/0003-longest-substring-without-repeating-characters) |
 | [0209-minimum-size-subarray-sum](https://github.com/sai4u-dev/dsa-mastery/tree/main/0209-minimum-size-subarray-sum/) | Medium |
 | [2747-count-zero-request-servers](https://github.com/sai4u-dev/dsa-mastery/tree/main/2747-count-zero-request-servers/) | Medium |
 | [3364-minimum-positive-sum-subarray](https://github.com/sai4u-dev/dsa-mastery/tree/master/3364-minimum-positive-sum-subarray) |
