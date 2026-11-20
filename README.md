@@ -54,6 +54,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [1606-find-servers-that-handled-most-number-of-requests](https://github.com/sai4u-dev/dsa-mastery/tree/main/1606-find-servers-that-handled-most-number-of-requests/) | Hard |
 | [1882-process-tasks-using-servers](https://github.com/sai4u-dev/dsa-mastery/tree/main/1882-process-tasks-using-servers/) | Medium |
 | [2747-count-zero-request-servers](https://github.com/sai4u-dev/dsa-mastery/tree/main/2747-count-zero-request-servers/) | Medium |
+| [3041-maximize-consecutive-elements-in-an-array-after-modification](https://github.com/sai4u-dev/dsa-mastery/tree/main/3041-maximize-consecutive-elements-in-an-array-after-modification/) | Hard |
 | [3093-longest-common-suffix-queries](https://github.com/sai4u-dev/dsa-mastery/tree/master/3093-longest-common-suffix-queries) |
 | [3105-longest-strictly-increasing-or-strictly-decreasing-subarray](https://github.com/sai4u-dev/dsa-mastery/tree/main/3105-longest-strictly-increasing-or-strictly-decreasing-subarray/) | Easy |
 | [3364-minimum-positive-sum-subarray](https://github.com/sai4u-dev/dsa-mastery/tree/master/3364-minimum-positive-sum-subarray) |
@@ -134,6 +135,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [0746-min-cost-climbing-stairs](https://github.com/sai4u-dev/dsa-mastery/tree/main/0746-min-cost-climbing-stairs/) | Easy |
 | [1524-number-of-sub-arrays-with-odd-sum](https://github.com/sai4u-dev/dsa-mastery/tree/main/1524-number-of-sub-arrays-with-odd-sum/) | Medium |
 | [2911-minimum-changes-to-make-k-semi-palindromes](https://github.com/sai4u-dev/dsa-mastery/tree/main/2911-minimum-changes-to-make-k-semi-palindromes/) | Hard |
+| [3041-maximize-consecutive-elements-in-an-array-after-modification](https://github.com/sai4u-dev/dsa-mastery/tree/main/3041-maximize-consecutive-elements-in-an-array-after-modification/) | Hard |
 | [3505-minimum-operations-to-make-elements-within-k-subarrays-equal](https://github.com/sai4u-dev/dsa-mastery/tree/main/3505-minimum-operations-to-make-elements-within-k-subarrays-equal/) | Hard |
 | [3665-twisted-mirror-path-count](https://github.com/sai4u-dev/dsa-mastery/tree/main/3665-twisted-mirror-path-count/) | Medium |
 | [3693-climbing-stairs-ii](https://github.com/sai4u-dev/dsa-mastery/tree/master/3693-climbing-stairs-ii) |
@@ -187,6 +189,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [0462-minimum-moves-to-equal-array-elements-ii](https://github.com/sai4u-dev/dsa-mastery/tree/main/0462-minimum-moves-to-equal-array-elements-ii/) | Medium |
 | [1385-find-the-distance-value-between-two-arrays](https://github.com/sai4u-dev/dsa-mastery/tree/main/1385-find-the-distance-value-between-two-arrays/) | Easy |
 | [2747-count-zero-request-servers](https://github.com/sai4u-dev/dsa-mastery/tree/main/2747-count-zero-request-servers/) | Medium |
+| [3041-maximize-consecutive-elements-in-an-array-after-modification](https://github.com/sai4u-dev/dsa-mastery/tree/main/3041-maximize-consecutive-elements-in-an-array-after-modification/) | Hard |
 ## Graph Theory
 | Problem Name | Difficulty |
 | ------- | ------- |
