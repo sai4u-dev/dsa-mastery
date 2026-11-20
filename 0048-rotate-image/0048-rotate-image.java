@@ -15,6 +15,5 @@ class Solution {
                 r[l] = r[h];
                 r[h] = t;
             }
-
     }
 }
