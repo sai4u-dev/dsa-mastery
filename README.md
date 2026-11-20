@@ -40,6 +40,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [0027-remove-element](https://github.com/sai4u-dev/dsa-mastery/tree/main/0027-remove-element/) | Easy |
 | [0036-valid-sudoku](https://github.com/sai4u-dev/dsa-mastery/tree/master/0036-valid-sudoku) |
 | [0042-trapping-rain-water](https://github.com/sai4u-dev/dsa-mastery/tree/master/0042-trapping-rain-water) |
+| [0054-spiral-matrix](https://github.com/sai4u-dev/dsa-mastery/tree/main/0054-spiral-matrix/) | Medium |
 | [0088-merge-sorted-array](https://github.com/sai4u-dev/dsa-mastery/tree/main/0088-merge-sorted-array/) | Easy |
 | [0135-candy](https://github.com/sai4u-dev/dsa-mastery/tree/master/0135-candy) |
 | [0167-two-sum-ii-input-array-is-sorted](https://github.com/sai4u-dev/dsa-mastery/tree/main/0167-two-sum-ii-input-array-is-sorted/) | Medium |
@@ -126,6 +127,7 @@ Progress is tracked continuously as I solve and document new problems.
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [0036-valid-sudoku](https://github.com/sai4u-dev/dsa-mastery/tree/master/0036-valid-sudoku) |
+| [0054-spiral-matrix](https://github.com/sai4u-dev/dsa-mastery/tree/main/0054-spiral-matrix/) | Medium |
 | [1254-number-of-closed-islands](https://github.com/sai4u-dev/dsa-mastery/tree/main/1254-number-of-closed-islands/) | Medium |
 | [1267-count-servers-that-communicate](https://github.com/sai4u-dev/dsa-mastery/tree/main/1267-count-servers-that-communicate/) | Medium |
 | [3619-count-islands-with-total-value-divisible-by-k](https://github.com/sai4u-dev/dsa-mastery/tree/main/3619-count-islands-with-total-value-divisible-by-k/) | Medium |
@@ -252,6 +254,7 @@ Progress is tracked continuously as I solve and document new problems.
 ## Simulation
 | Problem Name | Difficulty |
 | ------- | ------- |
+| [0054-spiral-matrix](https://github.com/sai4u-dev/dsa-mastery/tree/main/0054-spiral-matrix/) | Medium |
 | [1606-find-servers-that-handled-most-number-of-requests](https://github.com/sai4u-dev/dsa-mastery/tree/main/1606-find-servers-that-handled-most-number-of-requests/) | Hard |
 | [2243-calculate-digit-sum-of-a-string](https://github.com/sai4u-dev/dsa-mastery/tree/main/2243-calculate-digit-sum-of-a-string/) | Easy |
 ## Ordered Set
