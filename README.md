@@ -79,6 +79,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [0030-substring-with-concatenation-of-all-words](https://github.com/sai4u-dev/dsa-mastery/tree/main/0030-substring-with-concatenation-of-all-words/) | Hard |
 | [0076-minimum-window-substring](https://github.com/sai4u-dev/dsa-mastery/tree/main/0076-minimum-window-substring/) | Hard |
 | [0205-isomorphic-strings](https://github.com/sai4u-dev/dsa-mastery/tree/main/0205-isomorphic-strings/) | Easy |
+| [0290-word-pattern](https://github.com/sai4u-dev/dsa-mastery/tree/main/0290-word-pattern/) | Easy |
 | [0383-ransom-note](https://github.com/sai4u-dev/dsa-mastery/tree/main/0383-ransom-note/) | Easy |
 | [0392-is-subsequence](https://github.com/sai4u-dev/dsa-mastery/tree/main/0392-is-subsequence/) | Easy |
 | [2124-check-if-all-as-appears-before-all-bs](https://github.com/sai4u-dev/dsa-mastery/tree/main/2124-check-if-all-as-appears-before-all-bs/) | Easy |
@@ -186,6 +187,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [0036-valid-sudoku](https://github.com/sai4u-dev/dsa-mastery/tree/master/0036-valid-sudoku) |
 | [0076-minimum-window-substring](https://github.com/sai4u-dev/dsa-mastery/tree/main/0076-minimum-window-substring/) | Hard |
 | [0205-isomorphic-strings](https://github.com/sai4u-dev/dsa-mastery/tree/main/0205-isomorphic-strings/) | Easy |
+| [0290-word-pattern](https://github.com/sai4u-dev/dsa-mastery/tree/main/0290-word-pattern/) | Easy |
 | [0383-ransom-note](https://github.com/sai4u-dev/dsa-mastery/tree/main/0383-ransom-note/) | Easy |
 | [0706-design-hashmap](https://github.com/sai4u-dev/dsa-mastery/tree/main/0706-design-hashmap/) | Easy |
 | [2747-count-zero-request-servers](https://github.com/sai4u-dev/dsa-mastery/tree/main/2747-count-zero-request-servers/) | Medium |
