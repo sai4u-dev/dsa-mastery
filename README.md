@@ -79,6 +79,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [0030-substring-with-concatenation-of-all-words](https://github.com/sai4u-dev/dsa-mastery/tree/main/0030-substring-with-concatenation-of-all-words/) | Hard |
 | [0076-minimum-window-substring](https://github.com/sai4u-dev/dsa-mastery/tree/main/0076-minimum-window-substring/) | Hard |
 | [0392-is-subsequence](https://github.com/sai4u-dev/dsa-mastery/tree/main/0392-is-subsequence/) | Easy |
+| [2124-check-if-all-as-appears-before-all-bs](https://github.com/sai4u-dev/dsa-mastery/tree/main/2124-check-if-all-as-appears-before-all-bs/) | Easy |
 | [2243-calculate-digit-sum-of-a-string](https://github.com/sai4u-dev/dsa-mastery/tree/main/2243-calculate-digit-sum-of-a-string/) | Easy |
 | [2409-count-days-spent-together](https://github.com/sai4u-dev/dsa-mastery/tree/master/2409-count-days-spent-together) |
 | [2911-minimum-changes-to-make-k-semi-palindromes](https://github.com/sai4u-dev/dsa-mastery/tree/main/2911-minimum-changes-to-make-k-semi-palindromes/) | Hard |
