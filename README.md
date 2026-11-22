@@ -78,6 +78,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [0003-longest-substring-without-repeating-characters](https://github.com/sai4u-dev/dsa-mastery/tree/master/0003-longest-substring-without-repeating-characters) |
 | [0030-substring-with-concatenation-of-all-words](https://github.com/sai4u-dev/dsa-mastery/tree/main/0030-substring-with-concatenation-of-all-words/) | Hard |
 | [0076-minimum-window-substring](https://github.com/sai4u-dev/dsa-mastery/tree/main/0076-minimum-window-substring/) | Hard |
+| [0383-ransom-note](https://github.com/sai4u-dev/dsa-mastery/tree/main/0383-ransom-note/) | Easy |
 | [0392-is-subsequence](https://github.com/sai4u-dev/dsa-mastery/tree/main/0392-is-subsequence/) | Easy |
 | [2124-check-if-all-as-appears-before-all-bs](https://github.com/sai4u-dev/dsa-mastery/tree/main/2124-check-if-all-as-appears-before-all-bs/) | Easy |
 | [2243-calculate-digit-sum-of-a-string](https://github.com/sai4u-dev/dsa-mastery/tree/main/2243-calculate-digit-sum-of-a-string/) | Easy |
@@ -183,6 +184,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [0030-substring-with-concatenation-of-all-words](https://github.com/sai4u-dev/dsa-mastery/tree/main/0030-substring-with-concatenation-of-all-words/) | Hard |
 | [0036-valid-sudoku](https://github.com/sai4u-dev/dsa-mastery/tree/master/0036-valid-sudoku) |
 | [0076-minimum-window-substring](https://github.com/sai4u-dev/dsa-mastery/tree/main/0076-minimum-window-substring/) | Hard |
+| [0383-ransom-note](https://github.com/sai4u-dev/dsa-mastery/tree/main/0383-ransom-note/) | Easy |
 | [0706-design-hashmap](https://github.com/sai4u-dev/dsa-mastery/tree/main/0706-design-hashmap/) | Easy |
 | [2747-count-zero-request-servers](https://github.com/sai4u-dev/dsa-mastery/tree/main/2747-count-zero-request-servers/) | Medium |
 | [3331-find-subtree-sizes-after-changes](https://github.com/sai4u-dev/dsa-mastery/tree/main/3331-find-subtree-sizes-after-changes/) | Medium |
@@ -259,6 +261,7 @@ Progress is tracked continuously as I solve and document new problems.
 ## Counting
 | Problem Name | Difficulty |
 | ------- | ------- |
+| [0383-ransom-note](https://github.com/sai4u-dev/dsa-mastery/tree/main/0383-ransom-note/) | Easy |
 | [1267-count-servers-that-communicate](https://github.com/sai4u-dev/dsa-mastery/tree/main/1267-count-servers-that-communicate/) | Medium |
 ## Simulation
 | Problem Name | Difficulty |
