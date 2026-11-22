@@ -79,6 +79,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [0030-substring-with-concatenation-of-all-words](https://github.com/sai4u-dev/dsa-mastery/tree/main/0030-substring-with-concatenation-of-all-words/) | Hard |
 | [0076-minimum-window-substring](https://github.com/sai4u-dev/dsa-mastery/tree/main/0076-minimum-window-substring/) | Hard |
 | [0205-isomorphic-strings](https://github.com/sai4u-dev/dsa-mastery/tree/main/0205-isomorphic-strings/) | Easy |
+| [0242-valid-anagram](https://github.com/sai4u-dev/dsa-mastery/tree/main/0242-valid-anagram/) | Easy |
 | [0290-word-pattern](https://github.com/sai4u-dev/dsa-mastery/tree/main/0290-word-pattern/) | Easy |
 | [0383-ransom-note](https://github.com/sai4u-dev/dsa-mastery/tree/main/0383-ransom-note/) | Easy |
 | [0392-is-subsequence](https://github.com/sai4u-dev/dsa-mastery/tree/main/0392-is-subsequence/) | Easy |
@@ -187,6 +188,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [0036-valid-sudoku](https://github.com/sai4u-dev/dsa-mastery/tree/master/0036-valid-sudoku) |
 | [0076-minimum-window-substring](https://github.com/sai4u-dev/dsa-mastery/tree/main/0076-minimum-window-substring/) | Hard |
 | [0205-isomorphic-strings](https://github.com/sai4u-dev/dsa-mastery/tree/main/0205-isomorphic-strings/) | Easy |
+| [0242-valid-anagram](https://github.com/sai4u-dev/dsa-mastery/tree/main/0242-valid-anagram/) | Easy |
 | [0290-word-pattern](https://github.com/sai4u-dev/dsa-mastery/tree/main/0290-word-pattern/) | Easy |
 | [0383-ransom-note](https://github.com/sai4u-dev/dsa-mastery/tree/main/0383-ransom-note/) | Easy |
 | [0706-design-hashmap](https://github.com/sai4u-dev/dsa-mastery/tree/main/0706-design-hashmap/) | Easy |
@@ -210,6 +212,7 @@ Progress is tracked continuously as I solve and document new problems.
 | ------- | ------- |
 | [0015-3sum](https://github.com/sai4u-dev/dsa-mastery/tree/main/0015-3sum/) | Medium |
 | [0088-merge-sorted-array](https://github.com/sai4u-dev/dsa-mastery/tree/main/0088-merge-sorted-array/) | Easy |
+| [0242-valid-anagram](https://github.com/sai4u-dev/dsa-mastery/tree/main/0242-valid-anagram/) | Easy |
 | [0462-minimum-moves-to-equal-array-elements-ii](https://github.com/sai4u-dev/dsa-mastery/tree/main/0462-minimum-moves-to-equal-array-elements-ii/) | Medium |
 | [1385-find-the-distance-value-between-two-arrays](https://github.com/sai4u-dev/dsa-mastery/tree/main/1385-find-the-distance-value-between-two-arrays/) | Easy |
 | [2747-count-zero-request-servers](https://github.com/sai4u-dev/dsa-mastery/tree/main/2747-count-zero-request-servers/) | Medium |
