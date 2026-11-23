@@ -41,6 +41,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [0036-valid-sudoku](https://github.com/sai4u-dev/dsa-mastery/tree/master/0036-valid-sudoku) |
 | [0042-trapping-rain-water](https://github.com/sai4u-dev/dsa-mastery/tree/master/0042-trapping-rain-water) |
 | [0048-rotate-image](https://github.com/sai4u-dev/dsa-mastery/tree/main/0048-rotate-image/) | Medium |
+| [0049-group-anagrams](https://github.com/sai4u-dev/dsa-mastery/tree/main/0049-group-anagrams/) | Medium |
 | [0054-spiral-matrix](https://github.com/sai4u-dev/dsa-mastery/tree/main/0054-spiral-matrix/) | Medium |
 | [0088-merge-sorted-array](https://github.com/sai4u-dev/dsa-mastery/tree/main/0088-merge-sorted-array/) | Easy |
 | [0135-candy](https://github.com/sai4u-dev/dsa-mastery/tree/master/0135-candy) |
@@ -78,6 +79,7 @@ Progress is tracked continuously as I solve and document new problems.
 | ------- | ------- |
 | [0003-longest-substring-without-repeating-characters](https://github.com/sai4u-dev/dsa-mastery/tree/master/0003-longest-substring-without-repeating-characters) |
 | [0030-substring-with-concatenation-of-all-words](https://github.com/sai4u-dev/dsa-mastery/tree/main/0030-substring-with-concatenation-of-all-words/) | Hard |
+| [0049-group-anagrams](https://github.com/sai4u-dev/dsa-mastery/tree/main/0049-group-anagrams/) | Medium |
 | [0076-minimum-window-substring](https://github.com/sai4u-dev/dsa-mastery/tree/main/0076-minimum-window-substring/) | Hard |
 | [0205-isomorphic-strings](https://github.com/sai4u-dev/dsa-mastery/tree/main/0205-isomorphic-strings/) | Easy |
 | [0242-valid-anagram](https://github.com/sai4u-dev/dsa-mastery/tree/main/0242-valid-anagram/) | Easy |
@@ -188,6 +190,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [0003-longest-substring-without-repeating-characters](https://github.com/sai4u-dev/dsa-mastery/tree/master/0003-longest-substring-without-repeating-characters) |
 | [0030-substring-with-concatenation-of-all-words](https://github.com/sai4u-dev/dsa-mastery/tree/main/0030-substring-with-concatenation-of-all-words/) | Hard |
 | [0036-valid-sudoku](https://github.com/sai4u-dev/dsa-mastery/tree/master/0036-valid-sudoku) |
+| [0049-group-anagrams](https://github.com/sai4u-dev/dsa-mastery/tree/main/0049-group-anagrams/) | Medium |
 | [0076-minimum-window-substring](https://github.com/sai4u-dev/dsa-mastery/tree/main/0076-minimum-window-substring/) | Hard |
 | [0205-isomorphic-strings](https://github.com/sai4u-dev/dsa-mastery/tree/main/0205-isomorphic-strings/) | Easy |
 | [0242-valid-anagram](https://github.com/sai4u-dev/dsa-mastery/tree/main/0242-valid-anagram/) | Easy |
@@ -213,6 +216,7 @@ Progress is tracked continuously as I solve and document new problems.
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [0015-3sum](https://github.com/sai4u-dev/dsa-mastery/tree/main/0015-3sum/) | Medium |
+| [0049-group-anagrams](https://github.com/sai4u-dev/dsa-mastery/tree/main/0049-group-anagrams/) | Medium |
 | [0088-merge-sorted-array](https://github.com/sai4u-dev/dsa-mastery/tree/main/0088-merge-sorted-array/) | Easy |
 | [0242-valid-anagram](https://github.com/sai4u-dev/dsa-mastery/tree/main/0242-valid-anagram/) | Easy |
 | [0462-minimum-moves-to-equal-array-elements-ii](https://github.com/sai4u-dev/dsa-mastery/tree/main/0462-minimum-moves-to-equal-array-elements-ii/) | Medium |
