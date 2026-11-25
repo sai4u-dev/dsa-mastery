@@ -74,6 +74,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [3736-minimum-moves-to-equal-array-elements-iii](https://github.com/sai4u-dev/dsa-mastery/tree/main/3736-minimum-moves-to-equal-array-elements-iii/) | Easy |
 | [3841-palindromic-path-queries-in-a-tree](https://github.com/sai4u-dev/dsa-mastery/tree/main/3841-palindromic-path-queries-in-a-tree/) | Hard |
 | [3882-minimum-xor-path-in-a-grid](https://github.com/sai4u-dev/dsa-mastery/tree/main/3882-minimum-xor-path-in-a-grid/) | Medium |
+| [3934-smallest-unique-subarray](https://github.com/sai4u-dev/dsa-mastery/tree/main/3934-smallest-unique-subarray/) | Hard |
 | [3942-minimum-operations-to-sort-a-permutation](https://github.com/sai4u-dev/dsa-mastery/tree/main/LeetCode/Medium/3942-minimum-operations-to-sort-a-permutation/) | Medium |
 ## String
 | Problem Name | Difficulty |
@@ -202,6 +203,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [2747-count-zero-request-servers](https://github.com/sai4u-dev/dsa-mastery/tree/main/2747-count-zero-request-servers/) | Medium |
 | [3331-find-subtree-sizes-after-changes](https://github.com/sai4u-dev/dsa-mastery/tree/main/3331-find-subtree-sizes-after-changes/) | Medium |
 | [3505-minimum-operations-to-make-elements-within-k-subarrays-equal](https://github.com/sai4u-dev/dsa-mastery/tree/main/3505-minimum-operations-to-make-elements-within-k-subarrays-equal/) | Hard |
+| [3934-smallest-unique-subarray](https://github.com/sai4u-dev/dsa-mastery/tree/main/3934-smallest-unique-subarray/) | Hard |
 ## Two Pointers
 | Problem Name | Difficulty |
 | ------- | ------- |
@@ -258,6 +260,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [0167-two-sum-ii-input-array-is-sorted](https://github.com/sai4u-dev/dsa-mastery/tree/main/0167-two-sum-ii-input-array-is-sorted/) | Medium |
 | [0209-minimum-size-subarray-sum](https://github.com/sai4u-dev/dsa-mastery/tree/main/0209-minimum-size-subarray-sum/) | Medium |
 | [1385-find-the-distance-value-between-two-arrays](https://github.com/sai4u-dev/dsa-mastery/tree/main/1385-find-the-distance-value-between-two-arrays/) | Easy |
+| [3934-smallest-unique-subarray](https://github.com/sai4u-dev/dsa-mastery/tree/main/3934-smallest-unique-subarray/) | Hard |
 ## Greedy
 | Problem Name | Difficulty |
 | ------- | ------- |
@@ -302,6 +305,7 @@ Progress is tracked continuously as I solve and document new problems.
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [0706-design-hashmap](https://github.com/sai4u-dev/dsa-mastery/tree/main/0706-design-hashmap/) | Easy |
+| [3934-smallest-unique-subarray](https://github.com/sai4u-dev/dsa-mastery/tree/main/3934-smallest-unique-subarray/) | Hard |
 ## Queue
 | Problem Name | Difficulty |
 | ------- | ------- |
@@ -333,4 +337,12 @@ Progress is tracked continuously as I solve and document new problems.
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [3411-maximum-subarray-with-equal-products](https://github.com/sai4u-dev/dsa-mastery/tree/main/3411-maximum-subarray-with-equal-products/) | Easy |
+## Rolling Hash
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [3934-smallest-unique-subarray](https://github.com/sai4u-dev/dsa-mastery/tree/main/3934-smallest-unique-subarray/) | Hard |
+## Suffix Array
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [3934-smallest-unique-subarray](https://github.com/sai4u-dev/dsa-mastery/tree/main/3934-smallest-unique-subarray/) | Hard |
 <!---LeetCode Topics End-->
