@@ -117,6 +117,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [1352-product-of-the-last-k-numbers](https://github.com/sai4u-dev/dsa-mastery/tree/main/1352-product-of-the-last-k-numbers/) | Medium |
 | [1524-number-of-sub-arrays-with-odd-sum](https://github.com/sai4u-dev/dsa-mastery/tree/main/1524-number-of-sub-arrays-with-odd-sum/) | Medium |
 | [2409-count-days-spent-together](https://github.com/sai4u-dev/dsa-mastery/tree/master/2409-count-days-spent-together) |
+| [3360-stone-removal-game](https://github.com/sai4u-dev/dsa-mastery/tree/main/3360-stone-removal-game/) | Easy |
 | [3411-maximum-subarray-with-equal-products](https://github.com/sai4u-dev/dsa-mastery/tree/main/3411-maximum-subarray-with-equal-products/) | Easy |
 | [3505-minimum-operations-to-make-elements-within-k-subarrays-equal](https://github.com/sai4u-dev/dsa-mastery/tree/main/3505-minimum-operations-to-make-elements-within-k-subarrays-equal/) | Hard |
 | [3736-minimum-moves-to-equal-array-elements-iii](https://github.com/sai4u-dev/dsa-mastery/tree/main/3736-minimum-moves-to-equal-array-elements-iii/) | Easy |
@@ -290,6 +291,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [0054-spiral-matrix](https://github.com/sai4u-dev/dsa-mastery/tree/main/0054-spiral-matrix/) | Medium |
 | [1606-find-servers-that-handled-most-number-of-requests](https://github.com/sai4u-dev/dsa-mastery/tree/main/1606-find-servers-that-handled-most-number-of-requests/) | Hard |
 | [2243-calculate-digit-sum-of-a-string](https://github.com/sai4u-dev/dsa-mastery/tree/main/2243-calculate-digit-sum-of-a-string/) | Easy |
+| [3360-stone-removal-game](https://github.com/sai4u-dev/dsa-mastery/tree/main/3360-stone-removal-game/) | Easy |
 ## Ordered Set
 | Problem Name | Difficulty |
 | ------- | ------- |
