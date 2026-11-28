@@ -124,6 +124,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [3411-maximum-subarray-with-equal-products](https://github.com/sai4u-dev/dsa-mastery/tree/main/3411-maximum-subarray-with-equal-products/) | Easy |
 | [3505-minimum-operations-to-make-elements-within-k-subarrays-equal](https://github.com/sai4u-dev/dsa-mastery/tree/main/3505-minimum-operations-to-make-elements-within-k-subarrays-equal/) | Hard |
 | [3736-minimum-moves-to-equal-array-elements-iii](https://github.com/sai4u-dev/dsa-mastery/tree/main/3736-minimum-moves-to-equal-array-elements-iii/) | Easy |
+| [3783-mirror-distance-of-an-integer](https://github.com/sai4u-dev/dsa-mastery/tree/main/3783-mirror-distance-of-an-integer/) | Easy |
 | [3789-minimum-cost-to-acquire-required-items](https://github.com/sai4u-dev/dsa-mastery/tree/main/3789-minimum-cost-to-acquire-required-items/) | Medium |
 ## Depth-First Search
 | Problem Name | Difficulty |
