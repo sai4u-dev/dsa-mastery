@@ -71,6 +71,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [3619-count-islands-with-total-value-divisible-by-k](https://github.com/sai4u-dev/dsa-mastery/tree/main/3619-count-islands-with-total-value-divisible-by-k/) | Medium |
 | [3644-maximum-k-to-sort-a-permutation](https://github.com/sai4u-dev/dsa-mastery/tree/main/3644-maximum-k-to-sort-a-permutation/) | Medium |
 | [3665-twisted-mirror-path-count](https://github.com/sai4u-dev/dsa-mastery/tree/main/3665-twisted-mirror-path-count/) | Medium |
+| [3668-restore-finishing-order](https://github.com/sai4u-dev/dsa-mastery/tree/main/3668-restore-finishing-order/) | Easy |
 | [3693-climbing-stairs-ii](https://github.com/sai4u-dev/dsa-mastery/tree/master/3693-climbing-stairs-ii) |
 | [3736-minimum-moves-to-equal-array-elements-iii](https://github.com/sai4u-dev/dsa-mastery/tree/main/3736-minimum-moves-to-equal-array-elements-iii/) | Easy |
 | [3841-palindromic-path-queries-in-a-tree](https://github.com/sai4u-dev/dsa-mastery/tree/main/3841-palindromic-path-queries-in-a-tree/) | Hard |
@@ -212,6 +213,7 @@ Progress is tracked continuously as I solve and document new problems.
 | [2747-count-zero-request-servers](https://github.com/sai4u-dev/dsa-mastery/tree/main/2747-count-zero-request-servers/) | Medium |
 | [3331-find-subtree-sizes-after-changes](https://github.com/sai4u-dev/dsa-mastery/tree/main/3331-find-subtree-sizes-after-changes/) | Medium |
 | [3505-minimum-operations-to-make-elements-within-k-subarrays-equal](https://github.com/sai4u-dev/dsa-mastery/tree/main/3505-minimum-operations-to-make-elements-within-k-subarrays-equal/) | Hard |
+| [3668-restore-finishing-order](https://github.com/sai4u-dev/dsa-mastery/tree/main/3668-restore-finishing-order/) | Easy |
 | [3934-smallest-unique-subarray](https://github.com/sai4u-dev/dsa-mastery/tree/main/3934-smallest-unique-subarray/) | Hard |
 ## Two Pointers
 | Problem Name | Difficulty |
